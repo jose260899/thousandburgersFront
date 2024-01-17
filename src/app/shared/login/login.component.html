@@ -1,0 +1,35 @@
+<!-- app.component.html -->
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <form (ngSubmit)="onSubmit()" class="box">
+          <h1 class="title">Inicio de Sesión</h1>
+
+          <!-- Nombre de usuario -->
+          <div class="field">
+            <label class="label">Nombre de Usuario</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Ingresa tu nombre de usuario" [(ngModel)]="username" name="username" required>
+            </div>
+          </div>
+
+          <!-- Contraseña -->
+          <div class="field">
+            <label class="label">Contraseña</label>
+            <div class="control">
+              <input class="input" type="password" placeholder="Ingresa tu contraseña" [(ngModel)]="password" name="password" required>
+            </div>
+          </div>
+
+          <!-- Botón de inicio de sesión -->
+          <div class="field">
+            <div class="control">
+              <button type="submit" class="button is-primary">Iniciar Sesión</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
