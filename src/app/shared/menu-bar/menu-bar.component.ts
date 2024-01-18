@@ -21,8 +21,15 @@ export class MenuBarComponent implements OnInit {
   ngOnInit() {
   }
 
-  redirectToLink(){
-    this.router.navigate(["/login"]);
-  }
+  
+    redirectToLink(type: string): void {
+      if (type === 'register') {
+        this.router.navigate(['/registerUsers']); // Reemplaza '/signup' con la ruta real de registro
+      } else if (type === 'login') {
+        this.router.navigate(['/login']); // Reemplaza '/login' con la ruta real de inicio de sesión
+      }
+    }
+    //this.router.navigate(["/login"]);
+  
 
 }

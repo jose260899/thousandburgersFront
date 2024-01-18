@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
         this.oSessionService.setToken(data);
         console.log(data);
         //this.oSessionService.emit({ type: 'login' });
-        //this.oRouter.navigate(['/home']);
+        this.oRouter.navigate(['/home']);
       },
       error: (error: HttpErrorResponse) => {
         this.status = error;

@@ -11,8 +11,13 @@ export class ClientAjaxService {
 
   sUrl: string = API_URL + "/client";
 
-constructor(
-  private oHttpClient: HttpClient
-) { }
+  constructor(
+    private oHttpClient: HttpClient
+  ) { }
+
+
+  newOneForUsers(oClient: IClient): Observable<IClient> {
+    return this.oHttpClient.post<IClient>(this.sUrl + "/forclients", oClient);
+  }
 
 }

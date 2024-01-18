@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { MenuBarComponent } from './shared/menu-bar/menu-bar.component';
 import { FormsModule } from '@angular/forms';
 import { SessionService } from './services/session.service';
+import { FooterComponent } from './shared/footer/footer.component';
 
 
 @Component({
@@ -14,6 +15,7 @@ import { SessionService } from './services/session.service';
     RouterOutlet,
     MenuBarComponent,
     FormsModule,
+    FooterComponent,
   ],
   providers: [
 
