@@ -1,0 +1,48 @@
+@if (status != null) {
+<div class="has-text-centered my-3">
+  <div class="notification is-danger">
+    {{status!.error.message}} - {{status!.message}}
+  </div>
+</div>
+}
+
+@if (status == null) {
+<div class="column is-three-fifths is-offset-one-fifth ">
+  <div class="has-text-centered">
+    <table class="table is-fullwidth is-striped is-hoverable">
+      <tbody>
+        <tr>
+          <th>Name</th>
+          <td>{{oClient.name}}</td>
+        </tr>
+
+        <tr>
+          <th>Telephone</th>
+          <td>{{oClient.telephone}}</td>
+        </tr>
+        <tr>
+          <th>Username</th>
+          <td>{{oClient.username}}</td>
+        </tr>
+        <tr>
+          <th>Birth Date</th>
+          <td>{{ oClient.birthDate}}</td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td>{{ oClient.email}}</td>
+        </tr>
+        <tr>
+          <th>Verified</th>
+          @if (oClient.verified) {
+          <td>Yes</td>
+          }@else {
+          <td>No</td>
+          }
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+}

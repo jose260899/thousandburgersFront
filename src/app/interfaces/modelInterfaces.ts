@@ -1,3 +1,4 @@
+import { Time } from "@angular/common";
 import { HttpErrorResponse } from "@angular/common/http";
 
 
@@ -46,20 +47,62 @@ export interface IClientPage extends IPage<IClient> {
 
 
 export interface IClient extends IEntity {
+    username: string,	
     name: string, 
     telephone: string, 
     birthDate: Date, 
     role: string,
     email: string, 
-    username: string,	
     password: string,	
     verified: boolean, 
-    token: string
+    token: string,
+    bookings: number,
 }
+
+export interface IEmployee extends IEntity {
+	name:string,
+	dni:string,
+	telephone:string,
+	birth_date:Date,
+	role:string,
+	user:string,
+	password:string,	
+
+}
+
+export interface ITable extends IEntity {
+    id:number,
+    site:string,
+    capacity:number,
+}
+
+export interface ITime extends IEntity {
+    hour: string
+}
+
+export interface IBooking extends IEntity {
+    date: Date,
+    client: IClient,
+    time_zone: ITime
+    //table: ITable,
+    //employees: IEmployee,
+
+}
+
+export interface IProductType extends IEntity {
+    name:string,
+}
+
 export interface IToken {
     jti: string;
     iss: string;
     iat: number;
     exp: number;
     name: string;
+}
+
+export type formOperation = 'EDIT' | 'NEW';
+
+export interface SessionEvent {
+    type: string;
 }

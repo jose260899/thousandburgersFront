@@ -6,6 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { SessionService } from './services/session.service';
 import { FooterComponent } from './shared/footer/footer.component';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+
+
+
+
+
+
 
 @Component({
   selector: 'app-root',
@@ -16,6 +24,8 @@ import { FooterComponent } from './shared/footer/footer.component';
     MenuBarComponent,
     FormsModule,
     FooterComponent,
+ 
+    
   ],
   providers: [
 
@@ -27,4 +37,10 @@ import { FooterComponent } from './shared/footer/footer.component';
 })
 export class AppComponent {
   title = 'thousandburgersFront';
+  faCoffee = faCoffee;
+
+
+
+
+
 }
