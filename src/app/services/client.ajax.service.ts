@@ -28,4 +28,9 @@ export class ClientAjaxService {
     return this.oHttpClient.get<IClient>(this.sUrl + "/" + id);
   }
 
+  updateForClients(oClient: IClient): Observable<IClient> {
+    return this.oHttpClient.put<IClient>(this.sUrl + "/updateClient", oClient);
+}
+
+
 }

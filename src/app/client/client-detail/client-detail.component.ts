@@ -4,7 +4,8 @@ import { config } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IClient } from '../../interfaces/modelInterfaces';
 import { SessionService } from '../../services/session.service';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 
 
@@ -13,7 +14,10 @@ import { RouterModule } from '@angular/router';
   templateUrl: './client-detail.component.html',
   styleUrls: ['./client-detail.component.css'],
   standalone: true,
-  imports: [RouterModule],
+  imports: [
+    RouterModule,
+    ReactiveFormsModule,
+  ],
 
 
 
@@ -26,17 +30,34 @@ export class ClientDetailComponent implements OnInit {
 
   status: HttpErrorResponse | null = null;
 
+  clientForm!: FormGroup;
 
 
   constructor(
     private oClientAjaxService: ClientAjaxService,
     private oSessionService: SessionService,
+    private router: Router,
+    private oFormBuilder: FormBuilder,
+
+
   ) {
 
   }
 
+  initializeForm(oClient: IClient) {
+    this.clientForm = this.oFormBuilder.group({
+      id: [oClient.id],
+      name: [oClient.name, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
+      telephone: [oClient.telephone, [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
+      birthDate: [oClient.birthDate, [Validators.required]],
+
+    });
+  }
+
   ngOnInit() {
     this.getUserId();
+    this.initializeForm(this.oClient);
+
   }
 
   getUserId(): void {
@@ -66,4 +87,62 @@ export class ClientDetailComponent implements OnInit {
     })
 
   }
+
+
+  edit() {
+    // Muestra el modal de confirmación
+    this.clientForm.setValue({
+      id: this.oClient.id,
+      name: this.oClient.name,
+      telephone: this.oClient.telephone,
+      birthDate: this.oClient.birthDate,
+      // Otros campos del formulario
+    });
+    const editModal = document.getElementById('editModal');
+    if (editModal) {
+      editModal.classList.add('is-active');
+    }
+
+    
+  }
+  
+  confirmEdit() {
+    // Cierra el modal de confirmación y realiza el logout
+    const editModal = document.getElementById('editModal');
+    if (editModal) {
+      editModal.classList.remove('is-active');
+    }
+    this.onSubmit();
+  }
+  
+  closeModal() {
+    // Cierra el modal de confirmación sin realizar el logout
+    const editModal = document.getElementById('editModal');
+    if (editModal) {
+      editModal.classList.remove('is-active');
+    }
+  }
+
+
+  onSubmit() {
+   // if (this.clientForm.valid) {
+
+      this.oClientAjaxService.updateForClients(this.clientForm.value).subscribe({
+        next: (data: IClient) => {
+          this.oClient = data;
+          this.initializeForm(this.oClient);
+          setTimeout(() => {
+            this.router.navigate(['/clientDetails']);
+          }, 500);
+
+        },
+        error: (error: HttpErrorResponse) => {
+          this.status = error;
+        }
+      })
+    }// else {
+      //console.log("Error en el formulario");
+    //}
+
+ // }
 }

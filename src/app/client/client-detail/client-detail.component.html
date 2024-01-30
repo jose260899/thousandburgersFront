@@ -1,62 +1,133 @@
 @if (status != null) {
-  <div class="has-text-centered my-3">
-    <div class="notification is-danger">
-      {{status!.error.message}} - {{status!.message}}
-    </div>
+<div class="has-text-centered my-3">
+  <div class="notification is-danger">
+    {{status!.error.message}} - {{status!.message}}
   </div>
-  }
-  
-  @if (status == null) {
-  <div class="container mt-5">
-    <div class="columns is-centered">
-      <div class="column is-half">
-        <div class="has-text-centered">
-          <div class="box">
-            <h1 class="title is-4">Client Profile</h1>
-            <table class="table is-fullwidth is-striped is-hoverable">
-              <tbody>
-                <tr>
-                  <th>Name</th>
-                  <td>{{oClient.name}}</td>
-                </tr>
-                <tr>
-                  <th>Telephone</th>
-                  <td>{{oClient.telephone}}</td>
-                </tr>
-                <tr>
-                  <th>Username</th>
-                  <td>{{oClient.username}}</td>
-                </tr>
-                <tr>
-                  <th>Birth Date</th>
-                  <td>{{ oClient.birthDate}}</td>
-                </tr>
-                <tr>
-                  <th>Email</th>
-                  <td>{{ oClient.email}}</td>
-                </tr>
-                <tr>
-                  <th>Verified</th>
-                  <td>
-                    @if (oClient.verified) {
-                      <span class="tag is-success">Yes</span>
-                    }@else {
-                      <span class="tag is-danger">No</span>
-                    }
-                  </td>
-                </tr>
-               
-  
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <!-- Edit Button -->
-        <div class="has-text-centered mt-3 mb-4">
-          <button class="button is-primary" routerLink='/clientEdit' >Edit</button>
+</div>
+}
+
+@if (status == null) {
+<div class="container mt-5">
+  <div class="columns is-centered">
+    <div class="column is-half">
+      <div class="has-text-centered">
+        <div class="box">
+          <h1 class="title is-4">Client Profile</h1>
+          <table class="table is-fullwidth is-striped is-hoverable">
+            <tbody>
+              <tr>
+                <th>Id</th>
+                <td>{{oClient.id}}</td>
+              <tr>
+                <th>Name</th>
+                <td>{{oClient.name}}</td>
+              </tr>
+              <tr>
+                <th>Telephone</th>
+                <td>{{oClient.telephone}}</td>
+              </tr>
+              <tr>
+                <th>Username</th>
+                <td>{{oClient.username}}</td>
+              </tr>
+              <tr>
+                <th>Birth Date</th>
+                <td>{{ oClient.birthDate}}</td>
+              </tr>
+              <tr>
+                <th>Email</th>
+                <td>{{ oClient.email}}</td>
+              </tr>
+              <tr>
+                <th>Verified</th>
+                <td>
+                  @if (oClient.verified) {
+                  <span class="tag is-success">Yes</span>
+                  }@else {
+                  <span class="tag is-danger">No</span>
+                  }
+                </td>
+              </tr>
+
+
+            </tbody>
+          </table>
         </div>
       </div>
+      <!-- Edit Button -->
+      <div class="has-text-centered mt-3 mb-4">
+        <button class="button is-primary" (click)="edit()">Edit</button>
+      </div>
+
+      <div id="editModal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Edit</p>
+            <button class="delete" aria-label="close" (click)="closeModal()"></button>
+          </header>
+          <section class="modal-card-body">
+            <!-- Agrega esto a tu template HTML -->
+            <div class="container mt-5">
+              <div class="columns is-centered">
+                <div class="column is-half">
+                  <div class="has-text-centered">
+                    <h1 class="title is-4">Client Profile</h1>
+                    <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+                      <!-- Dentro de tu formulario en el modal -->
+                      <!-- Id -->
+                      <div class="field">
+                        <label class="label">Id</label>
+                        <div class="control">
+                          <input class="input has-text-centered" formControlName="id" type="text" placeholder="Id"
+                            [value]="clientForm.get('id')?.value" readonly/>
+                        </div>
+                      </div>
+
+                      <!-- Name -->
+                      <div class="field">
+                        <label class="label">Name</label>
+                        <div class="control">
+                          <input class="input has-text-centered" formControlName="name" type="text" placeholder="Name"
+                            [value]="clientForm.get('name')?.value" />
+                        </div>
+                      </div>
+
+                      <!-- Telephone -->
+                      <div class="field">
+                        <label class="label">Telephone</label>
+                        <div class="control">
+                          <input class="input has-text-centered" formControlName="telephone" type="text"
+                            placeholder="Telephone" [value]="clientForm.get('telephone')?.value" />
+                        </div>
+                      </div>
+
+                      <!-- Birth Date -->
+                      <div class="field">
+                        <label class="label">Birth Date</label>
+                        <div class="control">
+                          <input class="input has-text-centered" type="date" formControlName="birthDate"
+                            placeholder="Birth Date" [value]="clientForm.get('birthDate')?.value" />
+                        </div>
+                      </div>
+
+
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </section>
+          <footer class="modal-card-foot ">
+            <button class="button is-success" (click)="confirmEdit()">Confirmar</button>
+            <button class="button is-danger" (click)="closeModal()">Cancelar</button>
+          </footer>
+        </div>
+      </div>
+
     </div>
   </div>
-  }
-  
+</div>
+}
