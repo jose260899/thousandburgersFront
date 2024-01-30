@@ -14,7 +14,7 @@ export class MenuThousandComponent implements OnInit {
 
   oProductType: IProductType = {} as IProductType;
   status: HttpErrorResponse | null = null;
-  options: string[] = [];
+  menuItems: IProductType[] = [];
 
 
   constructor(
@@ -23,23 +23,19 @@ export class MenuThousandComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.fetchOptions();
-  }
-
-
-  fetchOptions() {
-    this.oProductTypeService.getAll().subscribe({
-      next: (data: string[]) => {
-        this.options = data;
-        console.log(this.options);
+    this.oProductTypeService.getAll().subscribe(
+      (data) => {
+        this.menuItems = data;
+        console.log(this.menuItems);
       },
-      error: (error: HttpErrorResponse) => {
-        this.status = error;
+      (error) => {
+        console.error('Error fetching data:', error);
       }
-    }
-
     );
   }
+
+
+  
 
 }
 

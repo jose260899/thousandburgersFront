@@ -1,10 +1,14 @@
 <div class="container">
   <div class="columns is-centered">
     <div class="column is-half">
-      <h1 class="title">Product Types</h1>
+      <h1 class="title">Menu</h1>
       
-        @for (option of options; track options) {
+        <!-- @for (option of options; track options) {
           <h1 class="title">{{ option }}</h1>
+        } -->
+
+        @for (menuItem of menuItems; track menuItems) {
+          <h1 class="title">{{ menuItem.name }}</h1>
         }
       
     </div>

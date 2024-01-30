@@ -39,7 +39,7 @@ export class MenuBarComponent implements OnInit {
         this.sUrl = ev.url;
       }
     })
-    /*
+    
     this.username = oSessionService.getUsername();
     this.oClientService.getByUsername(this.oSessionService.getUsername()).subscribe({
       next: (oClient: IClient) => {
@@ -49,7 +49,7 @@ export class MenuBarComponent implements OnInit {
         console.log(error);
       }
     });
-    */
+    
   }
 
   toggleNavbar() {

@@ -7,6 +7,7 @@ import { RegisterUsersComponent } from './shared/registerUsers/registerUsers.com
 import { ClientBooksComponent } from './client/client-books/client-books.component';
 import { ClientDetailComponent } from './client/client-detail/client-detail.component';
 import { MenuThousandComponent } from './shared/menu-thousand/menu-thousand.component';
+import { ClientEditComponent } from './client/client-edit/client-edit.component';
 
 
 export const routes: Routes = [
@@ -17,5 +18,6 @@ export const routes: Routes = [
     { path: 'books', component:ClientBooksComponent },
     { path: 'clientDetails', component:ClientDetailComponent},
     { path: 'menu', component:MenuThousandComponent},
+    { path: 'clientEdit', component:ClientEditComponent },
 
 ];

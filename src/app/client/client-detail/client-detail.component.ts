@@ -4,6 +4,7 @@ import { config } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IClient } from '../../interfaces/modelInterfaces';
 import { SessionService } from '../../services/session.service';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -12,6 +13,8 @@ import { SessionService } from '../../services/session.service';
   templateUrl: './client-detail.component.html',
   styleUrls: ['./client-detail.component.css'],
   standalone: true,
+  imports: [RouterModule],
+
 
 
 })

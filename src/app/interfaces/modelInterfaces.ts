@@ -47,33 +47,33 @@ export interface IClientPage extends IPage<IClient> {
 
 
 export interface IClient extends IEntity {
-    username: string,	
-    name: string, 
-    telephone: string, 
-    birthDate: Date, 
+    username: string,
+    name: string,
+    telephone: string,
+    birthDate: Date,
     role: string,
-    email: string, 
-    password: string,	
-    verified: boolean, 
+    email: string,
+    password: string,
+    verified: boolean,
     token: string,
     bookings: number,
 }
 
 export interface IEmployee extends IEntity {
-	name:string,
-	dni:string,
-	telephone:string,
-	birth_date:Date,
-	role:string,
-	user:string,
-	password:string,	
+    name: string,
+    dni: string,
+    telephone: string,
+    birth_date: Date,
+    role: string,
+    user: string,
+    password: string,
 
 }
 
 export interface ITable extends IEntity {
-    id:number,
-    site:string,
-    capacity:number,
+    id: number,
+    site: string,
+    capacity: number,
 }
 
 export interface ITime extends IEntity {
@@ -90,8 +90,14 @@ export interface IBooking extends IEntity {
 }
 
 export interface IProductType extends IEntity {
-    name:string,
+    name: string,
 }
+
+
+
+
+
+
 
 export interface IToken {
     jti: string;
