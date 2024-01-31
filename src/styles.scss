@@ -1,6 +1,12 @@
 $primary: black;
 $is-primary: $primary;
 
+$background-body: $primary;
 @import "bulma/css/bulma.css";
 @import "font-awesome/css/font-awesome.css";
 @import "../node_modules/bulma/bulma.sass";
+
+
+body {
+  background-color: $background-body;
+}

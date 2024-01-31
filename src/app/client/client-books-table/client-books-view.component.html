@@ -6,40 +6,73 @@
           <div class="box">
             <h1 class="title is-4">My Books</h1>
             <table class="table is-fullwidth is-striped is-hoverable">
-                <thead>
-                  <tr>
-                    <th class="has-text-centered">ID</th>
-                    <th class="has-text-centered">Date</th>
-                    <th class="has-text-centered">Hour</th>
-                    <th class="has-text-centered">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @for (booking of bookings; track bookings) {
-                  <tr>
-                    <td>{{booking.id}}</td>
-                    <td>{{booking.date}}</td>
-                    <td>{{booking.time_zone.hour}}</td>
-                    <td>
-                      <a class="button is-info mr-2">
-                        <span class="icon is-small is-left">
-                          <fa-icon [icon]="faEye"></fa-icon>
-                        </span>
-                      </a>
-                      <a class="button is-danger">
-                        <span class="icon is-small is-left">
-                          <fa-icon [icon]="faTrash"></fa-icon>
-                        </span>
-                      </a>
-                    </td>
-                    }
+              <thead>
+                <tr>
+                  <th class="has-text-centered">ID</th>
+                  <th class="has-text-centered">Date</th>
+                  <th class="has-text-centered">Hour</th>
+                  <th class="has-text-centered">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (booking of bookings; track bookings) {
+                <tr>
+                  <td>{{booking.id}}</td>
+                  <td>{{booking.date}}</td>
+                  <td>{{booking.time_zone.hour}}</td>
+                  <td>
+                    <a class="button is-info mr-2">
+                      <span class="icon is-small is-left">
+                        <fa-icon [icon]="faEye"></fa-icon>
+                      </span>
+                    </a>
+                    <a class="button is-danger">
+                      <span class="icon is-small is-left">
+                        <fa-icon [icon]="faTrash" (click)="doRemoveBooking(booking.id)"></fa-icon>
+                      </span>
+                    </a>
+                  </td>
+                  }
 
-                </tbody>
-              </table>
+              </tbody>
+            </table>
+
           </div>
-              
-          </div>
+
         </div>
       </div>
     </div>
+  </div>
+  <div class="modal is-6" [class.is-active]="isConfirmationModalVisible">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title has-text-centered"><strong>Confirm delete</strong></p>
+        <button class="delete" aria-label="close" (click)="cancelDelete()"></button>
+      </header>
+      <section class="modal-card-body">
+        <!-- Mostrar detalles de la reserva que se va a borrar en una tabla -->
+        <table class="table is-fullwidth is-striped is-hoverable ">
+          <!-- Detalles de la reserva -->
+          <tr>
+            <th class="has-text-centered">ID</th>
+            <td class="has-text-centered">{{ oBooking.id }}</td>
+          </tr>
+          <tr>
+            <th class="has-text-centered">Date</th>
+            <td class="has-text-centered">{{ oBooking.date }}</td>
+          </tr>
+          
+        </table>
+      </section>
+      <footer class="modal-card-foot is-flex is-justify-content-center">
+        <div class="buttons">
+          <button class="button is-danger" (click)="confirmDelete()">Eliminar</button>
+          <button class="button" (click)="cancelDelete()">Cancelar</button>
+        </div>
+      </footer>
+      
+      
+    </div>
+  </div>
 </section>

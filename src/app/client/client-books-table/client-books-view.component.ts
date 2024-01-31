@@ -25,9 +25,18 @@ export class ClientBooksViewComponent implements OnInit {
   faTrash = faTrash;
   faEye = faEye;
 
+
+  // Variable para controlar la visibilidad del modal
+  isConfirmationModalVisible: boolean = false;
+
+  // Variable para almacenar la reserva que se va a borrar
+  bookingToDelete: number = 0;
+
   oClient: IClient = {} as IClient;
   id: number = 0;
   status: HttpErrorResponse | null = null;
+
+  oBooking: IBooking = {} as IBooking;
 
   bookings: IBooking[] = [];
   
@@ -70,4 +79,42 @@ export class ClientBooksViewComponent implements OnInit {
       }
     })
   }
+
+  doRemoveBooking(id: number): void {
+    
+    this.bookingToDelete = id;
+    this.oBookingsService.get(id).subscribe({
+      next: (data: any) => {
+        this.oBooking = data;
+        console.log(this.oBooking);
+      },
+      error: (error: HttpErrorResponse) => {
+        this.status = error;
+      }
+    })
+    
+    // Muestra el modal de confirmación
+    this.isConfirmationModalVisible = true;
+  }
+
+  confirmDelete(): void {
+    this.isConfirmationModalVisible = false;
+
+    this.oBookingsService.deleteOne(this.bookingToDelete).subscribe({
+      next: (data: any) => {
+        
+        console.log(data);
+        this.getBookings();
+      },
+      error: (error: HttpErrorResponse) => {
+        this.status = error;
+      }
+    })
+  }
+
+  cancelDelete(): void {
+    // Cierra el modal de confirmación sin realizar la eliminación
+    this.isConfirmationModalVisible = false;
+  }
+
 }

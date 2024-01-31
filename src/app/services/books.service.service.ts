@@ -22,7 +22,15 @@ export class BooksService {
   }
 
   getByClient(iIdClient: number): Observable<IBooking[]> {
-    return this.oHttpClient.get<IBooking[]>(this.sUrl + "/" + iIdClient);
+    return this.oHttpClient.get<IBooking[]>(this.sUrl + "/client/" + iIdClient);
+  }
+
+  deleteOne(iIdBooking: number): Observable<IBooking> {
+    return this.oHttpClient.delete<IBooking>(this.sUrl + "/" + iIdBooking);
+  }
+
+  get(idBooking:number) : Observable<IBooking>{
+    return this.oHttpClient.get<IBooking>(this.sUrl + "/" + idBooking);
   }
 
 

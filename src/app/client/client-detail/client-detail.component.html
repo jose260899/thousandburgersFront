@@ -56,7 +56,7 @@
       </div>
       <!-- Edit Button -->
       <div class="has-text-centered mt-3 mb-4">
-        <button class="button is-primary" (click)="edit()">Edit</button>
+        <button class="button" (click)="edit()">Edit</button>
       </div>
 
       <div id="editModal" class="modal">
@@ -80,7 +80,7 @@
                         <label class="label">Id</label>
                         <div class="control">
                           <input class="input has-text-centered" formControlName="id" type="text" placeholder="Id"
-                            [value]="clientForm.get('id')?.value" readonly/>
+                            [value]="clientForm.get('id')?.value" readonly />
                         </div>
                       </div>
 
@@ -103,7 +103,7 @@
                       </div>
 
                       <!-- Birth Date -->
-                      <div class="field">
+                      <div class="field mb-6">
                         <label class="label">Birth Date</label>
                         <div class="control">
                           <input class="input has-text-centered" type="date" formControlName="birthDate"
@@ -120,7 +120,7 @@
             </div>
 
           </section>
-          <footer class="modal-card-foot ">
+          <footer class="modal-card-foot">
             <button class="button is-success" (click)="confirmEdit()">Confirmar</button>
             <button class="button is-danger" (click)="closeModal()">Cancelar</button>
           </footer>
