@@ -15,12 +15,16 @@
 
    <div class="navbar-menu" id="navMenu">
     <div class="navbar-start">
-      <a class="navbar-item" routerLink='/home'>
+      <a class="navbar-item" routerLink='/home'  routerLinkActive="is-active">
         Home
       </a>
 
+      <a class="navbar-item" routerLink="/menu" routerLinkActive="is-active">
+        Menu
+      </a>
+
       @if(username){
-      <a class="navbar-item" routerLink="/books">
+      <a class="navbar-item" routerLink="/books" routerLinkActive="is-active">
         Reservations
       </a>
       }
