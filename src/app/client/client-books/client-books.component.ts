@@ -11,7 +11,7 @@ import { TimeZoneService } from '../../services/time.zone.service';
 @Component({
   selector: 'app-client-books',
   templateUrl: './client-books.component.html',
-  styleUrls: ['./client-books.component.css'],
+  styleUrls: ['./client-books.component.scss'],
   standalone: true,
   imports: [
     ReactiveFormsModule,

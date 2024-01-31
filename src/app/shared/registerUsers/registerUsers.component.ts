@@ -8,7 +8,7 @@ import { CryptoService } from '../../services/crypto.service';
 @Component({
   selector: 'app-registerUsers',
   templateUrl: './registerUsers.component.html',
-  styleUrls: ['./registerUsers.component.css'],
+  styleUrls: ['./registerUsers.component.scss'],
   standalone: true,
   imports: [
     ReactiveFormsModule,

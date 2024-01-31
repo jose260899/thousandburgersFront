@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 @Component({
   selector: 'app-client-detail',
   templateUrl: './client-detail.component.html',
-  styleUrls: ['./client-detail.component.css'],
+  styleUrls: ['./client-detail.component.scss'],
   standalone: true,
   imports: [
     RouterModule,

@@ -13,7 +13,7 @@ import {  Renderer2, ElementRef } from '@angular/core';
 @Component({
   selector: 'app-menu-bar',
   templateUrl: './menu-bar.component.html',
-  styleUrls: ['./menu-bar.component.css'],
+  styleUrls: ['./menu-bar.component.scss'],
   standalone: true,
   imports: [RouterModule],
 

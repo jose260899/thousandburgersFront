@@ -8,7 +8,7 @@ import { config } from 'rxjs';
 @Component({
   selector: 'app-menu-thousand',
   templateUrl: './menu-thousand.component.html',
-  styleUrls: ['./menu-thousand.component.css']
+  styleUrls: ['./menu-thousand.component.scss']
 })
 export class MenuThousandComponent implements OnInit {
 

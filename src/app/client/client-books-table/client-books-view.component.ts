@@ -12,7 +12,7 @@ import { faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-client-books-view',
   templateUrl: './client-books-view.component.html',
-  styleUrls: ['./client-books-view.component.css'],
+  styleUrls: ['./client-books-view.component.scss'],
   standalone: true,
   imports: [
     ReactiveFormsModule,
