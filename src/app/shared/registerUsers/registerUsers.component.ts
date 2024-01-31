@@ -4,6 +4,7 @@ import { IClient, } from '../../interfaces/modelInterfaces';
 import { ClientAjaxService } from '../../services/client.ajax.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CryptoService } from '../../services/crypto.service';
 @Component({
   selector: 'app-registerUsers',
   templateUrl: './registerUsers.component.html',
@@ -32,7 +33,7 @@ export class RegisterUsersComponent implements OnInit {
     private oFormBuilder: FormBuilder,
     private oRouter: Router,
     private oClientService: ClientAjaxService,
-
+    private oCryptoService: CryptoService
   ) {
     this.initializeForm(this.oClient);
 
@@ -55,8 +56,14 @@ export class RegisterUsersComponent implements OnInit {
 
   onSubmit() {
     if (this.clientForm.valid) {
+      const hashedPassword = this.oCryptoService.getSHA256(this.clientForm.value.password);
 
-      this.oClientService.newOneForClients(this.clientForm.value).subscribe({
+      // Create a new object with the hashed password
+      const clientData = {
+        ...this.clientForm.value,
+        password: hashedPassword
+      };
+      this.oClientService.newOneForClients(clientData).subscribe({
         next: (data: IClient) => {
           this.oClient = data;
           this.initializeForm(this.oClient);

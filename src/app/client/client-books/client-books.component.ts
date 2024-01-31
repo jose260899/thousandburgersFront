@@ -83,7 +83,7 @@ export class ClientBooksComponent implements OnInit {
         next: (data: IBooking) => {
           this.oBook = { "client": {}, "time_zone":{} } as IBooking;
           this.initializeForm(this.oBook);
-
+          this.oRouter.navigate(['/booksView']);
         },
         error: (error: HttpErrorResponse) => {
           this.status = error;

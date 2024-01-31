@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { CryptoService } from '../../services/crypto.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -43,12 +44,13 @@ export class LoginComponent implements OnInit {
     private oSessionService: SessionService,
     private oRouter: Router,
     private oClientService: ClientAjaxService,
+    private oCryptoService: CryptoService
 
 
   ) { 
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(1)]]
+      password: ['', [Validators.required]]
     });
   }
 
@@ -62,7 +64,8 @@ export class LoginComponent implements OnInit {
   onSubmit() {
 
     if (this.loginForm.valid) {
-      this.oSessionService.login(this.loginForm.value.username ,this.loginForm.value.password).subscribe({
+      
+      this.oSessionService.login(this.loginForm.value.username ,this.oCryptoService.getSHA256(this.loginForm.value.password)).subscribe({
         next: (data: string) => {
           this.oSessionService.setToken(data);
           this.oSessionService.emit({ type: 'login' });
@@ -70,7 +73,7 @@ export class LoginComponent implements OnInit {
           this.mensajeUsuarioCreado = 'Logged in';
           setTimeout(() => {
             this.oRouter.navigate(['/home']);
-          }, 2000);
+          }, 500);
 
         },
         error: (error: HttpErrorResponse) => {
