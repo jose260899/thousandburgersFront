@@ -3,14 +3,34 @@
     <div class="column is-half">
       <h1 class="title">Menu</h1>
 
-
-
-
-            @for (product of products; track products) {
-              @if (product.product_type.id === 1) {
-                <p>{{ product.name }}</p>
+        @for (menuItem of menuItems; track menuItems) {
+          @if (menuItem.name === 'Entrantes') {
+            <h2 class="subtitle">{{ menuItem.name }}</h2>
+            @for (entrante of entrantes; track entrantes) {
+              @if (entrante.product_type.id === 1) {
+                <p>{{ entrante.name }}</p>
               }
             }
+          }@else if (menuItem.name === 'Principales') {
+            <h2 class="subtitle">{{ menuItem.name }}</h2>
+            @for (principal of principales; track principales) {
+              @if (principal.product_type.id === 2) {
+                <p>{{ principal.name }}</p>
+              }
+            }
+          }@else if (menuItem.name === 'Postres') {
+            <h2 class="subtitle">{{ menuItem.name }}</h2>
+            @for (postre of postres; track postres) {
+              @if (postre.product_type.id === 3) {
+                <p>{{ postre.name }}</p>
+              }
+            }
+          }
+          
+        }
+
+
+            
      
       
 

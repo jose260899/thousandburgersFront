@@ -17,7 +17,10 @@ export class MenuThousandComponent implements OnInit {
   status: HttpErrorResponse | null = null;
   menuItems: IProductType[] = [];
 
-  products: IProduct[] = [];
+  entrantes: IProduct[] = [];
+  principales: IProduct[] = [];
+  postres: IProduct[] = [];
+
 
   constructor(
     private oProductTypeService: ProductTypeService,
@@ -35,7 +38,9 @@ export class MenuThousandComponent implements OnInit {
         this.menuItems = data;
         console.log(this.menuItems);
         console.log("-----------------------------");
-        this.recorrer();
+        this.cogerEntrantes();
+        this.cogerPrincipales();
+        this.cogerPostres();
       },
       error: (error) => {
         console.error('Error fetching data:', error);
@@ -43,17 +48,39 @@ export class MenuThousandComponent implements OnInit {
     });
   }
 
-  recorrer(){
-    this.menuItems.forEach((menuItem) => {
-      this.cogerProductos(menuItem.id); // Assuming there is an 'id' property in menuItem
+ 
+
+  cogerEntrantes() {
+    this.oProductService.getByClient(1).subscribe({
+      next: (data) => {
+        this.entrantes = data;
+        console.log(this.entrantes);
+
+      },
+      error: (error) => {
+        console.error('Error fetching data:', error);
+      }
     });
   }
 
-  cogerProductos(idProductType: number) {
-    this.oProductService.getByClient(idProductType).subscribe({
+  cogerPrincipales() {
+    this.oProductService.getByClient(2).subscribe({
       next: (data) => {
-        this.products = data;
-        console.log(this.products);
+        this.principales = data;
+        console.log(this.principales);
+
+      },
+      error: (error) => {
+        console.error('Error fetching data:', error);
+      }
+    });
+  }
+
+  cogerPostres() {
+    this.oProductService.getByClient(3).subscribe({
+      next: (data) => {
+        this.postres = data;
+        console.log(this.postres);
 
       },
       error: (error) => {
