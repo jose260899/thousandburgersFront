@@ -3,36 +3,65 @@
     <div class="column is-half">
       <h1 class="title">Menu</h1>
 
-        @for (menuItem of menuItems; track menuItems) {
-          @if (menuItem.name === 'Entrantes') {
-            <h2 class="subtitle">{{ menuItem.name }}</h2>
-            @for (entrante of entrantes; track entrantes) {
-              @if (entrante.product_type.id === 1) {
-                <p>{{ entrante.name }}</p>
-              }
-            }
-          }@else if (menuItem.name === 'Principales') {
-            <h2 class="subtitle">{{ menuItem.name }}</h2>
-            @for (principal of principales; track principales) {
-              @if (principal.product_type.id === 2) {
-                <p>{{ principal.name }}</p>
-              }
-            }
-          }@else if (menuItem.name === 'Postres') {
-            <h2 class="subtitle">{{ menuItem.name }}</h2>
-            @for (postre of postres; track postres) {
-              @if (postre.product_type.id === 3) {
-                <p>{{ postre.name }}</p>
-              }
-            }
-          }
+      @for (menuItem of menuItems; track menuItems) {
+      @if (menuItem.name === 'Entrantes') {
+      <h2 class="subtitle">{{ menuItem.name }}</h2>
+      @for (entrante of entrantes; track entrantes) {
+      @if (entrante.product_type.id === 1) {
+      <p>{{ entrante.name }}</p>
+      }
+      }
+      }@else if (menuItem.name === 'Principales') {
+      <h2 class="subtitle">{{ menuItem.name }}</h2>
+      <div class="columns is-multiline">
+
+      @for (principal of principales; track principales) {
+       
+      @if (principal.product_type.id === 2) {
+
+          <!-- Repite este bloque para cada tarjeta -->
+          <div class="column is-one-third">
+            <div class="card">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="https://www.foodandwine.com/thmb/DI29Houjc_ccAtFKly0BbVsusHc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/crispy-comte-cheesburgers-FT-RECIPE0921-6166c6552b7148e8a8561f7765ddf20b.jpg" alt="{{ principal.name }}">
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-4">{{ principal.name }}</p>
+                  <p class="subtitle is-6">{{ principal.description }}</p>
+                </div>
+              </div>
+              <div class="content">
+                <p>Price: {{ principal.price }}</p>
+              </div>
+            </div>
           
-        }
+          </div>
+        </div>
+        <!-- Fin del bloque de repetición -->
+      }
+   
+      }
+    </div>
+
+      }@else if (menuItem.name === 'Postres') {
+      <h2 class="subtitle">{{ menuItem.name }}</h2>
+      @for (postre of postres; track postres) {
+      @if (postre.product_type.id === 3) {
+      <p>{{ postre.name }}</p>
+      }
+      }
+      }
+
+      }
 
 
-            
-     
-      
+
+
+
 
 
 
