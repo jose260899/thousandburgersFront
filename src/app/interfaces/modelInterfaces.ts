@@ -89,8 +89,16 @@ export interface IBooking extends IEntity {
 
 }
 
+export interface IProduct extends IEntity {
+    name: string,
+    description: string,
+    price: number,
+    product_type: IProductType,
+}
+
 export interface IProductType extends IEntity {
     name: string,
+    product: IProduct,
 }
 
 

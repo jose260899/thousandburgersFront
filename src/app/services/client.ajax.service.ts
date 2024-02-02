@@ -23,7 +23,7 @@ export class ClientAjaxService {
   getByUsername(username: string): Observable<IClient> {
     return this.oHttpClient.get<IClient>(this.sUrl + "/byUsername/" + username);
   }
-  
+
   getOne(id: number): Observable<IClient> {
     return this.oHttpClient.get<IClient>(this.sUrl + "/" + id);
   }

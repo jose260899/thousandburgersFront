@@ -33,5 +33,9 @@ export class BooksService {
     return this.oHttpClient.get<IBooking>(this.sUrl + "/" + idBooking);
   }
 
+  updateOwnBooking(oBooking: IBooking): Observable<IBooking> {
+    return this.oHttpClient.put<IBooking>(this.sUrl + "/updateBooking",oBooking);
+  }
+
 
 }

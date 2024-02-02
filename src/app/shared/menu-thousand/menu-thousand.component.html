@@ -2,15 +2,21 @@
   <div class="columns is-centered">
     <div class="column is-half">
       <h1 class="title">Menu</h1>
-      
-        <!-- @for (option of options; track options) {
-          <h1 class="title">{{ option }}</h1>
-        } -->
 
-        @for (menuItem of menuItems; track menuItems) {
-          <h1 class="title">{{ menuItem.name }}</h1>
-        }
+
+
+
+            @for (product of products; track products) {
+              @if (product.product_type.id === 1) {
+                <p>{{ product.name }}</p>
+              }
+            }
+     
       
+
+
+
     </div>
   </div>
+
 </div>
