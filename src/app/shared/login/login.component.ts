@@ -10,7 +10,7 @@ import { IClient, IClientPage } from '../../interfaces/modelInterfaces';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons';
 import { CryptoService } from '../../services/crypto.service';
 
 @Component({
@@ -27,6 +27,10 @@ import { CryptoService } from '../../services/crypto.service';
 export class LoginComponent implements OnInit {
 
   faRightFromBracket = faRightFromBracket;
+  faUser = faUser;
+
+
+
   status: HttpErrorResponse | null = null;
   loginForm!: FormGroup;
 
