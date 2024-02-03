@@ -32,7 +32,7 @@ export class ClientBooksViewComponent implements OnInit {
   isConfirmationModalVisible: boolean = false;
   isEditActive: boolean = false;
 
-  dateToday = new Date(); // Formato yyyy-mm-dd
+  dateToday:Date = new Date( Date.now()); // Formato yyyy-mm-dd
 
   // Variable para almacenar la reserva que se va a borrar
   bookingToDelete: number = 0;

@@ -31,13 +31,13 @@
                         <fa-icon [icon]="faPen"></fa-icon>
                       </span>
                     </a>
-                    @if (booking.date < dateToday) {
+                    <!--@if (booking.date > dateToday) {-->
                       <a class="button is-danger" (click)="doRemoveBooking(booking.id)">
                         <span class="icon is-small is-left">
                           <fa-icon [icon]="faTrash"></fa-icon>
                         </span>
                       </a>
-                    }
+                    <!--} -->
                    
                   </td>
                   }
