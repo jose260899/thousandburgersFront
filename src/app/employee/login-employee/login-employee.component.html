@@ -1,0 +1,60 @@
+<!-- app.component.html -->
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="card">
+          <div class="card-content ">
+            <div class="columns is-centered mt-1">
+              <h1 class="title">Inicio de Sesión</h1>
+            </div>
+
+            <div class="columns is-centered">
+              
+              <div class="column is-one-quarter">
+                <figure class="image is-128x128 is-flex is-justify-content-center is-align-items-center">
+                  <img src="https://www.maxipapeloficial.com/intranet/Views/image/logIn.png" alt="Imagen de perfil" class="is-rounded">
+                </figure>
+              </div>
+            </div>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="box">
+
+              <!-- Nombre de usuario -->
+              <div class="field">
+                <label class="label">Nombre de Usuario</label>
+                <div class="control has-icons-left">
+                  <input class="input" type="text" placeholder="Ingresa tu nombre de usuario" formControlName="username" required>
+                  <span class="icon is-small is-left">
+                    <fa-icon [icon]="faUser"></fa-icon>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Contraseña -->
+              <div class="field">
+                <label class="label">Contraseña</label>
+                <div class="control has-icons-left">
+                  <input class="input" type="password" placeholder="Ingresa tu contraseña" formControlName="password" required>
+                  <span class="icon is-small is-left">
+                    <fa-icon [icon]="faRightFromBracket"></fa-icon>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Botón de inicio de sesión -->
+              <div class="field columns is-centered mt-3 mb-1">
+                <div class="control ">
+                    <button type="submit" class="button is-primary">Iniciar Sesión</button>
+
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  
+</section>

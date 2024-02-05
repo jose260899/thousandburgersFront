@@ -4,18 +4,19 @@
       <img src="../../../assets/logoConFondo.jpg">
     </a>
 
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu" (click)="toggleNavbar()">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu"
+      (click)="toggleNavbar()">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
 
-    
+
   </div>
 
-   <div class="navbar-menu" id="navMenu">
+  <div class="navbar-menu" id="navMenu">
     <div class="navbar-start">
-      <a class="navbar-item" routerLink='/home'  routerLinkActive="is-active">
+      <a class="navbar-item" routerLink='/home' routerLinkActive="is-active">
         Home
       </a>
 
@@ -57,6 +58,32 @@
     </div>
     }
 
+    @if(usernameEmployee) {
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <div class="navbar-link">
+            <span class="navbar-text mx-1">
+  
+              <a class="nav-link" (click)="doSessionUserView($event)" href="#">{{usernameEmployee}}</a>
+  
+            </span>
+          </div>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" routerLink="clientDetails">
+              <strong>Settings</strong>
+            </a>
+            <a class="navbar-item" routerLink="booksView">
+              <strong>Books</strong>
+            </a>
+            <a class="navbar-item " (click)="logout()">
+              <strong>Log Out</strong>
+            </a>
+          </div>
+        </div>
+      </div>
+      }
+  
+
     <div id="logoutModal" class="modal">
       <div class="modal-background"></div>
       <div class="modal-card">
@@ -76,7 +103,7 @@
 
 
 
-    @if(!username){
+    @if(!username && !usernameEmployee){
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
@@ -90,7 +117,9 @@
       </div>
     </div>
     }
+
+    
   </div>
- 
+
 
 </nav>

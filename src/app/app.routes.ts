@@ -8,6 +8,7 @@ import { ClientBooksComponent } from './client/client-books/client-books.compone
 import { ClientDetailComponent } from './client/client-detail/client-detail.component';
 import { MenuThousandComponent } from './shared/menu-thousand/menu-thousand.component';
 import { ClientBooksViewComponent } from './client/client-books-table/client-books-view.component';
+import { LoginEmployeeComponent } from './employee/login-employee/login-employee.component';
 
 
 export const routes: Routes = [
@@ -19,5 +20,6 @@ export const routes: Routes = [
     { path: 'clientDetails', component:ClientDetailComponent},
     { path: 'menu', component:MenuThousandComponent},
     { path: 'booksView' , component:ClientBooksViewComponent },
+    { path: 'loginEmployee' , component:LoginEmployeeComponent }
 
 ];

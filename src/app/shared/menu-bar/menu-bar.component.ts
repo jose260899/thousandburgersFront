@@ -3,10 +3,12 @@ import { API_URL } from '../../environment/environment';
 import { NavigationEnd, Router } from '@angular/router';
 import { SessionService } from '../../services/session.service';
 import { ClientAjaxService } from '../../services/client.ajax.service';
-import { IClient, SessionEvent } from '../../interfaces/modelInterfaces';
+import { IClient, IEmployee, SessionEvent } from '../../interfaces/modelInterfaces';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import {  Renderer2, ElementRef } from '@angular/core';
+import { SessionEmployeeService } from '../../services/session.employee.service';
+import { EmployeeService } from '../../services/employee.service';
 
 
 
@@ -26,30 +28,56 @@ export class MenuBarComponent implements OnInit {
   isLoggedIn: boolean = false;
 
 
+  usernameEmployee: string = '';
+  oSessionEmployee: IEmployee | null = null;
+  isLoggedInEmployee: boolean = false;
+
+
+  
+
+
 
   constructor(
     private router: Router,
     private oSessionService: SessionService,
     private oClientService: ClientAjaxService,
-    private renderer: Renderer2, private el: ElementRef
+
+    private oSessionEmployeeService: SessionEmployeeService,
+    private oEmployeeService: EmployeeService,
+
+
+    private renderer: Renderer2,
+    private el: ElementRef
 
   ) {
     this.router.events.subscribe((ev) => {
       if (ev instanceof NavigationEnd) {
         this.sUrl = ev.url;
       }
-    })
+    });
     
-    this.username = oSessionService.getUsername();
+    
     this.oClientService.getByUsername(this.oSessionService.getUsername()).subscribe({
       next: (oClient: IClient) => {
         this.oSessionClient = oClient;
+        this.username = this.oSessionService.getUsername();
       },
       error: (error: HttpErrorResponse) => {
         console.log(error);
       }
     });
-    
+
+     this.oEmployeeService.getByUsername(this.oSessionService.getUsername()).subscribe({
+      next: (oEmployee: IEmployee) => {
+        this.oSessionEmployee = oEmployee;
+        this.usernameEmployee = this.oSessionEmployeeService.getUsername();
+
+      },
+      error: (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    });
+     
   }
 
   toggleNavbar() {
@@ -67,7 +95,7 @@ export class MenuBarComponent implements OnInit {
   }
  
   ngOnInit() {
-    
+
     this.oSessionService.on().subscribe({
       next: (data: SessionEvent) => {
         if (data.type == 'login') {
@@ -88,6 +116,29 @@ export class MenuBarComponent implements OnInit {
         }
       }
     });
+
+    this.oSessionEmployeeService.on().subscribe({
+      next: (data: SessionEvent) => {
+        if (data.type == 'login') {
+          this.usernameEmployee = this.oSessionEmployeeService.getUsername();
+          this.oEmployeeService.getByUsername(this.oSessionEmployeeService.getUsername()).subscribe({
+            next: (oEmployee: IEmployee) => {
+              this.oSessionEmployee = oEmployee;
+              this.isLoggedInEmployee = true;
+            },
+
+            error: (error: HttpErrorResponse) => {
+              console.log(error);
+            }
+          });
+        }
+        if (data.type == 'logout') {
+          this.usernameEmployee = "";
+        }
+      }
+    });
+
+
 
 
 
@@ -131,6 +182,8 @@ export class MenuBarComponent implements OnInit {
   
     this.oSessionService.logout();
     this.oSessionService.emit({ type: 'logout' });
+    this.oSessionEmployeeService.logout();
+    this.oSessionEmployeeService.emit({ type: 'logout' });
     this.router.navigate(['/home']);
   }
   
