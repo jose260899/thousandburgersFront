@@ -95,7 +95,6 @@ export class MenuBarComponent implements OnInit {
   }
  
   ngOnInit() {
-
     this.oSessionService.on().subscribe({
       next: (data: SessionEvent) => {
         if (data.type == 'login') {

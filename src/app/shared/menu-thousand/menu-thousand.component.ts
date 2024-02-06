@@ -36,8 +36,6 @@ export class MenuThousandComponent implements OnInit {
     this.oProductTypeService.getAll().subscribe({
       next: (data) => {
         this.menuItems = data;
-        console.log(this.menuItems);
-        console.log("-----------------------------");
         this.cogerEntrantes();
         this.cogerPrincipales();
         this.cogerPostres();
@@ -54,8 +52,6 @@ export class MenuThousandComponent implements OnInit {
     this.oProductService.getByClient(1).subscribe({
       next: (data) => {
         this.entrantes = data;
-        console.log(this.entrantes);
-
       },
       error: (error) => {
         console.error('Error fetching data:', error);
@@ -67,8 +63,6 @@ export class MenuThousandComponent implements OnInit {
     this.oProductService.getByClient(2).subscribe({
       next: (data) => {
         this.principales = data;
-        console.log(this.principales);
-
       },
       error: (error) => {
         console.error('Error fetching data:', error);
@@ -80,8 +74,6 @@ export class MenuThousandComponent implements OnInit {
     this.oProductService.getByClient(3).subscribe({
       next: (data) => {
         this.postres = data;
-        console.log(this.postres);
-
       },
       error: (error) => {
         console.error('Error fetching data:', error);

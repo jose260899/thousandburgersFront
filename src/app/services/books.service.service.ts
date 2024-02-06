@@ -18,7 +18,11 @@ export class BooksService {
 
   newOne(oBooking: IBooking): Observable<IBooking> {
     console.log(oBooking);
-    return this.oHttpClient.post<IBooking>(this.sUrl, oBooking);
+    return this.oHttpClient.post<IBooking>(this.sUrl + "/client", oBooking);
+  }
+
+  newOneForEmployee(oBooking: IBooking): Observable<IBooking> {
+    return this.oHttpClient.post<IBooking>(this.sUrl + "/employee", oBooking);
   }
 
   getByClient(iIdClient: number): Observable<IBooking[]> {

@@ -30,7 +30,15 @@ export class ClientAjaxService {
 
   updateForClients(oClient: IClient): Observable<IClient> {
     return this.oHttpClient.put<IClient>(this.sUrl + "/updateClient", oClient);
-}
+  }
+
+  getUsernames(): Observable<string[]> {
+    return this.oHttpClient.get<string[]>(this.sUrl + "/allUsernames");
+  }
+
+  getAll(): Observable<IClient[]> {
+    return this.oHttpClient.get<IClient[]>(this.sUrl + "/all");
+  }
 
 
 }

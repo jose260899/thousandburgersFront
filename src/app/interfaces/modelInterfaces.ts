@@ -65,7 +65,7 @@ export interface IEmployee extends IEntity {
     telephone: string,
     birth_date: Date,
     role: string,
-    user: string,
+    username: string,
     password: string,
 
 }
@@ -85,7 +85,7 @@ export interface IBooking extends IEntity {
     client: IClient,
     time_zone: ITime
     //table: ITable,
-    //employees: IEmployee,
+    employee: IEmployee,
 
 }
 

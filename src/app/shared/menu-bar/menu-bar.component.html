@@ -28,19 +28,27 @@
       <a class="navbar-item" routerLink="/books" routerLinkActive="is-active">
         Reservations
       </a>
+      }@else if(usernameEmployee){
+      <a class="navbar-item" routerLink="/booksEmployee" routerLinkActive="is-active">
+        Reservations
+      </a>
       }
+
+      
 
 
 
     </div>
-    @if(username) {
+    @if(username || usernameEmployee) {
     <div class="navbar-end">
       <div class="navbar-item has-dropdown is-hoverable">
         <div class="navbar-link">
           <span class="navbar-text mx-1">
-
+            @if (username) {
             <a class="nav-link" (click)="doSessionUserView($event)" href="#">{{username}}</a>
-
+            }@else {
+            <a class="nav-link" (click)="doSessionUserView($event)" href="#">{{usernameEmployee}}</a>
+            }
           </span>
         </div>
         <div class="navbar-dropdown">
@@ -58,51 +66,6 @@
     </div>
     }
 
-    @if(usernameEmployee) {
-      <div class="navbar-end">
-        <div class="navbar-item has-dropdown is-hoverable">
-          <div class="navbar-link">
-            <span class="navbar-text mx-1">
-  
-              <a class="nav-link" (click)="doSessionUserView($event)" href="#">{{usernameEmployee}}</a>
-  
-            </span>
-          </div>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" routerLink="clientDetails">
-              <strong>Settings</strong>
-            </a>
-            <a class="navbar-item" routerLink="booksView">
-              <strong>Books</strong>
-            </a>
-            <a class="navbar-item " (click)="logout()">
-              <strong>Log Out</strong>
-            </a>
-          </div>
-        </div>
-      </div>
-      }
-  
-
-    <div id="logoutModal" class="modal">
-      <div class="modal-background"></div>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">Confirmar Logout</p>
-          <button class="delete" aria-label="close" (click)="closeModal()"></button>
-        </header>
-        <section class="modal-card-body">
-          <p class="has-text-black">¿Estás seguro de que deseas cerrar la sesión?</p>
-        </section>
-        <footer class="modal-card-foot">
-          <button class="button is-danger" (click)="confirmLogout()">Sí, cerrar sesión</button>
-          <button class="button" (click)="closeModal()">Cancelar</button>
-        </footer>
-      </div>
-    </div>
-
-
-
     @if(!username && !usernameEmployee){
     <div class="navbar-end">
       <div class="navbar-item">
@@ -118,7 +81,26 @@
     </div>
     }
 
-    
+
+  </div>
+
+  <!--Modal de logout-->
+
+  <div id="logoutModal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Confirmar Logout</p>
+        <button class="delete" aria-label="close" (click)="closeModal()"></button>
+      </header>
+      <section class="modal-card-body">
+        <p class="has-text-black">¿Estás seguro de que deseas cerrar la sesión?</p>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-danger" (click)="confirmLogout()">Sí, cerrar sesión</button>
+        <button class="button" (click)="closeModal()">Cancelar</button>
+      </footer>
+    </div>
   </div>
 
 

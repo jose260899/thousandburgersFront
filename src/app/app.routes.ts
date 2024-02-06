@@ -9,6 +9,8 @@ import { ClientDetailComponent } from './client/client-detail/client-detail.comp
 import { MenuThousandComponent } from './shared/menu-thousand/menu-thousand.component';
 import { ClientBooksViewComponent } from './client/client-books-table/client-books-view.component';
 import { LoginEmployeeComponent } from './employee/login-employee/login-employee.component';
+import { BooksEmployeeComponent } from './employee/books-employee/books-employee.component';
+import { ClientTableEmployeeComponent } from './employee/client-table-employee/client-table-employee.component';
 
 
 export const routes: Routes = [
@@ -20,6 +22,7 @@ export const routes: Routes = [
     { path: 'clientDetails', component:ClientDetailComponent},
     { path: 'menu', component:MenuThousandComponent},
     { path: 'booksView' , component:ClientBooksViewComponent },
-    { path: 'loginEmployee' , component:LoginEmployeeComponent }
-
+    { path: 'loginEmployee' , component:LoginEmployeeComponent },
+    { path: 'booksEmployee' , component:BooksEmployeeComponent},
+    { path: 'listClient', component:ClientTableEmployeeComponent }
 ];
