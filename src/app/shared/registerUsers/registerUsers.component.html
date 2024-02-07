@@ -4,22 +4,24 @@
       <div class="column is-half">
         <div class="card">
           <div class="card-content">
-            <div class="columns is-centered mt-1">
+            <div class="columns is-centered mt-1 has-text-centered">
               <h1 class="title">Sign Up</h1>
             </div>
             <div class="columns is-centered">
-              
-              <div class="column is-one-quarter">
+              <div class="column"></div>
+              <div class="column is-flex is-align-items-center is-justify-content-center">
                 <figure class="image is-128x128 is-flex is-justify-content-center is-align-items-center">
                   <img src="https://cdn-icons-png.flaticon.com/512/6159/6159448.png" alt="Imagen de perfil" class="is-rounded">
                 </figure>
               </div>
+              <div class="column"></div>
+
             </div>
             <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
               <div class="field">
                 <label class="label">Nombre</label>
                 <div class="control">
-                  <input class="input" type="text" formControlName="name" placeholder="Nombre">
+                  <input class="input is-capitalized" type="text" formControlName="name" placeholder="Nombre">
                 </div>
               </div>
 

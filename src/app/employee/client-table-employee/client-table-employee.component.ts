@@ -6,7 +6,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BooksService } from '../../services/books.service.service';
 import { ClientAjaxService } from '../../services/client.ajax.service';
 import { EmployeeService } from '../../services/employee.service';
-import { IClient } from '../../interfaces/modelInterfaces';
+import { IClient, IEmployee } from '../../interfaces/modelInterfaces';
 import { SessionEmployeeService } from '../../services/session.employee.service';
 
 @Component({
@@ -26,6 +26,7 @@ export class ClientTableEmployeeComponent implements OnInit {
 
   allClients: IClient[] = [];
 
+  oEmployee: IEmployee =  {} as IEmployee;
 
   constructor(
     private oRouter: Router,
@@ -41,6 +42,9 @@ export class ClientTableEmployeeComponent implements OnInit {
 
   getPage(){
     this.oSessionService.getSessionEmployee()?.subscribe(sessionEmployee => {
+
+      this.oEmployee = sessionEmployee;
+      console.log('Admin session:', sessionEmployee);
       if(sessionEmployee.role !== 'admin') {
         this.status = new HttpErrorResponse({status: 401, statusText: 'Unauthorized', url: this.oRouter.url});
         this.oRouter.navigate(['/loginEmployee']);

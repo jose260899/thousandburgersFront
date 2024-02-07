@@ -5,17 +5,19 @@
       <div class="column is-half">
         <div class="card">
           <div class="card-content ">
-            <div class="columns is-centered mt-1">
+            <div class="columns is-centered mt-1 has-text-centered">
+              
               <h1 class="title">Inicio de Sesión</h1>
             </div>
 
             <div class="columns is-centered">
-              
-              <div class="column is-one-quarter">
-                <figure class="image is-128x128 is-flex is-justify-content-center is-align-items-center">
+              <div class="column"></div>
+              <div class="column is-flex is-align-items-center is-justify-content-center">
+                <figure class="image is-128x128">
                   <img src="https://www.maxipapeloficial.com/intranet/Views/image/logIn.png" alt="Imagen de perfil" class="is-rounded">
                 </figure>
               </div>
+              <div class="column"></div>
             </div>
 
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="box">
@@ -44,7 +46,7 @@
 
               <!-- Botón de inicio de sesión -->
               <div class="field columns is-centered mt-3 mb-1">
-                <div class="control ">
+                <div class="control has-text-centered">
                     <button type="submit" class="button is-primary">Iniciar Sesión</button>
 
                 </div>
