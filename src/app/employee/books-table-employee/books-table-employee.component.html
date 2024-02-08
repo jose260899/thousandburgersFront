@@ -1,3 +1,159 @@
-<p>
-  books-table-employee works!
-</p>
+<section class="section">
+  <div class="container mt-5">
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="has-text-centered">
+          <div class="box">
+            <h1 class="title is-4">My Books</h1>
+            <table class="table is-fullwidth is-striped is-hoverable">
+              <thead>
+                <tr>
+                  <th class="has-text-centered">ID</th>
+                  <th class="has-text-centered">Date</th>
+                  <th class="has-text-centered">Hour</th>
+                  <th class="has-text-centered">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (booking of bookings; track bookings) {
+                <tr>
+                  <td>{{booking.id}}</td>
+                  <td>{{booking.date}}</td>
+                  <td>{{booking.time_zone.hour}}</td>
+                  <td>
+                    <a class="button is-info mr-2">
+                      <span class="icon is-small is-left">
+                        <fa-icon [icon]="faEye"></fa-icon>
+                      </span>
+                    </a>
+                    <a class="button is-info mr-2" (click)="doEditBooking(booking.id)">
+                      <span class="icon is-small is-left">
+                        <fa-icon [icon]="faPen"></fa-icon>
+                      </span>
+                    </a>
+                    <!--@if (booking.date > dateToday) {-->
+                      <a class="button is-danger" (click)="doRemoveBooking(booking.id)">
+                        <span class="icon is-small is-left">
+                          <fa-icon [icon]="faTrash"></fa-icon>
+                        </span>
+                      </a>
+                    <!--} -->
+                   
+                  </td>
+                  }
+
+              </tbody>
+            </table>
+
+            <!-- Agrega los botones de paginación Bulma personalizados -->
+     <!--  <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+        <a class="pagination-previous" (click)="onPageChange(currentPage - 1)" >Anterior</a>
+        <a class="pagination-next" (click)="onPageChange(currentPage + 1)" >Siguiente</a>
+        <ul class="pagination-list">
+          <li *ngFor="let page of pages" >
+            <a class="pagination-link" (click)="onPageChange(page)">{{ page }}</a>
+          </li>
+        </ul>
+      </nav> -->
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="modal is-6" [class.is-active]="isConfirmationModalVisible">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title has-text-centered"><strong>Confirm delete</strong></p>
+        <button class="delete" aria-label="close" (click)="cancelDelete()"></button>
+      </header>
+      <section class="modal-card-body">
+        <!-- Mostrar detalles de la reserva que se va a borrar en una tabla -->
+        <table class="table is-fullwidth is-striped is-hoverable ">
+          <!-- Detalles de la reserva -->
+          <tr>
+            <th class="has-text-centered">ID</th>
+            <td class="has-text-centered">{{ oBooking.id }}</td>
+          </tr>
+          <tr>
+            <th class="has-text-centered">Date</th>
+            <td class="has-text-centered">{{ oBooking.date }}</td>
+          </tr>
+
+        </table>
+      </section>
+      <footer class="modal-card-foot is-flex is-justify-content-center">
+        <div class="buttons">
+          <button class="button is-danger" (click)="confirmDelete()">Eliminar</button>
+          <button class="button" (click)="cancelDelete()">Cancelar</button>
+        </div>
+      </footer>
+
+
+    </div>
+  </div>
+
+  <div id="editModal" class="modal" [class.is-active]="isEditActive">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Edit</p>
+        <button class="delete" aria-label="close" (click)="closeModal()"></button>
+      </header>
+      <section class="modal-card-body">
+        <!-- Agrega esto a tu template HTML -->
+        <div class="container mt-5">
+          <div class="columns is-centered">
+            <div class="column is-half">
+              <div class="has-text-centered">
+                <h1 class="title is-4">Book Edit</h1>
+                <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+
+                  <div class="field">
+                    <label class="label">Id</label>
+                    <div class="control">
+                      <input class="input has-text-centered" type="text" formControlName="id" [value]="bookingForm.get('id')?.value" readonly>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">Date</label>
+                    <div class="control">
+                      <input class="input has-text-centered" type="date" formControlName="date" [value]="bookingForm.get('date')?.value" readonly>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label class="label">Time</label>
+                    <div class="control">
+                      <div class="select" formGroupName="time_zone">
+                        <select class="input" formControlName="hour">
+                          @for (option of options; track options) {
+                          <option [value]="option">{{ option }}</option>
+                          }
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="field is-grouped is-grouped-centered">
+                    <div class="control">
+                      <button class="button is-primary" type="submit" (click)="confirmEditBooking()">Edit</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </div>
+
+
+</section>

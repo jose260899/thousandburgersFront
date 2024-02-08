@@ -34,7 +34,7 @@
       </a>
       }
 
-      
+
 
 
 
@@ -55,9 +55,16 @@
           <a class="navbar-item" routerLink="clientDetails">
             <strong>Settings</strong>
           </a>
-          <a class="navbar-item" routerLink="booksView">
-            <strong>Books</strong>
-          </a>
+          @if (username) {
+            <a class="navbar-item" routerLink="booksView">
+              <strong>Books</strong>
+            </a>
+          }@else{
+            <a class="navbar-item" routerLink="booksPlistEmployee">
+              <strong>Books</strong>
+            </a>
+          }
+          
           <a class="navbar-item " (click)="logout()">
             <strong>Log Out</strong>
           </a>

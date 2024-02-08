@@ -29,6 +29,10 @@ export class BooksService {
     return this.oHttpClient.get<IBooking[]>(this.sUrl + "/client/" + iIdClient);
   }
 
+  getAll(): Observable<IBooking[]> {
+    return this.oHttpClient.get<IBooking[]>(this.sUrl+ "/all");
+  }
+
   deleteOne(iIdBooking: number): Observable<IBooking> {
     return this.oHttpClient.delete<IBooking>(this.sUrl + "/" + iIdBooking);
   }

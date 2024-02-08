@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IBooking } from '../../interfaces/modelInterfaces';
 import { Router } from '@angular/router';
@@ -28,6 +28,10 @@ export class BooksEmployeeComponent implements OnInit {
   minDate?: string;  // Se utiliza el formato yyyy-mm-dd
   options: string[] = [];
   usernames: string[] = [];
+
+
+  searchControl = new FormControl('');
+
 
   constructor(
     private oFormBuilder: FormBuilder,
@@ -63,6 +67,21 @@ export class BooksEmployeeComponent implements OnInit {
     this.fetchOptions();
     this.fetchUsernames();
     this.initializeForm(this.oBook);
+  }
+
+  onSearchChange() {
+    const searchTerm = (this.searchControl.value || '').toLowerCase();
+    const selectElement = document.getElementById('usernameSelect') as HTMLSelectElement;
+  
+    // Filtra las opciones del select
+    for (let i = 0; i < selectElement.options.length; i++) {
+      const optionValue = selectElement.options[i].value;
+  
+      if (optionValue !== undefined) {
+        const lowercasedOptionValue = optionValue.toLowerCase();
+        selectElement.options[i].hidden = !lowercasedOptionValue.includes(searchTerm);
+      }
+    }
   }
 
   fetchOptions() {

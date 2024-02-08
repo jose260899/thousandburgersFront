@@ -6,7 +6,7 @@ import { ClientAjaxService } from '../../services/client.ajax.service';
 import { IClient, IEmployee, SessionEvent } from '../../interfaces/modelInterfaces';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import {  Renderer2, ElementRef } from '@angular/core';
+import { Renderer2, ElementRef } from '@angular/core';
 import { SessionEmployeeService } from '../../services/session.employee.service';
 import { EmployeeService } from '../../services/employee.service';
 
@@ -33,7 +33,7 @@ export class MenuBarComponent implements OnInit {
   isLoggedInEmployee: boolean = false;
 
 
-  
+
 
 
 
@@ -55,36 +55,38 @@ export class MenuBarComponent implements OnInit {
         this.sUrl = ev.url;
       }
     });
-    
-    
-    this.oClientService.getByUsername(this.oSessionService.getUsername()).subscribe({
-      next: (oClient: IClient) => {
-        this.oSessionClient = oClient;
-        this.username = this.oSessionService.getUsername();
-      },
-      error: (error: HttpErrorResponse) => {
-        console.log(error);
-      }
-    });
 
-     this.oEmployeeService.getByUsername(this.oSessionService.getUsername()).subscribe({
-      next: (oEmployee: IEmployee) => {
-        this.oSessionEmployee = oEmployee;
-        this.usernameEmployee = this.oSessionEmployeeService.getUsername();
+    if (this.oSessionService.isSessionActive()) {
+      this.oClientService.getByUsername(this.oSessionService.getUsername()).subscribe({
+        next: (oClient: IClient) => {
+          this.oSessionClient = oClient;
+          this.username = this.oSessionService.getUsername();
+        },
+        error: (error: HttpErrorResponse) => {
+          console.log(error);
+        }
+      });
+    }
+    if (oSessionEmployeeService.isSessionActive()) {
+      this.oEmployeeService.getByUsername(this.oSessionEmployeeService.getUsername()).subscribe({
+        next: (oEmployee: IEmployee) => {
+          this.oSessionEmployee = oEmployee;
+          this.usernameEmployee = this.oSessionEmployeeService.getUsername();
 
-      },
-      error: (error: HttpErrorResponse) => {
-        console.log(error);
-      }
-    });
-     
+        },
+        error: (error: HttpErrorResponse) => {
+          console.log(error);
+        }
+      });
+    }
+
   }
 
   toggleNavbar() {
     const navbarBurger = this.el.nativeElement.querySelector('.navbar-burger');
     const targetId = navbarBurger.getAttribute('data-target');
     const target = this.el.nativeElement.querySelector(`#${targetId}`);
-  
+
     if (navbarBurger.classList.contains('is-active')) {
       this.renderer.removeClass(navbarBurger, 'is-active');
       this.renderer.removeClass(target, 'is-active');
@@ -93,7 +95,7 @@ export class MenuBarComponent implements OnInit {
       this.renderer.addClass(target, 'is-active');
     }
   }
- 
+
   ngOnInit() {
     this.oSessionService.on().subscribe({
       next: (data: SessionEvent) => {
@@ -145,23 +147,23 @@ export class MenuBarComponent implements OnInit {
 
 
 
-  
+
 
   doSessionUserView($event: Event) {
     if (this.oSessionClient) {
-      
+
     }
     return false;
     //$event.preventDefault
   }
 
- /*
-  logout() {
-    this.oSessionService.logout();
-    this.oSessionService.emit({ type: 'logout' });
-    this.router.navigate(['/home']);
-  }
-  */
+  /*
+   logout() {
+     this.oSessionService.logout();
+     this.oSessionService.emit({ type: 'logout' });
+     this.router.navigate(['/home']);
+   }
+   */
 
 
   logout() {
@@ -171,21 +173,21 @@ export class MenuBarComponent implements OnInit {
       logoutModal.classList.add('is-active');
     }
   }
-  
+
   confirmLogout() {
     // Cierra el modal de confirmación y realiza el logout
     const logoutModal = document.getElementById('logoutModal');
     if (logoutModal) {
       logoutModal.classList.remove('is-active');
     }
-  
+
     this.oSessionService.logout();
     this.oSessionService.emit({ type: 'logout' });
     this.oSessionEmployeeService.logout();
     this.oSessionEmployeeService.emit({ type: 'logout' });
     this.router.navigate(['/home']);
   }
-  
+
   closeModal() {
     // Cierra el modal de confirmación sin realizar el logout
     const logoutModal = document.getElementById('logoutModal');
@@ -194,10 +196,10 @@ export class MenuBarComponent implements OnInit {
     }
   }
 
-  
-  
 
- 
+
+
+
 
 
 
