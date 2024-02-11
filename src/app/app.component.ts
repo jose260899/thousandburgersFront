@@ -10,6 +10,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 
+import { initFlowbite } from 'flowbite';
+
+
 
 
 
@@ -37,7 +40,11 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 })
 export class AppComponent {
   title = 'thousandburgersFront';
-  faCoffee = faCoffee;
+
+
+  ngOnInit() {
+    initFlowbite();
+  }
 
 
 

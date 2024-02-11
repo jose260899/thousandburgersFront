@@ -32,6 +32,8 @@ export class ClientDetailComponent implements OnInit {
 
   clientForm!: FormGroup;
 
+  showModal: boolean = false;
+
 
   constructor(
     private oClientAjaxService: ClientAjaxService,
@@ -98,29 +100,20 @@ export class ClientDetailComponent implements OnInit {
       birthDate: this.oClient.birthDate,
       // Otros campos del formulario
     });
-    const editModal = document.getElementById('editModal');
-    if (editModal) {
-      editModal.classList.add('is-active');
-    }
+    this.showModal = true;
 
     
   }
   
   confirmEdit() {
     // Cierra el modal de confirmación y realiza el logout
-    const editModal = document.getElementById('editModal');
-    if (editModal) {
-      editModal.classList.remove('is-active');
-    }
+    this.showModal = false;
     this.onSubmit();
   }
   
   closeModal() {
     // Cierra el modal de confirmación sin realizar el logout
-    const editModal = document.getElementById('editModal');
-    if (editModal) {
-      editModal.classList.remove('is-active');
-    }
+    this.showModal = false;
   }
 
 

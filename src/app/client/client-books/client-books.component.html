@@ -1,47 +1,37 @@
 @if (status == null) {
-  <div class="section ">
-    <div class="container ">
-      <div class="columns is-centered is-vcentered">
-        <div class="column is-half">
-          <div class="card ">
-            
-            <div class="card-content">
-              <div class="columns is-centered  mt-1">
-                <h1 class="title">Reservation</h1>
-              </div>
-              <div class="content">
-                <form [formGroup]="booksForm" (ngSubmit)="onSubmit()">
-                  <div class="field ">
-                    <label class="label has-text-centered">Date</label>
-                    <div class="control">
-                      <input class="input" type="date" formControlName="date" placeholder="Enter Date" min="{{ minDate }}">
-                    </div>
-                  </div>
 
-                  <div class="field has-text-centered">
-                    <label class="label">Time</label>
-                    <div class="control">
-                      <div class="select" formGroupName="time_zone">
-                        <select class="input" formControlName="hour">
-                          @for (option of options; track options) {
-                            <option [value]="option">{{ option }}</option>
-                          }
-                        </select>
-                      </div>
-                    </div>
-                  </div>
+  <section id="contact" class="py-16 bg-gray-900 text-center">
 
-                  <div class="field is-grouped is-grouped-centered mt-4">
-                    <div class="control">
-                      <button class="button is-primary" type="submit">Submit</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+<div class="mx-auto max-w-md mt-16 mb-16 p-6 bg-gray-800 rounded-md shadow-md dark:bg-black">
+  <h2 class="text-2xl text-center  font-semibold text-white mb-6">Book</h2>
+  <form [formGroup]="booksForm" (ngSubmit)="onSubmit()">
+    <div class="mb-6">
+      <label class="block mb-2 text-center text-sm font-medium text-gray-300 dark:text-white">Date</label>
+      
+      <input  type="date" formControlName="date"
+        class="block py-2.5 px-0 w-full text-sm  text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+        placeholder="Select day" min="{{ minDate }}" required />
     </div>
-  </div>
+    <div class="mb-6">
+      <label class="block mb-2 text-center  text-sm font-medium text-gray-300 dark:text-white">Hour</label>
+      <div formGroupName="time_zone">
+        <select  formControlName="hour"
+        class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+        @for (option of options; track options) {
+        <option  class="text-black bg-slate-600" [value]="option">{{ option }}</option>
+        }
+      </select>
+      </div>
+      
+    </div>
+
+    <div class="flex flex-col items-center">
+      <button type="submit"
+        class="text-white  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+
+    </div>
+  </form>
+</div>
+</section>
+
 }

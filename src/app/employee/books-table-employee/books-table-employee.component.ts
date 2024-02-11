@@ -4,12 +4,16 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrash, faEye, faPen } from '@fortawesome/free-solid-svg-icons';
-import { IClient, IBooking } from '../../interfaces/modelInterfaces';
+import { IClient, IBooking, IBookingPage } from '../../interfaces/modelInterfaces';
 import { BooksService } from '../../services/books.service.service';
 import { ClientAjaxService } from '../../services/client.ajax.service';
 import { SessionService } from '../../services/session.service';
 import { TimeZoneService } from '../../services/time.zone.service';
 import { EmployeeService } from '../../services/employee.service';
+
+import { PaginatorState } from 'primeng/paginator';
+import { PaginatorModule } from 'primeng/paginator';
+
 
 @Component({
   selector: 'app-books-table-employee',
@@ -20,6 +24,9 @@ import { EmployeeService } from '../../services/employee.service';
     ReactiveFormsModule,
     RouterModule,
     FontAwesomeModule,
+    PaginatorModule,
+
+
   ],
 })
 export class BooksTableEmployeeComponent implements OnInit {
@@ -29,75 +36,85 @@ export class BooksTableEmployeeComponent implements OnInit {
   faEye = faEye;
   faPen = faPen;
 
+  // Variables para almacenar la paginacion
+  oPage: IBookingPage | undefined;
+  orderField: string = "id";
+  orderDirection: string = "asc";
+  oPaginatorState: PaginatorState = { first: 0, rows: 10, page: 0, pageCount: 0 };
 
 
 
-    // Variable para controlar la visibilidad del modal
-    isConfirmationModalVisible: boolean = false;
-    isEditActive: boolean = false;
-  
-    dateToday:Date = new Date( Date.now()); // Formato yyyy-mm-dd
-  
-    // Variable para almacenar la reserva que se va a borrar
-    bookingToDelete: number = 0;
-    bookingToEdit: number = 0;
 
 
-    oClient: IClient = {} as IClient;
-    id: number = 0;
-    status: HttpErrorResponse | null = null;
-    oBooking: IBooking = { employee: { username: "" } , time_zone : { hour:"" }, client:{username:""}} as IBooking;
+  // Variable para controlar la visibilidad del modal
+  isConfirmationModalVisible: boolean = false;
+  isEditActive: boolean = false;
 
-  
-    bookings: IBooking[] = [];//for the table
-  
-  
-    bookingForm!: FormGroup;//form for editing
-    minDate?: string;  // Se utiliza el formato yyyy-mm-dd
-    options: string[] = []; //hours
-  
+  dateToday: Date = new Date(Date.now()); // Formato yyyy-mm-dd
 
-    constructor(
-      private oClientAjaxService: ClientAjaxService,
-      private oEmployeeAjaxService: EmployeeService,
-      private oSessionService: SessionService,
-      private oBookingsService: BooksService,
-      private router: Router,
-      private oFormBuilder: FormBuilder,
-      private oTimeZoneService: TimeZoneService,
-  
-    ) {
-      const today = new Date();
-      this.minDate = today.toISOString().split('T')[0]; // Formato yyyy-mm-dd
-    }
+  // Variable para almacenar la reserva que se va a borrar
+  bookingToDelete: number = 0;
+  bookingToEdit: number = 0;
 
 
-    initializeForm(oBooks: IBooking) {
-      this.bookingForm = this.oFormBuilder.group({
-        id: [oBooks.id],
-        date: [oBooks.date, [Validators.required]],
-        time_zone: this.oFormBuilder.group({
-          hour: [oBooks.time_zone.hour, [Validators.required]],
-        }),
-        employee: this.oFormBuilder.group({
-          username: [oBooks.employee.username, Validators.required],
-        }),
-        client: this.oFormBuilder.group({
-          username: [oBooks.client.username, Validators.required],
-        }),
-      });
-    }
+  oClient: IClient = {} as IClient;
+  id: number = 0;
+  status: HttpErrorResponse | null = null;
+  oBooking: IBooking = { employee: { username: "" }, time_zone: { hour: "" }, client: { username: "" } } as IBooking;
+
+
+  bookings: IBooking[] = [];//for the table
+
+
+  bookingForm!: FormGroup;//form for editing
+  minDate?: string;  // Se utiliza el formato yyyy-mm-dd
+  options: string[] = []; //hours
+
+
+  constructor(
+    private oClientAjaxService: ClientAjaxService,
+    private oEmployeeAjaxService: EmployeeService,
+    private oSessionService: SessionService,
+    private oBookingsService: BooksService,
+    private router: Router,
+    private oFormBuilder: FormBuilder,
+    private oTimeZoneService: TimeZoneService,
+
+  ) {
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0]; // Formato yyyy-mm-dd
+  }
+
+
+  initializeForm(oBooks: IBooking) {
+    this.bookingForm = this.oFormBuilder.group({
+      id: [oBooks.id],
+      date: [oBooks.date, [Validators.required]],
+      time_zone: this.oFormBuilder.group({
+        hour: [oBooks.time_zone.hour, [Validators.required]],
+      }),
+      employee: this.oFormBuilder.group({
+        username: [oBooks.employee.username, Validators.required],
+      }),
+      client: this.oFormBuilder.group({
+        username: [oBooks.client.username, Validators.required],
+      }),
+    });
+  }
 
   ngOnInit() {
     this.fetchOptions();
-    this.getBookings();
     this.initializeForm(this.oBooking);
+    this.getPage();
   }
+
+
 
   fetchOptions() {
     this.oTimeZoneService.getOptions().subscribe({
       next: (data: string[]) => {
         this.options = data;
+
       },
       error: (error: HttpErrorResponse) => {
         this.status = error;
@@ -107,23 +124,53 @@ export class BooksTableEmployeeComponent implements OnInit {
     );
   }
 
-  
 
-/*   getUserId(): void {
-    this.oSessionService.getUserId().subscribe((userId: number | null) => {
-      if (userId !== null) {
-        this.id = userId;
-        this.getBookings();
-        console.log('ID del usuario obtenido desde la sesión: ' + userId);
-      } else {
-        console.error('No se pudo obtener el ID del usuario desde la sesión.');
+  getPage(): void {
+    this.oBookingsService.getPage(this.oPaginatorState.rows, this.oPaginatorState.page, this.orderField, this.orderDirection).subscribe({
+      next: (data: IBookingPage) => {
+        this.oPage = data;
+        this.oPaginatorState.pageCount = data.totalPages;
+        console.log(this.oPaginatorState);
+      },
+      error: (error: HttpErrorResponse) => {
+        this.status = error;
       }
-    });
+    })
+  }
 
-  } */
+  onPageChang(event: PaginatorState) {
+    this.oPaginatorState.rows = event.rows;
+    this.oPaginatorState.page = event.page;
+    this.getPage();
+  }
+
+  doOrder(fieldorder: string) {
+    this.orderField = fieldorder;
+    if (this.orderDirection == "asc") {
+      this.orderDirection = "desc";
+    } else {
+      this.orderDirection = "asc";
+    }
+    this.getPage();
+  }
 
 
-  getBookings(): void {
+
+  /*   getUserId(): void {
+      this.oSessionService.getUserId().subscribe((userId: number | null) => {
+        if (userId !== null) {
+          this.id = userId;
+          this.getBookings();
+          console.log('ID del usuario obtenido desde la sesión: ' + userId);
+        } else {
+          console.error('No se pudo obtener el ID del usuario desde la sesión.');
+        }
+      });
+  
+    } */
+
+
+ /*  getBookings(): void {
     this.oBookingsService.getAll().subscribe({
       next: (data: any) => {
         //console.log(data);
@@ -135,7 +182,7 @@ export class BooksTableEmployeeComponent implements OnInit {
       }
     })
 
-  }
+  } */
 
 
 
@@ -163,7 +210,7 @@ export class BooksTableEmployeeComponent implements OnInit {
       next: (data: any) => {
 
         console.log(data);
-        this.getBookings();
+        this.getPage();
       },
       error: (error: HttpErrorResponse) => {
         this.status = error;
@@ -195,7 +242,7 @@ export class BooksTableEmployeeComponent implements OnInit {
   }
 
   doEditBooking(id: number): void {
-   
+
     this.bookingToEdit = id;
     this.oBookingsService.get(id).subscribe({
       next: (data: any) => {
@@ -210,7 +257,7 @@ export class BooksTableEmployeeComponent implements OnInit {
     this.isEditActive = true;
 
   }
- 
+
 
 
   onSubmit() {
@@ -219,7 +266,7 @@ export class BooksTableEmployeeComponent implements OnInit {
       next: (data: IBooking) => {
         this.oBooking = data;
         this.initializeForm(this.oBooking);
-        this.getBookings();
+        this.getPage();
         this.closeModal();
       },
       error: (error: HttpErrorResponse) => {

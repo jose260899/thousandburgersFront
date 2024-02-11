@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons';
 import { CryptoService } from '../../services/crypto.service';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,8 @@ import { CryptoService } from '../../services/crypto.service';
   imports: [
     ReactiveFormsModule,
     FontAwesomeModule,
+    NgxCaptchaModule,
+
 
   ],
 })
@@ -34,8 +37,7 @@ export class LoginComponent implements OnInit {
   status: HttpErrorResponse | null = null;
   loginForm!: FormGroup;
 
-
-
+  siteKey: string = "6LeNG28pAAAAAME8DQkGtLYbeBgl4XgTkJwMFbw1";
 
 
 
@@ -51,16 +53,21 @@ export class LoginComponent implements OnInit {
 
 
   ) {
+    
+  }
+
+ 
+  initializeForm() {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required]],
+      captcha: ['', [Validators.required]]
     });
   }
 
 
-
   ngOnInit() {
-
+    this.initializeForm();
 
   }
 

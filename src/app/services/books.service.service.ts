@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { API_URL } from '../environment/environment';
 import { HttpClient } from '@angular/common/http';
-import { IBooking } from '../interfaces/modelInterfaces';
+import { IBooking, IBookingPage } from '../interfaces/modelInterfaces';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -15,6 +15,12 @@ export class BooksService {
     private oHttpClient: HttpClient
 
   ) { }
+
+  getPage(size: number | undefined, page: number | undefined, orderField: string, orderDirection: string): Observable<IBookingPage> {
+    if (!size) size = 10;
+    if (!page) page = 0;
+    return this.oHttpClient.get<IBookingPage>(this.sUrl + "/page?size=" + size + "&page=" + page + "&sort=" + orderField + "," + orderDirection);
+}
 
   newOne(oBooking: IBooking): Observable<IBooking> {
     console.log(oBooking);

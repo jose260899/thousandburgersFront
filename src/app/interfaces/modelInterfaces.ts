@@ -45,6 +45,9 @@ export interface IEntity {
 export interface IClientPage extends IPage<IClient> {
 }
 
+export interface IBookingPage extends IPage<IBooking> {
+}
+
 
 export interface IClient extends IEntity {
     username: string,

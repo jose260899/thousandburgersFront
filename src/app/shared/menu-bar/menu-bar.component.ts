@@ -32,6 +32,8 @@ export class MenuBarComponent implements OnInit {
   oSessionEmployee: IEmployee | null = null;
   isLoggedInEmployee: boolean = false;
 
+  showModal: boolean = false; 
+
 
 
 
@@ -157,30 +159,15 @@ export class MenuBarComponent implements OnInit {
     //$event.preventDefault
   }
 
-  /*
-   logout() {
-     this.oSessionService.logout();
-     this.oSessionService.emit({ type: 'logout' });
-     this.router.navigate(['/home']);
-   }
-   */
-
-
-  logout() {
-    // Muestra el modal de confirmación
-    const logoutModal = document.getElementById('logoutModal');
-    if (logoutModal) {
-      logoutModal.classList.add('is-active');
-    }
+ 
+  // Función para cerrar sesión y modal
+  logout(){
+    this.showModal = true;
   }
 
   confirmLogout() {
-    // Cierra el modal de confirmación y realiza el logout
-    const logoutModal = document.getElementById('logoutModal');
-    if (logoutModal) {
-      logoutModal.classList.remove('is-active');
-    }
-
+    // Muestra el modal de confirmación
+    this.showModal = false;
     this.oSessionService.logout();
     this.oSessionService.emit({ type: 'logout' });
     this.oSessionEmployeeService.logout();
@@ -188,13 +175,13 @@ export class MenuBarComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  closeModal() {
-    // Cierra el modal de confirmación sin realizar el logout
-    const logoutModal = document.getElementById('logoutModal');
-    if (logoutModal) {
-      logoutModal.classList.remove('is-active');
-    }
+  cancelLogout() {
+    this.showModal = false;
   }
+
+
+
+  
 
 
 

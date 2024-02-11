@@ -7,9 +7,9 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular/common/http';
 import {  authInterceptor } from './auth/auth.interceptor';
 import { BooksService } from './services/books.service.service';
-import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { ProductTypeService } from './services/product.type.service';
 import { SessionEmployeeService } from './services/session.employee.service';
+
 
 
 export const appConfig: ApplicationConfig = {

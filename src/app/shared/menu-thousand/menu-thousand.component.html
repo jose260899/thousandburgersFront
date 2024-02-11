@@ -1,105 +1,73 @@
-<div class="container">
-  <div class="columns is-centered">
-    <div class="column is-half-desktop is-three-quarters-mobile ml-6 mr-6">
-      <h1 class="title has-text-centered mt-4 is-1">Menu</h1>
+<section id="contact" class="py-16 bg-gray-900 ">
 
-      @for (menuItem of menuItems; track menuItems) { @if (menuItem.name ===
-      'Entrantes') {
-      <h1 class="title has-text-centered is-3">{{ menuItem.name }}</h1>
-      <div class="columns is-multiline">
-        @for (entrante of entrantes; track entrantes) { @if
-        (entrante.product_type.id === 1) {
-        <div class="column is-one-third">
-          <div class="card">
-            <div class="card-image">
-              <figure class="image is-4by3">
-                <img
-                  src="https://www.foodandwine.com/thmb/DI29Houjc_ccAtFKly0BbVsusHc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/crispy-comte-cheesburgers-FT-RECIPE0921-6166c6552b7148e8a8561f7765ddf20b.jpg"
-                  alt="{{ entrante.name }}" />
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-4">{{ entrante.name }}</p>
-                  <p class="subtitle is-6">{{ entrante.description }}</p>
-                </div>
-              </div>
-              <div class="content">
-                <p>Price: {{ entrante.price }}  €</p>
-              </div>
-            </div>
-          </div>
+  @for (menuItem of menuItems; track menuItems) {
+  @if (menuItem.name === 'Entrantes') {
+  <div class="text-2xl text-center mt-4 mb-12">{{ menuItem.name }}</div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
+    @for (entrante of entrantes; track entrantes) {
+    @if (entrante.product_type.id === 1) {
+    <div class="max-w-xs mx-auto mb-6">
+      <div class="bg-gray-800 rounded overflow-hidden shadow-lg">
+        <img class="w-full"
+          src="https://www.foodandwine.com/thmb/DI29Houjc_ccAtFKly0BbVsusHc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/crispy-comte-cheesburgers-FT-RECIPE0921-6166c6552b7148e8a8561f7765ddf20b.jpg"
+          alt="{{ entrante.name }}" />
+        <div class="px-6 py-4">
+          <div class="font-bold text-xl mb-2">{{ entrante.name }}</div>
+          <p class="text-gray-300 text-base">{{ entrante.description }}</p>
         </div>
-        } }
-      </div>
-
-      }@else if (menuItem.name === 'Principales') {
-      <h1 class="title has-text-centered is-3">{{ menuItem.name }}</h1>
-      <div class="columns is-multiline">
-        @for (principal of principales; track principales) { @if
-        (principal.product_type.id === 2) {
-
-        <!-- Repite este bloque para cada tarjeta -->
-        <div class="column is-one-third">
-          <div class="card">
-            <div class="card-image">
-              <figure class="image is-4by3">
-                <img
-                  src="https://www.foodandwine.com/thmb/DI29Houjc_ccAtFKly0BbVsusHc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/crispy-comte-cheesburgers-FT-RECIPE0921-6166c6552b7148e8a8561f7765ddf20b.jpg"
-                  alt="{{ principal.name }}" />
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-4">{{ principal.name }}</p>
-                  <p class="subtitle is-6">{{ principal.description }}</p>
-                </div>
-              </div>
-              <div class="content">
-                <p>Price: {{ principal.price }}  €</p>
-              </div>
-            </div>
-          </div>
+        <div class="px-6 py-4">
+          <p class="text-gray-300">Price: {{ entrante.price }} €</p>
         </div>
-        <!-- Fin del bloque de repetición -->
-        } }
       </div>
-
-      }@else if (menuItem.name === 'Postres') {
-      <h2 class="title has-text-centered is-3">{{ menuItem.name }}</h2>
-      <div class="columns is-multiline">
-
-      @for (postre of postres; track postres) { @if (postre.product_type.id ===
-      3) {
-          <div class="column is-one-third mb-6">
-          <div class="card">
-            <div class="card-image">
-              <figure class="image is-4by3">
-                <img
-                  src="https://www.foodandwine.com/thmb/DI29Houjc_ccAtFKly0BbVsusHc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/crispy-comte-cheesburgers-FT-RECIPE0921-6166c6552b7148e8a8561f7765ddf20b.jpg"
-                  alt="{{ postre.name }}" />
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-4">{{ postre.name }}</p>
-                  <p class="subtitle is-6">{{ postre.description }}</p>
-                </div>
-              </div>
-              <div class="content">
-                <p>Price: {{ postre.price }}  €</p>
-              </div>
-            </div>
-          </div>
-        </div>      
-        
-      } }
-      </div>
-    } }
     </div>
-
+    }
+    }
   </div>
-</div>
+  }@else if (menuItem.name === 'Principales') {
+  <div class="text-2xl text-center mt-4 mb-12">{{ menuItem.name }}</div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    @for (principal of principales; track principales) {
+    @if (principal.product_type.id === 2) {
+    <div class="max-w-xs mx-auto mb-6">
+      <div class="bg-gray-800 rounded overflow-hidden shadow-lg">
+        <img class="w-full"
+          src="https://www.foodandwine.com/thmb/DI29Houjc_ccAtFKly0BbVsusHc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/crispy-comte-cheesburgers-FT-RECIPE0921-6166c6552b7148e8a8561f7765ddf20b.jpg"
+          alt="{{ principal.name }}" />
+        <div class="px-6 py-4">
+          <div class="font-bold text-xl mb-2">{{ principal.name }}</div>
+          <p class="text-gray-300 text-base">{{ principal.description }}</p>
+        </div>
+        <div class="px-6 py-4">
+          <p class="text-gray-300">Price: {{ principal.price }} €</p>
+        </div>
+      </div>
+    </div>
+    }
+    }
+  </div>
+  }@else if (menuItem.name === 'Postres') {
+  <div class="text-2xl text-center mt-4 mb-12">{{ menuItem.name }}</div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    @for (postre of postres; track postres) {
+    @if (postre.product_type.id === 3) {
+    <div class="max-w-xs mx-auto mb-6">
+      <div class="bg-gray-800 rounded overflow-hidden shadow-lg">
+        <img class="w-full"
+          src="https://www.foodandwine.com/thmb/DI29Houjc_ccAtFKly0BbVsusHc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/crispy-comte-cheesburgers-FT-RECIPE0921-6166c6552b7148e8a8561f7765ddf20b.jpg"
+          alt="{{ postre.name }}" />
+        <div class="px-6 py-4">
+          <div class="font-bold text-xl mb-2">{{ postre.name }}</div>
+          <p class="text-gray-300 text-base">{{ postre.description }}</p>
+        </div>
+        <div class="px-6 py-4">
+          <p class="text-gray-300">Price: {{ postre.price }} €</p>
+        </div>
+      </div>
+    </div>
+    }
+    }
+  </div>
+  }
+  }
+
+</section>
