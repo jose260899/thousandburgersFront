@@ -31,8 +31,12 @@ export class BooksService {
     return this.oHttpClient.post<IBooking>(this.sUrl + "/employee", oBooking);
   }
 
-  getByClient(iIdClient: number): Observable<IBooking[]> {
-    return this.oHttpClient.get<IBooking[]>(this.sUrl + "/client/" + iIdClient);
+  getPageByClient(iIdClient: number, size: number | undefined, page: number | undefined, orderField: string, orderDirection: string): Observable<IBookingPage> {
+    //return this.oHttpClient.get<IBooking[]>(this.sUrl + "/client/" + iIdClient);
+    if (!size) size = 10;
+    if (!page) page = 0;
+    return this.oHttpClient.get<IBookingPage>(this.sUrl + "/client/" + iIdClient + "?size=" + size + "&page=" + page + "&sort=" + orderField + "," + orderDirection);
+
   }
 
   getAll(): Observable<IBooking[]> {

@@ -63,26 +63,14 @@ export class BooksEmployeeComponent implements OnInit {
     });
   }
 
+  
   ngOnInit() {
     this.fetchOptions();
     this.fetchUsernames();
     this.initializeForm(this.oBook);
   }
 
-  onSearchChange() {
-    const searchTerm = (this.searchControl.value || '').toLowerCase();
-    const selectElement = document.getElementById('usernameSelect') as HTMLSelectElement;
-  
-    // Filtra las opciones del select
-    for (let i = 0; i < selectElement.options.length; i++) {
-      const optionValue = selectElement.options[i].value;
-  
-      if (optionValue !== undefined) {
-        const lowercasedOptionValue = optionValue.toLowerCase();
-        selectElement.options[i].hidden = !lowercasedOptionValue.includes(searchTerm);
-      }
-    }
-  }
+
 
   fetchOptions() {
     this.oTimeZoneService.getOptions().subscribe({
@@ -116,7 +104,7 @@ export class BooksEmployeeComponent implements OnInit {
         next: (data: IBooking) => {
           this.oBook = { "employee": {}, "time_zone":{}, "client":{} } as IBooking;
           this.initializeForm(this.oBook);
-          //this.oRouter.navigate(['/booksView']);
+          this.oRouter.navigate(['/booksPlistEmployee']);
         },
         error: (error: HttpErrorResponse) => {
           this.status = error;

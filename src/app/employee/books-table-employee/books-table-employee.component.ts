@@ -156,36 +156,6 @@ export class BooksTableEmployeeComponent implements OnInit {
 
 
 
-  /*   getUserId(): void {
-      this.oSessionService.getUserId().subscribe((userId: number | null) => {
-        if (userId !== null) {
-          this.id = userId;
-          this.getBookings();
-          console.log('ID del usuario obtenido desde la sesión: ' + userId);
-        } else {
-          console.error('No se pudo obtener el ID del usuario desde la sesión.');
-        }
-      });
-  
-    } */
-
-
- /*  getBookings(): void {
-    this.oBookingsService.getAll().subscribe({
-      next: (data: any) => {
-        //console.log(data);
-        this.bookings = data;
-        console.log(this.bookings);
-      },
-      error: (error: HttpErrorResponse) => {
-        this.status = error;
-      }
-    })
-
-  } */
-
-
-
   doRemoveBooking(id: number): void {
 
     this.bookingToDelete = id;

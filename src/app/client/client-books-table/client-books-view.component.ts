@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { IBooking, IClient } from '../../interfaces/modelInterfaces';
+import { IBooking, IBookingPage, IClient } from '../../interfaces/modelInterfaces';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ClientAjaxService } from '../../services/client.ajax.service';
 import { SessionService } from '../../services/session.service';
@@ -9,6 +9,9 @@ import { BooksService } from '../../services/books.service.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { TimeZoneService } from '../../services/time.zone.service';
+
+import { PaginatorState } from 'primeng/paginator';
+import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
   selector: 'app-client-books-view',
@@ -19,6 +22,8 @@ import { TimeZoneService } from '../../services/time.zone.service';
     ReactiveFormsModule,
     RouterModule,
     FontAwesomeModule,
+    PaginatorModule,
+
   ],
 })
 export class ClientBooksViewComponent implements OnInit {
@@ -26,6 +31,13 @@ export class ClientBooksViewComponent implements OnInit {
   faTrash = faTrash;
   faEye = faEye;
   faPen = faPen;
+
+
+  oPage: IBookingPage | undefined;
+  orderField: string = "id";
+  orderDirection: string = "asc";
+  oPaginatorState: PaginatorState = { first: 0, rows: 10, page: 0, pageCount: 0 };
+
 
 
   // Variable para controlar la visibilidad del modal
@@ -90,7 +102,26 @@ export class ClientBooksViewComponent implements OnInit {
     this.getUserId();
     this.fetchOptions();
     this.initializeForm(this.oBooking);
-    console.log(this.dateToday);
+    this.getPage();
+  }
+
+  getPage(): void {
+    this.oBookingsService.getPageByClient(this.id,this.oPaginatorState.rows, this.oPaginatorState.page, this.orderField, this.orderDirection).subscribe({
+      next: (data: IBookingPage) => {
+        this.oPage = data;
+        this.oPaginatorState.pageCount = data.totalPages;
+        console.log(this.oPaginatorState);
+      },
+      error: (error: HttpErrorResponse) => {
+        this.status = error;
+      }
+    })
+  }
+
+  onPageChang(event: PaginatorState) {
+    this.oPaginatorState.rows = event.rows;
+    this.oPaginatorState.page = event.page;
+    this.getPage();
   }
 
   fetchOptions() {
@@ -113,7 +144,7 @@ export class ClientBooksViewComponent implements OnInit {
     this.oSessionService.getUserId().subscribe((userId: number | null) => {
       if (userId !== null) {
         this.id = userId;
-        this.getBookings();
+        this.getPage();
         console.log('ID del usuario obtenido desde la sesión: ' + userId);
       } else {
         console.error('No se pudo obtener el ID del usuario desde la sesión.');
@@ -124,7 +155,7 @@ export class ClientBooksViewComponent implements OnInit {
 
 
 
-  getBookings(): void {
+/*   getBookings(): void {
     this.oBookingsService.getByClient(this.id).subscribe({
       next: (data: any) => {
         //console.log(data);
@@ -136,7 +167,7 @@ export class ClientBooksViewComponent implements OnInit {
       }
     })
 
-  }
+  } */
 
 
 
@@ -164,7 +195,7 @@ export class ClientBooksViewComponent implements OnInit {
       next: (data: any) => {
 
         console.log(data);
-        this.getBookings();
+        this.getPage();
       },
       error: (error: HttpErrorResponse) => {
         this.status = error;
@@ -219,7 +250,7 @@ export class ClientBooksViewComponent implements OnInit {
       next: (data: IBooking) => {
         this.oBooking = data;
         this.initializeForm(this.oBooking);
-        this.getBookings();
+        this.getPage();
         this.closeModal();
       },
       error: (error: HttpErrorResponse) => {

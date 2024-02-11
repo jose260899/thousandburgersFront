@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { API_URL } from '../environment/environment';
 import { HttpClient } from '@angular/common/http';
-import { IEmployee } from '../interfaces/modelInterfaces';
+import { IEmployee, IToken } from '../interfaces/modelInterfaces';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -15,6 +15,7 @@ constructor(
   private oHttpClient: HttpClient
 
 ) { }
+
 
 
 getByUsername(username: string): Observable<IEmployee> {

@@ -1,148 +1,166 @@
-<section class="section">
-  <div class="container mt-5">
-    <div class="columns is-centered">
-      <div class="column is-half">
-        <div class="has-text-centered">
-          <div class="box">
-            <h1 class="title is-4">My Books</h1>
-            <table class="table is-fullwidth is-striped is-hoverable">
-              <thead>
-                <tr>
-                  <th class="has-text-centered">ID</th>
-                  <th class="has-text-centered">Date</th>
-                  <th class="has-text-centered">Hour</th>
-                  <th class="has-text-centered">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                @for (booking of bookings; track bookings) {
-                <tr>
-                  <td>{{booking.id}}</td>
-                  <td>{{booking.date}}</td>
-                  <td>{{booking.time_zone.hour}}</td>
-                  <td>
-                    <a class="button is-info mr-2">
-                      <span class="icon is-small is-left">
-                        <fa-icon [icon]="faEye"></fa-icon>
-                      </span>
-                    </a>
-                    <a class="button is-info mr-2" (click)="doEditBooking(booking.id)">
-                      <span class="icon is-small is-left">
-                        <fa-icon [icon]="faPen"></fa-icon>
-                      </span>
-                    </a>
-                    <!--@if (booking.date > dateToday) {-->
-                      <a class="button is-danger" (click)="doRemoveBooking(booking.id)">
-                        <span class="icon is-small is-left">
-                          <fa-icon [icon]="faTrash"></fa-icon>
-                        </span>
-                      </a>
-                    <!--} -->
-                   
-                  </td>
-                  }
+@if (status==null) {
+  <section class=" py-16 bg-gray-900 text-center">
+    <div class="flex justify-center mt-12 -mb-12">
+    <p-paginator class="text-center"
+      (onPageChange)="onPageChang($event)"
+      [first]="oPaginatorState.first!"
+      [rows]="oPaginatorState.rows!"
+      [totalRecords]="oPage?.totalElements || 0">
+    </p-paginator>
+  </div>
+  </section>
+  
+   
 
-              </tbody>
-            </table>
 
-          </div>
+  
+}
 
+
+<section class=" py-16 bg-gray-900 text-center -mt-12">
+  <div class="flex justify-center">
+    <div class="w-1/2">
+      <div class="text-center">
+        <div class="bg-gray-900 p-4 rounded">
+          <h1 class="text-2xl font-bold mb-4">Books</h1>
+          <table class="table-auto w-full bg-gray-700 text-white border border-gray-600">
+            <thead>
+              <tr>
+                <th class="py-2">ID</th>
+                <th class="py-2">Date</th>
+                <th class="py-2">Hour</th>
+                <th class="py-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (booking of oPage?.content; track bookings) {
+              <tr>
+                <td class="py-2">{{booking.id}}</td>
+                <td class="py-2">{{booking.date}}</td>
+                <td class="py-2">{{booking.time_zone.hour}}</td>
+                <td class="py-2">
+                  <a class="button bg-blue-500 hover:bg-blue-700 text-white mr-2">
+                    <span class="icon is-small is-left">
+                      <fa-icon [icon]="faEye"></fa-icon>
+                    </span>
+                  </a>
+                  <a class="button bg-blue-500 hover:bg-blue-700 text-white mr-2" (click)="doEditBooking(booking.id)">
+                    <span class="icon is-small is-left">
+                      <fa-icon [icon]="faPen"></fa-icon>
+                    </span>
+                  </a>
+                  <!--@if (booking.date > dateToday) {-->
+                  <a class="button bg-red-500 hover:bg-red-700 text-white" (click)="doRemoveBooking(booking.id)">
+                    <span class="icon is-small is-left">
+                      <fa-icon [icon]="faTrash"></fa-icon>
+                    </span>
+                  </a>
+                  <!--} -->
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Confirmation Modal -->
-  <div class="modal is-6" [class.is-active]="isConfirmationModalVisible">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title has-text-centered"><strong>Confirm delete</strong></p>
-        <button class="delete" aria-label="close" (click)="cancelDelete()"></button>
-      </header>
-      <section class="modal-card-body">
-        <!-- Mostrar detalles de la reserva que se va a borrar en una tabla -->
-        <table class="table is-fullwidth is-striped is-hoverable ">
-          <!-- Detalles de la reserva -->
-          <tr>
-            <th class="has-text-centered">ID</th>
-            <td class="has-text-centered">{{ oBooking.id }}</td>
-          </tr>
-          <tr>
-            <th class="has-text-centered">Date</th>
-            <td class="has-text-centered">{{ oBooking.date }}</td>
-          </tr>
+<!-- Confirmation Modal -->
+<div class="modal is-6" [class.is-active]="isConfirmationModalVisible">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title has-text-centered"><strong>Confirm delete</strong></p>
+      <button class="delete" aria-label="close" (click)="cancelDelete()"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- Mostrar detalles de la reserva que se va a borrar en una tabla -->
+      <table class="table is-fullwidth is-striped is-hoverable ">
+        <!-- Detalles de la reserva -->
+        <tr>
+          <th class="has-text-centered">ID</th>
+          <td class="has-text-centered">{{ oBooking.id }}</td>
+        </tr>
+        <tr>
+          <th class="has-text-centered">Date</th>
+          <td class="has-text-centered">{{ oBooking.date }}</td>
+        </tr>
 
-        </table>
-      </section>
-      <footer class="modal-card-foot is-flex is-justify-content-center">
-        <div class="buttons">
-          <button class="button is-danger" (click)="confirmDelete()">Eliminar</button>
-          <button class="button" (click)="cancelDelete()">Cancelar</button>
-        </div>
-      </footer>
+      </table>
 
 
-    </div>
+    </section>
+    <footer class="modal-card-foot is-flex is-justify-content-center">
+      <div class="buttons">
+        <button class="button is-danger" (click)="confirmDelete()">Eliminar</button>
+        <button class="button" (click)="cancelDelete()">Cancelar</button>
+      </div>
+    </footer>
+
+
   </div>
+</div>
 
-  <div id="editModal" class="modal" [class.is-active]="isEditActive">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Edit</p>
-        <button class="delete" aria-label="close" (click)="closeModal()"></button>
-      </header>
-      <section class="modal-card-body">
-        <!-- Agrega esto a tu template HTML -->
-        <div class="container mt-5">
-          <div class="columns is-centered">
-            <div class="column is-half">
-              <div class="has-text-centered">
-                <h1 class="title is-4">Book Edit</h1>
-                <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+<div id="editModal" class="modal" [class.is-active]="isEditActive">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Edit</p>
+      <button class="delete" aria-label="close" (click)="closeModal()"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- Agrega esto a tu template HTML -->
+      <div class="container mt-5">
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <div class="has-text-centered">
+              <h1 class="title is-4">Book Edit</h1>
+              <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
 
-                  <div class="field">
-                    <label class="label">Id</label>
-                    <div class="control">
-                      <input class="input has-text-centered" type="text" formControlName="id" [value]="bookingForm.get('id')?.value" readonly>
+                <div class="field">
+                  <label class="label">Id</label>
+                  <div class="control">
+                    <input class="input has-text-centered" type="text" formControlName="id"
+                      [value]="bookingForm.get('id')?.value" readonly>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Date</label>
+                  <div class="control">
+                    <input class="input has-text-centered" type="date" formControlName="date"
+                      [value]="bookingForm.get('date')?.value" readonly>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Time</label>
+                  <div class="control">
+                    <div class="select" formGroupName="time_zone">
+                      <select class="input" formControlName="hour">
+                        @for (option of options; track options) {
+                        <option [value]="option">{{ option }}</option>
+                        }
+                      </select>
                     </div>
                   </div>
-                  <div class="field">
-                    <label class="label">Date</label>
-                    <div class="control">
-                      <input class="input has-text-centered" type="date" formControlName="date" [value]="bookingForm.get('date')?.value" readonly>
-                    </div>
-                  </div>
+                </div>
 
-                  <div class="field">
-                    <label class="label">Time</label>
-                    <div class="control">
-                      <div class="select" formGroupName="time_zone">
-                        <select class="input" formControlName="hour">
-                          @for (option of options; track options) {
-                          <option [value]="option">{{ option }}</option>
-                          }
-                        </select>
-                      </div>
-                    </div>
+                <div class="field is-grouped is-grouped-centered">
+                  <div class="control">
+                    <button class="button is-primary" type="submit" (click)="confirmEditBooking()">Edit</button>
                   </div>
-
-                  <div class="field is-grouped is-grouped-centered">
-                    <div class="control">
-                      <button class="button is-primary" type="submit" (click)="confirmEditBooking()">Edit</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
+      </div>
 
-      </section>
+    </section>
 
-    </div>
   </div>
+</div>
 
 
 </section>

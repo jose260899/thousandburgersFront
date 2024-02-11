@@ -12,6 +12,7 @@ import { LoginEmployeeComponent } from './employee/login-employee/login-employee
 import { BooksEmployeeComponent } from './employee/books-employee/books-employee.component';
 import { ClientTableEmployeeComponent } from './employee/client-table-employee/client-table-employee.component';
 import { BooksTableEmployeeComponent } from './employee/books-table-employee/books-table-employee.component';
+import { EmployeeDetailsComponent } from './employee/employee-details/employee-details.component';
 
 
 export const routes: Routes = [
@@ -26,5 +27,6 @@ export const routes: Routes = [
     { path: 'loginEmployee' , component:LoginEmployeeComponent },
     { path: 'booksEmployee' , component:BooksEmployeeComponent},
     { path: 'listClient', component:ClientTableEmployeeComponent },
-    { path: 'booksPlistEmployee', component:BooksTableEmployeeComponent }
+    { path: 'booksPlistEmployee', component:BooksTableEmployeeComponent },
+    { path: 'employeeDetails', component:EmployeeDetailsComponent }
 ];
