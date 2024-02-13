@@ -26,7 +26,7 @@ export const routes: Routes = [
     { path: 'booksView' , component:ClientBooksViewComponent },
     { path: 'loginEmployee' , component:LoginEmployeeComponent },
     { path: 'booksEmployee' , component:BooksEmployeeComponent},
-    { path: 'listClient', component:ClientTableEmployeeComponent },
+    { path: 'clientsPlistEmployee', component:ClientTableEmployeeComponent },
     { path: 'booksPlistEmployee', component:BooksTableEmployeeComponent },
     { path: 'employeeDetails', component:EmployeeDetailsComponent }
 ];

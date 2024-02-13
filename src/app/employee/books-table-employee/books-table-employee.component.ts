@@ -45,7 +45,6 @@ export class BooksTableEmployeeComponent implements OnInit {
 
 
 
-
   // Variable para controlar la visibilidad del modal
   isConfirmationModalVisible: boolean = false;
   isEditActive: boolean = false;
@@ -72,11 +71,7 @@ export class BooksTableEmployeeComponent implements OnInit {
 
 
   constructor(
-    private oClientAjaxService: ClientAjaxService,
-    private oEmployeeAjaxService: EmployeeService,
-    private oSessionService: SessionService,
     private oBookingsService: BooksService,
-    private router: Router,
     private oFormBuilder: FormBuilder,
     private oTimeZoneService: TimeZoneService,
 

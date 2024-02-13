@@ -1,7 +1,83 @@
 
-@if (!status) {
-  <p>
-    client-table-employee works!
-  </p>
+@if (status != null) {
+
+  <section class="h-screen flex items-center justify-center bg-gray-900 text-center">
+    <div>
+      {{ status!.error.message }}
+    </div>
+  </section>
+  }
+
+ 
+@if (status==null) {
+  <section class=" py-16 bg-gray-900 text-center "> 
+  <div class="flex justify-center mt-12 -mb-12">
+    <p-paginator class="text-center"
+      (onPageChange)="onPageChang($event)"
+      [first]="oPaginatorState.first!"
+      [rows]="oPaginatorState.rows!"
+      [totalRecords]="oPage?.totalElements || 0">
+    </p-paginator>
+   
+
+  </div>
+  </section>
+  
 }
+
+@if (status==null) {
+  <section class=" py-16 bg-gray-900 text-center -mt-12"> 
+  <div class="flex justify-center">
+    <div class="w-1/2">
+      <div class="text-center">
+        <div class="bg-gray-900 p-4 rounded">
+          <h1 class="text-2xl font-bold mb-4">Clients</h1>
+          <table class="table-auto w-full bg-gray-700 text-white border border-gray-600">
+            <thead>
+              <tr>
+                <th class="py-2">ID</th>
+            
+              </tr>
+            </thead>
+            <tbody>
+              @for (client of oPage?.content; track clients) {
+                <tr>
+                  <td class="py-2">{{client.id}}</td>
+
+                  <td class="py-2">
+                    <a class="button bg-blue-500 hover:bg-blue-700 text-white mr-2">
+                      <span class="icon is-small is-left">
+                        <fa-icon [icon]="faEye"></fa-icon>
+                      </span>
+                    </a>
+                    <a class="button bg-blue-500 hover:bg-blue-700 text-white mr-2" >
+                      <span class="icon is-small is-left">
+                        <fa-icon [icon]="faPen"></fa-icon>
+                      </span>
+                    </a>
+                    <!--@if (booking.date > dateToday) {-->
+                    <a class="button bg-red-500 hover:bg-red-700 text-white" >
+                      <span class="icon is-small is-left">
+                        <fa-icon [icon]="faTrash"></fa-icon>
+                      </span>
+                    </a>
+                    <!--} -->
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</section>
+}
+
+       
+
 

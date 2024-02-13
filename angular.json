@@ -32,7 +32,11 @@
 							"src/styles.scss"
 						],
 						"scripts": [
-						  "/node_modules/flowbite/dist/datepicker.js"						]
+						  "/node_modules/flowbite/dist/datepicker.js",
+						  "/tailwind.config.js",
+						  "/node_modules/flowbite/plugin-windicss.js",
+						  "/node_modules/flowbite/dist/flowbite.js"
+						]
 					},
 					"configurations": {
 						"production": {
@@ -92,7 +96,10 @@
 							"src/styles.scss"
 						],
 						"scripts": [
-							"node_modules/flowbite/dist/datepicker.js"
+							"/node_modules/flowbite/dist/datepicker.js",
+						  "/tailwind.config.js",
+						  "/node_modules/flowbite/plugin-windicss.js",
+						  "/node_modules/flowbite/dist/flowbite.js"
 
 						]
 					}

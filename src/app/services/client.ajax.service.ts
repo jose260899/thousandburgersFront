@@ -41,4 +41,11 @@ export class ClientAjaxService {
   }
 
 
+  getPage(size: number | undefined, page: number | undefined, orderField: string, orderDirection: string): Observable<IClientPage> {
+    if (!size) size = 10;
+    if (!page) page = 0;
+    return this.oHttpClient.get<IClientPage>(this.sUrl + "/page?size=" + size + "&page=" + page + "&sort=" + orderField + "," + orderDirection);
+}
+
+
 }

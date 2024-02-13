@@ -32,7 +32,7 @@ export class MenuBarComponent implements OnInit {
   oSessionEmployee: IEmployee | null = null;
   isLoggedInEmployee: boolean = false;
 
-  showModal: boolean = false; 
+  showModal: boolean = false;
 
 
 
@@ -99,7 +99,7 @@ export class MenuBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.oSessionService.on().subscribe({
+     this.oSessionService.on().subscribe({
       next: (data: SessionEvent) => {
         if (data.type == 'login') {
           this.username = this.oSessionService.getUsername();
@@ -119,27 +119,28 @@ export class MenuBarComponent implements OnInit {
         }
       }
     });
+      this.oSessionEmployeeService.on().subscribe({
+        next: (data: SessionEvent) => {
+          if (data.type == 'login') {
+            this.usernameEmployee = this.oSessionEmployeeService.getUsername();
+            this.oEmployeeService.getByUsername(this.oSessionEmployeeService.getUsername()).subscribe({
+              next: (oEmployee: IEmployee) => {
+                this.oSessionEmployee = oEmployee;
+                this.isLoggedInEmployee = true;
+              },
 
-    this.oSessionEmployeeService.on().subscribe({
-      next: (data: SessionEvent) => {
-        if (data.type == 'login') {
-          this.usernameEmployee = this.oSessionEmployeeService.getUsername();
-          this.oEmployeeService.getByUsername(this.oSessionEmployeeService.getUsername()).subscribe({
-            next: (oEmployee: IEmployee) => {
-              this.oSessionEmployee = oEmployee;
-              this.isLoggedInEmployee = true;
-            },
+              error: (error: HttpErrorResponse) => {
+                console.log(error);
+              }
+            });
+          }
+          if (data.type == 'logout') {
+            this.usernameEmployee = "";
+          }
+        }
+      }); 
+    
 
-            error: (error: HttpErrorResponse) => {
-              console.log(error);
-            }
-          });
-        }
-        if (data.type == 'logout') {
-          this.usernameEmployee = "";
-        }
-      }
-    });
 
 
 
@@ -159,9 +160,9 @@ export class MenuBarComponent implements OnInit {
     //$event.preventDefault
   }
 
- 
+
   // Función para cerrar sesión y modal
-  logout(){
+  logout() {
     this.showModal = true;
   }
 
@@ -181,7 +182,7 @@ export class MenuBarComponent implements OnInit {
 
 
 
-  
+
 
 
 
