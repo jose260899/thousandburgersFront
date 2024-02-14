@@ -40,6 +40,10 @@ export class ClientAjaxService {
     return this.oHttpClient.get<IClient[]>(this.sUrl + "/all");
   }
 
+  deleteById(id:number): Observable<IClient> {
+    return this.oHttpClient.delete<IClient>(this.sUrl + "/" + id);
+  }
+
 
   getPage(size: number | undefined, page: number | undefined, orderField: string, orderDirection: string): Observable<IClientPage> {
     if (!size) size = 10;

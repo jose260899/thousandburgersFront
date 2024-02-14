@@ -39,6 +39,11 @@ export class ClientTableEmployeeComponent implements OnInit {
   orderDirection: string = "asc";
   oPaginatorState: PaginatorState = { first: 0, rows: 10, page: 0, pageCount: 0 };
 
+  showModal: boolean = false;
+  viewMode: boolean = false;
+
+  client: IClient | undefined;
+  clientToDelete: number = 0;
 
   constructor(
     private oClientService : ClientAjaxService,
@@ -65,6 +70,53 @@ export class ClientTableEmployeeComponent implements OnInit {
     this.oPaginatorState.rows = event.rows;
     this.oPaginatorState.page = event.page;
     this.getPage();
+  }
+
+
+  view(id: number) {
+    
+    
+    this.oClientService.getOne(id).subscribe({
+      next: (data: IClient) => {
+        this.client = data;
+        console.log(this.client);
+        this.viewMode = true;
+        this.showModal = true;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.status = error;
+      }
+    });
+  }
+
+  delete(id: number) {
+    this.clientToDelete = id;
+    this.oClientService.getOne(id).subscribe({
+      next: (data: IClient) => {
+        this.client = data;
+        this.showModal = true;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.status = error;
+      }
+    });
+  }
+
+  cancelDelete(){
+    this.showModal = false;
+    this.viewMode = false;
+  }
+
+  confirmDelete(){
+
+    this.oClientService.deleteById(this.clientToDelete).subscribe({
+      next: (data: IClient) => {
+        this.getPage();
+      },
+      error: (error: HttpErrorResponse) => {
+        this.status = error;
+      }
+    });
   }
 
 

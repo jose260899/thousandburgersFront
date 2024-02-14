@@ -62,7 +62,7 @@
                   }
 
                   <td class="py-2">
-                    <a class="button bg-blue-500 hover:bg-blue-700 text-white mr-2">
+                    <a class="button bg-blue-500 hover:bg-blue-700 text-white mr-2" (click)="view(client.id)">
                       <span class="icon is-small is-left">
                         <fa-icon [icon]="faEye"></fa-icon>
                       </span>
@@ -72,7 +72,7 @@
                         <fa-icon [icon]="faPen"></fa-icon>
                       </span>
                     </a>
-                    <a class="button bg-red-500 hover:bg-red-700 text-white" >
+                    <a class="button bg-red-500 hover:bg-red-700 text-white" (click)="delete(client.id)">
                       <span class="icon is-small is-left">
                         <fa-icon [icon]="faTrash"></fa-icon>
                       </span>
@@ -91,6 +91,62 @@
 
 
 </section>
+
+
+@if (showModal) {
+  <div class="modal-container fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 ">
+    <div class="bg-gray-800 p-8 rounded shadow-lg">
+      @if (!viewMode) {
+        <p class="mb-4 text-lg text-white">Are you sure you want to delete?</p>
+      } @else if (viewMode) {
+        <p class="mb-4 text-lg text-white">Client Details</p>
+      }
+      <div class="flex flex-col justify-center">
+        <div class="overflow-x-auto justify-center">
+          <table class="table-auto bg-gray-700 text-white border border-gray-600">
+            <tbody>
+              <tr>
+                <td class="py-2 px-2 text-gray-400">ID</td>
+                <td class="py-2 text-gray-400">{{client?.id}}</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-2 text-gray-400">Name</td>
+                <td class="py-2 text-gray-400">{{client?.name}}</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-2 text-gray-400">Telephone</td>
+                <td class="py-2 text-gray-400">{{client?.telephone}}</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-2 text-gray-400">Birth Date</td>
+                <td class="py-2 text-gray-400">{{client?.birthDate}}</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-2 text-gray-400">Email</td>
+                <td class="py-2 text-gray-400">{{client?.email}}</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-2 text-gray-400">Username</td>
+                <td class="py-2 text-gray-400">{{client?.username}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      @if (!viewMode) {
+        <div class="flex justify-end mt-12">
+        <button (click)="cancelDelete()" class="px-4 py-2 text-sm bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
+        <button (click)="confirmDelete()"
+          class="ml-2 px-4 py-2 text-sm bg-red-500 text-white rounded hover:bg-red-600">Delete</button>
+      </div>
+      } @else if (viewMode) {
+        <button (click)="cancelDelete()" class="px-4 py-2 mt-8 text-sm bg-gray-300 rounded hover:bg-gray-400">Close</button>
+  
+      }
+      
+    </div>
+  </div>
+  }
 }
 
        
