@@ -5,6 +5,7 @@ import { ClientAjaxService } from '../../services/client.ajax.service';
 import { IClient, SessionEvent } from '../../interfaces/modelInterfaces';
 import { API_URL } from '../../environment/environment';
 import { HttpErrorResponse } from '@angular/common/http';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-home',
@@ -29,6 +30,8 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    initFlowbite();
+
     
   }
 

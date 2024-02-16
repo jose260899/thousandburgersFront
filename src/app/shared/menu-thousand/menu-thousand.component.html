@@ -1,7 +1,7 @@
 <section id="contact" class="py-16 bg-gray-900 ">
 
   @for (menuItem of menuItems; track menuItems) {
-  @if (menuItem.name === 'Entrantes') {
+  @if (menuItem.name === 'Starter') {
   <div class="text-2xl text-center mt-4 mb-12">{{ menuItem.name }}</div>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
     @for (entrante of entrantes; track entrantes) {
@@ -23,7 +23,7 @@
     }
     }
   </div>
-  }@else if (menuItem.name === 'Principales') {
+  }@else if (menuItem.name === 'Main') {
   <div class="text-2xl text-center mt-4 mb-12">{{ menuItem.name }}</div>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     @for (principal of principales; track principales) {
@@ -45,7 +45,7 @@
     }
     }
   </div>
-  }@else if (menuItem.name === 'Postres') {
+  }@else if (menuItem.name === 'Dessert') {
   <div class="text-2xl text-center mt-4 mb-12">{{ menuItem.name }}</div>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     @for (postre of postres; track postres) {

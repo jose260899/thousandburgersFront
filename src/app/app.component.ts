@@ -42,7 +42,7 @@ export class AppComponent {
   title = 'thousandburgersFront';
 
 
-  ngOnInit() {
+  ngOnInit():void {
     initFlowbite();
   }
 

@@ -22,7 +22,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(), provideHttpClient(),
     //{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
     provideHttpClient(withInterceptors([authInterceptor])),
-    
   ],
  
 };

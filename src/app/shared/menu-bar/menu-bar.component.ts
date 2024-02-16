@@ -9,6 +9,8 @@ import { RouterModule } from '@angular/router';
 import { Renderer2, ElementRef } from '@angular/core';
 import { SessionEmployeeService } from '../../services/session.employee.service';
 import { EmployeeService } from '../../services/employee.service';
+import { initFlowbite } from 'flowbite';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -17,7 +19,7 @@ import { EmployeeService } from '../../services/employee.service';
   templateUrl: './menu-bar.component.html',
   styleUrls: ['./menu-bar.component.scss'],
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, CommonModule],
 
 })
 export class MenuBarComponent implements OnInit {
@@ -33,6 +35,9 @@ export class MenuBarComponent implements OnInit {
   isLoggedInEmployee: boolean = false;
 
   showModal: boolean = false;
+
+
+
 
 
 
@@ -99,6 +104,8 @@ export class MenuBarComponent implements OnInit {
   }
 
   ngOnInit() {
+    initFlowbite();
+
      this.oSessionService.on().subscribe({
       next: (data: SessionEvent) => {
         if (data.type == 'login') {

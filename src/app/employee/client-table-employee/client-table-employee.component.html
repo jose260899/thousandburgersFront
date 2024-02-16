@@ -1,53 +1,47 @@
-
 @if (status != null) {
 
-  <section class="h-screen flex items-center justify-center bg-gray-900 text-center">
-    <div>
-      {{ status!.error.message }}
-    </div>
-  </section>
-  }
+<section class="h-screen flex items-center justify-center bg-gray-900 text-center">
+  <div>
+    {{ status!.error.message }}
+  </div>
+</section>
+}
 
- 
+
 @if (status==null) {
-  <section class=" py-16 bg-gray-900 text-center "> 
+<section class=" py-16 bg-gray-900 text-center ">
   <div class="flex justify-center mt-12 -mb-12">
-    <p-paginator class="text-center"
-      (onPageChange)="onPageChang($event)"
-      [first]="oPaginatorState.first!"
-      [rows]="oPaginatorState.rows!"
-      [totalRecords]="oPage?.totalElements || 0">
+    <p-paginator class="text-center" (onPageChange)="onPageChang($event)" [first]="oPaginatorState.first!"
+      [rows]="oPaginatorState.rows!" [totalRecords]="oPage?.totalElements || 0">
     </p-paginator>
-   
+
 
   </div>
-  </section>
-  
+</section>
+
 }
 
 @if (status==null) {
-  <section class=" py-16 bg-gray-900 text-center -mt-12"> 
-  <div class="flex justify-center">
-    <div class="w-1/2">
-      <div class="text-center">
-        <div class="bg-gray-900 p-4 rounded">
+<section class=" py-16 bg-gray-900 text-center -mt-12">
+
           <h1 class="text-2xl font-bold mb-4">Clients</h1>
-          <table class="table-auto w-full bg-gray-700 text-white border border-gray-600">
-            <thead>
-              <tr>
-                <th class="py-2">ID</th>
-                <th class="py-2">Name</th>
-                <th class="py-2">Telephone</th>
-                <th class="py-2">Birth Date</th>
-                <th class="py-2">Email</th>
-                <th class="py-2">Username</th>
-                <th class="py-2">Verified</th>
-                <th class="py-2">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (client of oPage?.content; track clients) {
-                <tr >
+          <div class="relative overflow-x-auto mr-20 ml-20">
+            <table class="table-auto w-full bg-gray-700 text-white border border-gray-600 ">
+              <thead>
+                <tr>
+                  <th class="py-2">ID</th>
+                  <th class="py-2">Name</th>
+                  <th class="py-2">Telephone</th>
+                  <th class="py-2">Birth Date</th>
+                  <th class="py-2">Email</th>
+                  <th class="py-2">Username</th>
+                  <th class="py-2">Verified</th>
+                  <th class="py-2">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (client of oPage?.content; track clients) {
+                <tr>
                   <td class="py-2 px-3">{{client.id}}</td>
                   <td class="py-2 px-3">{{client.name}}</td>
                   <td class="py-2 px-3">{{client.telephone}}</td>
@@ -55,37 +49,36 @@
                   <td class="py-2 px-3">{{client.email}}</td>
                   <td class="py-2">{{client.username}}</td>
                   @if (client.verified) {
-                    <td class="py-2">Yes</td>
-
+                  <td class="py-2">Yes</td>
+  
                   }@else {
-                    <td class="py-2">No</td>
+                  <td class="py-2">No</td>
                   }
-
+  
                   <td class="py-2">
-                    <a class="button bg-blue-500 hover:bg-blue-700 text-white mr-2" (click)="view(client.id)">
+                    <a class="button bg-blue-500 hover:bg-blue-700 text-white m-2" (click)="view(client.id)">
                       <span class="icon is-small is-left">
                         <fa-icon [icon]="faEye"></fa-icon>
                       </span>
                     </a>
-                    <a class="button bg-blue-500 hover:bg-blue-700 text-white mr-2" >
+                    <a class="button bg-blue-500 hover:bg-blue-700 text-white m-2" (click)="edit(client.id)">
                       <span class="icon is-small is-left">
                         <fa-icon [icon]="faPen"></fa-icon>
                       </span>
                     </a>
-                    <a class="button bg-red-500 hover:bg-red-700 text-white" (click)="delete(client.id)">
+                    <a class="button bg-red-500 hover:bg-red-700 text-white m-2" (click)="delete(client.id)">
                       <span class="icon is-small is-left">
                         <fa-icon [icon]="faTrash"></fa-icon>
                       </span>
                     </a>
                   </td>
                 </tr>
-              }
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
+                }
+              </tbody>
+            </table>
+          </div>
+          
+        
 
 
 
@@ -94,61 +87,116 @@
 
 
 @if (showModal) {
-  <div class="modal-container fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 ">
-    <div class="bg-gray-800 p-8 rounded shadow-lg">
-      @if (!viewMode) {
-        <p class="mb-4 text-lg text-white">Are you sure you want to delete?</p>
-      } @else if (viewMode) {
-        <p class="mb-4 text-lg text-white">Client Details</p>
-      }
-      <div class="flex flex-col justify-center">
-        <div class="overflow-x-auto justify-center">
-          <table class="table-auto bg-gray-700 text-white border border-gray-600">
-            <tbody>
-              <tr>
-                <td class="py-2 px-2 text-gray-400">ID</td>
-                <td class="py-2 text-gray-400">{{client?.id}}</td>
-              </tr>
-              <tr>
-                <td class="py-2 px-2 text-gray-400">Name</td>
-                <td class="py-2 text-gray-400">{{client?.name}}</td>
-              </tr>
-              <tr>
-                <td class="py-2 px-2 text-gray-400">Telephone</td>
-                <td class="py-2 text-gray-400">{{client?.telephone}}</td>
-              </tr>
-              <tr>
-                <td class="py-2 px-2 text-gray-400">Birth Date</td>
-                <td class="py-2 text-gray-400">{{client?.birthDate}}</td>
-              </tr>
-              <tr>
-                <td class="py-2 px-2 text-gray-400">Email</td>
-                <td class="py-2 text-gray-400">{{client?.email}}</td>
-              </tr>
-              <tr>
-                <td class="py-2 px-2 text-gray-400">Username</td>
-                <td class="py-2 text-gray-400">{{client?.username}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+<div class="modal-container fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 ">
+  <div class="bg-gray-800 p-8 rounded shadow-lg">
+    @if (!viewMode) {
+    <p class="mb-4 text-lg text-white">Are you sure you want to delete?</p>
+    } @else if (viewMode) {
+    <p class="mb-4 text-lg text-white">Client Details</p>
+    }
+    <div class="flex flex-col justify-center">
+      <div class="overflow-x-auto justify-center">
+        <table class="table-auto bg-gray-700 text-white border border-gray-600">
+          <tbody>
+            <tr>
+              <td class="py-2 px-2 text-gray-400">ID</td>
+              <td class="py-2 text-gray-400">{{client?.id}}</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-2 text-gray-400">Name</td>
+              <td class="py-2 text-gray-400">{{client?.name}}</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-2 text-gray-400">Telephone</td>
+              <td class="py-2 text-gray-400">{{client?.telephone}}</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-2 text-gray-400">Birth Date</td>
+              <td class="py-2 text-gray-400">{{client?.birthDate}}</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-2 text-gray-400">Email</td>
+              <td class="py-2 text-gray-400">{{client?.email}}</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-2 text-gray-400">Username</td>
+              <td class="py-2 text-gray-400">{{client?.username}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      @if (!viewMode) {
-        <div class="flex justify-end mt-12">
-        <button (click)="cancelDelete()" class="px-4 py-2 text-sm bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
-        <button (click)="confirmDelete()"
-          class="ml-2 px-4 py-2 text-sm bg-red-500 text-white rounded hover:bg-red-600">Delete</button>
-      </div>
-      } @else if (viewMode) {
-        <button (click)="cancelDelete()" class="px-4 py-2 mt-8 text-sm bg-gray-300 rounded hover:bg-gray-400">Close</button>
-  
-      }
-      
     </div>
+    @if (!viewMode) {
+    <div class="flex justify-end mt-12">
+      <button (click)="cancelDelete()" class="px-4 py-2 text-sm bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
+      <button (click)="confirmDelete()"
+        class="ml-2 px-4 py-2 text-sm bg-red-500 text-white rounded hover:bg-red-600">Delete</button>
+    </div>
+    } @else if (viewMode) {
+    <button (click)="cancelDelete()" class="px-4 py-2 mt-8 text-sm bg-gray-300 rounded hover:bg-gray-400">Close</button>
+
+    }
+
   </div>
-  }
+</div>
 }
 
-       
+@if (showModalForm) {
+<div class="modal-container fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 ">
+  <div class="bg-gray-800 p-8 rounded shadow-lg">
+    <h2 class="mb-4 text-lg text-center text-gray-300 ">Edit</h2>
+    <div class="p-4 md:p-5">
+      <form [formGroup]="clientForm" (ngSubmit)="onSubmit()" class="space-y-4" action="#">
+        <div>
+          <label class="text-center block mb-2 text-sm font-medium text-white dark:text-white">Id</label>
+          <input type="text" formControlName="id"
+            class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            [value]="clientForm.get('id')?.value" readonly>
+        </div>
+        <div>
+          <label class="text-center block mb-2 text-sm font-medium text-white dark:text-white">
+            Name</label>
+          <input type="text" formControlName="name"
+            class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            [value]="clientForm.get('name')?.value" required>
+        </div>
+
+        <div>
+          <label class="text-center block mb-2 text-sm font-medium text-white dark:text-white">
+            Telephone</label>
+          <input type="text" formControlName="telephone"
+            class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            [value]="clientForm.get('telephone')?.value" required>
+        </div>
+        <div>
+          <label class="text-center block mb-2 text-sm font-medium text-white dark:text-white">
+            Verified
+          </label>
+          <div class="flex justify-center text-center">
+            <label class="inline-flex items-center mr-4">
+              
+              <input type="radio" formControlName="verified" value="true"
+                class="text-blue-500 form-radio focus:ring-blue-500 focus:border-blue-500 dark:text-white" [checked]="clientForm.get('verified')?.value === true">
+              <span class="ml-2">Yes</span>
+            </label>
+            <label class="inline-flex items-center">
+              <input type="radio" formControlName="verified" value="false"
+                class="text-red-500 form-radio focus:ring-red-500 focus:border-red-500 dark:text-white" [checked]="clientForm.get('verified')?.value === false">
+              <span class="ml-2">No</span>
+            </label>
+          </div>
+        </div>
 
 
+
+      </form>
+    </div>
+    <div class="flex justify-end">
+      <button (click)="closeModal()" class="px-4 py-2 text-sm bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
+      <button (click)="confirmEdit()"
+        class="ml-2 px-4 py-2 text-sm bg-green-500 text-white rounded hover:bg-green-600">Confirm</button>
+    </div>
+  </div>
+</div>
+}
+}

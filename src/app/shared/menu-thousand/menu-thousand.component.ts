@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductTypeService } from '../../services/product.type.service';
-import { SessionService } from '../../services/session.service';
 import { IProduct, IProductType } from '../../interfaces/modelInterfaces';
 import { HttpErrorResponse } from '@angular/common/http';
 import { config } from 'rxjs';
@@ -24,7 +23,6 @@ export class MenuThousandComponent implements OnInit {
 
   constructor(
     private oProductTypeService: ProductTypeService,
-    private oSessionService: SessionService,
     private oProductService: ProductService,
   ) { }
 
