@@ -47,6 +47,8 @@ export class ClientTableEmployeeComponent implements OnInit {
   clientForm!: FormGroup;
 
 
+  modalCreate: boolean = false;
+
 
 
   client: IClient | undefined;
@@ -59,7 +61,7 @@ export class ClientTableEmployeeComponent implements OnInit {
     private router: Router,
   ) {
 
-    
+
   }
 
   initializeForm(oClient: IClient) {
@@ -69,13 +71,24 @@ export class ClientTableEmployeeComponent implements OnInit {
       telephone: [oClient.telephone, [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
       birthDate: [oClient.birthDate, [Validators.required]],
       verified: [oClient.verified, [Validators.required]],
+    });
+  }
+
+  initializeFormCreate(oClient: IClient) {
+    this.clientForm = this.oFormBuilder.group({
+      name: [oClient.name, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
+      telephone: [oClient.telephone, [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
+      birthDate: [oClient.birthDate, [Validators.required]],
+      email: [oClient.email, [Validators.required]],
+      username: [oClient.username, [Validators.required]],
+      verified: [oClient.verified, [Validators.required]]
 
     });
   }
 
   ngOnInit() {
     this.getPage();
-    this.initializeForm(this.oClient);
+   
   }
 
   getPage(): void {
@@ -114,7 +127,9 @@ export class ClientTableEmployeeComponent implements OnInit {
     });
   }
 
-  edit(id:number) {
+  edit(id: number) {
+    this.initializeForm(this.oClient);
+
     // Muestra el modal de confirmación
     this.oClientService.getOne(id).subscribe({
       next: (data: IClient) => {
@@ -129,15 +144,15 @@ export class ClientTableEmployeeComponent implements OnInit {
           // Otros campos del formulario
         });
         this.showModalForm = true;
-    
+
 
       },
       error: (error: HttpErrorResponse) => {
         this.status = error;
       }
     });
-    
-    
+
+
   }
 
   delete(id: number) {
@@ -175,31 +190,57 @@ export class ClientTableEmployeeComponent implements OnInit {
     this.showModalForm = false;
     this.onSubmit();
   }
-  
+
+  confirmCreate() {
+    // Cierra el modal de confirmación y realiza el logout
+    this.modalCreate = false;
+    this.onSubmitCreate();
+  }
+
   closeModal() {
     // Cierra el modal de confirmación sin realizar el logout
     this.showModalForm = false;
+    this.modalCreate = false;
   }
 
-  
 
+  create(){
+    this.modalCreate = true;
+     this.initializeFormCreate(this.oClient);
+  }
 
 
   onSubmit() {
     // if (this.clientForm.valid) {
- 
-       this.oClientService.updateForAdmin(this.clientForm.value).subscribe({
-         next: (data: IClient) => {
-           this.oClient = data;
-           this.initializeForm(this.oClient);
-           this.getPage();
- 
-         },
-         error: (error: HttpErrorResponse) => {
-           this.status = error;
-         }
-       })
-     }
+
+    this.oClientService.updateForAdmin(this.clientForm.value).subscribe({
+      next: (data: IClient) => {
+        this.oClient = data;
+        this.initializeForm(this.oClient);
+        this.getPage();
+
+      },
+      error: (error: HttpErrorResponse) => {
+        this.status = error;
+      }
+    })
+  }
+
+  onSubmitCreate() {
+    // if (this.clientForm.valid) {
+    console.log(this.clientForm.value);
+    this.oClientService.newOneForAdmins(this.clientForm.value).subscribe({
+      next: (data: IClient) => {
+        this.oClient = data;
+        this.initializeFormCreate(this.oClient);
+        this.getPage();
+
+      },
+      error: (error: HttpErrorResponse) => {
+        this.status = error;
+      }
+    })
+  }
 
 
 

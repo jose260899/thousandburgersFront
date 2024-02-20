@@ -1,107 +1,118 @@
 <!-- Sección de bienvenida -->
-<section class="bg-gray-900 text-gray-400 py-16 text-center">
-  <div class="container mx-auto">
-    <h1 class="text-4xl font-bold mb-4">
-      Bienvenido a Thousand Burgers
-    </h1>
-    <h2 class="text-lg">
-      Descubre la deliciosa variedad de hamburguesas que ofrecemos
-    </h2>
-  </div>
-</section>
 
-<!-- Sección de Menú -->
-<section id="menu" class="py-16 bg-gray-900">
-  <div class="container mx-auto">
-    <h2 class="text-4xl text-center mb-8 text-gray-400">Nuestro Menú</h2>
 
-    <div class="hidden md:grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-500">
-      <div class="mb-8"> 
-        <div class="bg-gray-900 p-4 rounded">
-          <p class="text-2xl font-bold mb-2">Thousand Deluxe</p>
-          <p class="text-lg">Nuestra hamburguesa clásica con queso cheddar, lechuga, tomate y nuestra especial salsa
-            Thousand.</p>
+
+<section class="bg-gray-900 text-gray-400 py-16 text-center ">
+  <section class="bg-gray-900 text-gray-400 py-16 text-center ml-2 mr-2">
+    <div class="container mx-auto">
+      <h1 class="text-4xl font-bold mb-4">
+        Bienvenido a Thousand Burgers
+      </h1>
+      <h2 class="text-lg">
+        Descubre la deliciosa variedad de hamburguesas que ofrecemos
+      </h2>
+    </div>
+  </section>
+
+  <!-- Sección de Menú -->
+  <section id="menu" class="py-16 bg-gray-900 ml-2 mr-2">
+    <div class="container mx-auto">
+      <h2 class="text-4xl text-center mb-8 text-gray-400">Nuestro Menú</h2>
+
+      <div class="hidden md:grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-500">
+        <div class="mb-8">
+          <div class="bg-gray-900 p-4 rounded">
+            <p class="text-2xl font-bold mb-2">Thousand Deluxe</p>
+            <p class="text-lg">Nuestra hamburguesa clásica con queso cheddar, lechuga, tomate y nuestra especial salsa
+              Thousand.</p>
+          </div>
+        </div>
+
+        <div class="mb-8">
+          <div class="bg-gray-9200 p-4 rounded">
+            <p class="text-2xl font-bold mb-2">Veggie Paradise</p>
+            <p class="text-lg">Una opción vegetariana con una jugosa hamburguesa de garbanzos, aguacate, y mayonesa
+              vegana.</p>
+          </div>
+        </div>
+
+        <!-- Agrega más elementos de menú según sea necesario -->
+
+      </div>
+
+      <!-- Botón de redirección a la carta completa -->
+      <div class="text-center">
+        <a routerLink="/menu" class="button bg-gray-500 border-gray-500 text-gray-400 rounded-full px-6 py-2">Ver Carta
+          Completa</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección "Acerca de Nosotros" -->
+  <section id="about" class="py-16 bg-gray-900 ml-4 mr-4">
+    <div class="container mx-auto">
+      <h2 class="text-4xl text-center mb-8 text-gray-400">Acerca de Nosotros</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 items-center text-gray-500">
+        <div class="mb-8">
+          <p class="text-lg leading-relaxed">
+            En "Thousand Burgers", nuestra historia comenzó hace más de una década cuando un grupo de amigos apasionados
+            por la buena comida decidió compartir su amor por las hamburguesas con el mundo. Inspirados por la
+            diversidad
+            de sabores y texturas que se pueden lograr entre dos panes, nos propusimos crear algo único y
+            extraordinario.
+          </p>
+          <p class="leading-relaxed">
+            Nuestra misión es simple: ofrecer las hamburguesas más deliciosas y creativas, utilizando ingredientes
+            frescos
+            y de alta calidad. Cada hamburguesa en nuestro menú es una obra maestra cuidadosamente elaborada, con
+            combinaciones de sabores que te harán volver por más. Desde la clásica "Thousand Deluxe" hasta nuestras
+            opciones vegetarianas y veganas, hay algo para todos los amantes de las hamburguesas en "Thousand Burgers".
+          </p>
+          <p class="leading-relaxed">
+            Más allá de la comida, creemos en crear una experiencia acogedora y memorable para nuestros clientes.
+            Nuestro
+            espacio está diseñado para que te sientas como en casa, ya sea que vengas solo, con amigos o en familia.
+            Cada
+            visita a "Thousand Burgers" es una celebración de la buena comida, la amistad y la satisfacción de los
+            sentidos.
+          </p>
+        </div>
+        <div>
+          <!-- Imagen emotiva -->
+          <img
+            src="https://img5.s3wfg.com/web/img/images_uploaded/8/a/ep_el_restaurante_americano_jenkins_y_su_hamburguesa_emmy-b_consiguen_el_titulo_de_mejor_hamburguesa_780x440.jpg"
+            alt="Hamburguesas deliciosas en Thousand Burgers" class="w-full h-auto rounded">
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="mb-8">
-        <div class="bg-gray-9200 p-4 rounded">
-          <p class="text-2xl font-bold mb-2">Veggie Paradise</p>
-          <p class="text-lg">Una opción vegetariana con una jugosa hamburguesa de garbanzos, aguacate, y mayonesa
-            vegana.</p>
+  <!-- Sección de Contacto -->
+  <section id="contact" class="py-16 bg-gray-900 text-center ml-3 mr-3">
+    <div class="container mx-auto">
+      <h2 class="text-4xl text-center mb-8 text-gray-400 font-semibold">Contacto</h2>
+
+      <!-- Información de contacto adicional -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-700">
+
+        <div class="mb-8 rounded-lg overflow-hidden">
+          <iframe width="100%" height="350"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-0.38151741027832037%2C39.468866217958556%2C-0.36360025405883795%2C39.47635305113179&amp;layer=mapnik"
+            style="border: 1px solid black"></iframe>
+          <small class="block text-center mt-2">
+            <a href="https://www.openstreetmap.org/#map=17/39.47261/-0.37256" class="text-blue-500 hover:underline">Ver
+              el mapa más grande</a>
+          </small>
+        </div>
+
+        <div class="mb-4 -ml-20">
+          <p class="text-lg">Visítanos en:</p>
+          <p>Dirección: Calle de Ejemplo, Ciudad</p>
+          <p>Teléfono: +123 456 789</p>
+          <p>Correo Electrónico: infoexample.com</p>
         </div>
       </div>
-
-      <!-- Agrega más elementos de menú según sea necesario -->
-
     </div>
 
-    <!-- Botón de redirección a la carta completa -->
-    <div class="text-center">
-      <a routerLink="/menu" class="button bg-gray-500 border-gray-500 text-gray-400 rounded-full px-6 py-2">Ver Carta
-        Completa</a>
-    </div>
-  </div>
-</section>
-
-<!-- Sección "Acerca de Nosotros" -->
-<section id="about" class="py-16 bg-gray-900 ">
-  <div class="container mx-auto">
-    <h2 class="text-4xl text-center mb-8 text-gray-400">Acerca de Nosotros</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 items-center text-gray-500">
-      <div class="mb-8">
-        <p class="text-lg leading-relaxed">
-          En "Thousand Burgers", nuestra historia comenzó hace más de una década cuando un grupo de amigos apasionados
-          por la buena comida decidió compartir su amor por las hamburguesas con el mundo. Inspirados por la diversidad
-          de sabores y texturas que se pueden lograr entre dos panes, nos propusimos crear algo único y extraordinario.
-        </p>
-        <p class="leading-relaxed">
-          Nuestra misión es simple: ofrecer las hamburguesas más deliciosas y creativas, utilizando ingredientes frescos
-          y de alta calidad. Cada hamburguesa en nuestro menú es una obra maestra cuidadosamente elaborada, con
-          combinaciones de sabores que te harán volver por más. Desde la clásica "Thousand Deluxe" hasta nuestras
-          opciones vegetarianas y veganas, hay algo para todos los amantes de las hamburguesas en "Thousand Burgers".
-        </p>
-        <p class="leading-relaxed">
-          Más allá de la comida, creemos en crear una experiencia acogedora y memorable para nuestros clientes. Nuestro
-          espacio está diseñado para que te sientas como en casa, ya sea que vengas solo, con amigos o en familia. Cada
-          visita a "Thousand Burgers" es una celebración de la buena comida, la amistad y la satisfacción de los
-          sentidos.
-        </p>
-      </div>
-      <div>
-        <!-- Imagen emotiva -->
-        <img
-          src="https://img5.s3wfg.com/web/img/images_uploaded/8/a/ep_el_restaurante_americano_jenkins_y_su_hamburguesa_emmy-b_consiguen_el_titulo_de_mejor_hamburguesa_780x440.jpg"
-          alt="Hamburguesas deliciosas en Thousand Burgers" class="w-full h-auto rounded">
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Sección de Contacto -->
-<section id="contact" class="py-16 bg-gray-900 text-center">
-  <div class="container mx-auto">
-    <h2 class="text-4xl text-center mb-8 text-gray-400 font-semibold">Contacto</h2>
-  
-    <!-- Información de contacto adicional -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-700">
-  
-      <div class="mb-8 rounded-lg overflow-hidden">
-        <iframe width="100%" height="350"
-          src="https://www.openstreetmap.org/export/embed.html?bbox=-0.38151741027832037%2C39.468866217958556%2C-0.36360025405883795%2C39.47635305113179&amp;layer=mapnik"
-          style="border: 1px solid black"></iframe>
-        <small class="block text-center mt-2">
-          <a href="https://www.openstreetmap.org/#map=17/39.47261/-0.37256" class="text-blue-500 hover:underline">Ver el mapa más grande</a>
-        </small>
-      </div>
-  
-      <div class="mb-4 -ml-20">
-        <p class="text-lg">Visítanos en:</p>
-        <p>Dirección: Calle de Ejemplo, Ciudad</p>
-        <p>Teléfono: +123 456 789</p>
-        <p>Correo Electrónico: infoexample.com</p>
-      </div>
-    </div>
-  </div>
-  
+  </section>
 </section>

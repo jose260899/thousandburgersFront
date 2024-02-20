@@ -10,12 +10,16 @@
 
 @if (status==null) {
 <section class=" py-16 bg-gray-900 text-center ">
-  <div class="flex justify-center mt-12 -mb-12">
-    <p-paginator class="text-center" (onPageChange)="onPageChang($event)" [first]="oPaginatorState.first!"
-      [rows]="oPaginatorState.rows!" [totalRecords]="oPage?.totalElements || 0">
-    </p-paginator>
+    <div class="flex justify-center mt-12 -mb-12">
+      <p-paginator class="text-center" (onPageChange)="onPageChang($event)" [first]="oPaginatorState.first!"
+        [rows]="oPaginatorState.rows!" [totalRecords]="oPage?.totalElements || 0">
+      </p-paginator>
+    </div>
+</section>
 
-
+<section class=" py-2 bg-gray-900 text-center ">
+  <div class="flex justify-end mt-12 -mb-2 mr-56">
+    <button class="button bg-gray-300" (click)="create()">Create</button>
   </div>
 </section>
 
@@ -24,7 +28,8 @@
 @if (status==null) {
 <section class=" py-16 bg-gray-900 text-center -mt-12">
 
-          <h1 class="text-2xl font-bold mb-4">Clients</h1>
+
+          <h1 class="text-2xl text-gray-200 font-bold mb-4 -mt-14">Clients</h1>
           <div class="relative overflow-x-auto mr-20 ml-20">
             <table class="table-auto w-full bg-gray-700 text-white border border-gray-600 ">
               <thead>
@@ -199,4 +204,81 @@
   </div>
 </div>
 }
+
+@if (modalCreate) {
+  <div class="modal-container fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 ">
+    <div class="bg-gray-800 p-8 rounded shadow-lg">
+      <h2 class="mb-4 text-lg text-center text-gray-300 ">Edit</h2>
+      <div class="p-4 md:p-5">
+        <form [formGroup]="clientForm" (ngSubmit)="onSubmitCreate()" class="space-y-4" action="#">
+        
+          <div>
+            <label class="text-center block mb-2 text-sm font-medium text-white dark:text-white">
+              Name</label>
+            <input type="text" formControlName="name"
+              class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              required>
+          </div>
+  
+          <div>
+            <label class="text-center block mb-2 text-sm font-medium text-white dark:text-white">
+              Telephone</label>
+            <input type="text" formControlName="telephone"
+              class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+               required>
+          </div>
+
+          <div>
+            <label class="text-center block mb-2 text-sm font-medium text-white dark:text-white">
+              Birth Date</label>
+            <input type="date" formControlName="birthDate"
+              class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+               required>
+          </div>
+          <div>
+            <label class="text-center block mb-2 text-sm font-medium text-white dark:text-white">
+              Email</label>
+            <input type="email" formControlName="email"
+              class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+               required>
+          </div>
+          <div>
+            <label class="text-center block mb-2 text-sm font-medium text-white dark:text-white">
+              Username</label>
+            <input type="text" formControlName="username"
+              class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+               required>
+          </div>
+          <div>
+            <label class="text-center block mb-2 text-sm font-medium text-white dark:text-white">
+              Verified
+            </label>
+            <div class="flex justify-center text-center">
+              <label class="inline-flex items-center mr-4">
+                
+                <input type="radio" formControlName="verified" value="true"
+                  class="text-blue-500 form-radio focus:ring-blue-500 focus:border-blue-500 dark:text-white" [checked]="clientForm.get('verified')?.value === true">
+                <span class="ml-2">Yes</span>
+              </label>
+              <label class="inline-flex items-center">
+                <input type="radio" formControlName="verified" value="false"
+                  class="text-red-500 form-radio focus:ring-red-500 focus:border-red-500 dark:text-white" [checked]="clientForm.get('verified')?.value === false">
+                <span class="ml-2">No</span>
+              </label>
+            </div>
+          </div>
+  
+  
+  
+        </form>
+      </div>
+      <div class="flex justify-end">
+        <button (click)="closeModal()" class="px-4 py-2 text-sm bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
+        <button (click)="confirmCreate()"
+          class="ml-2 px-4 py-2 text-sm bg-green-500 text-white rounded hover:bg-green-600">Confirm</button>
+      </div>
+    </div>
+  </div>
+}
+
 }

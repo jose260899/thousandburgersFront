@@ -20,6 +20,10 @@ export class ClientAjaxService {
     return this.oHttpClient.post<IClient>(this.sUrl + "/forclients", oClient);
   }
 
+  newOneForAdmins(oClient: IClient): Observable<IClient> {
+    return this.oHttpClient.post<IClient>(this.sUrl + "/forAdmins", oClient);
+  }
+
   getByUsername(username: string): Observable<IClient> {
     return this.oHttpClient.get<IClient>(this.sUrl + "/byUsername/" + username);
   }

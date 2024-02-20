@@ -21,8 +21,10 @@
   <div class="flex justify-center">
     <div class="w-1/2">
       <div class="text-center">
-        <div class="bg-gray-900 p-4 rounded">
+        <div class="bg-gray-900 p-4 rounded ">
           <h1 class="text-2xl font-bold mb-4">Books</h1>
+          <div class="relative overflow-x-auto">
+
           <table class="table-auto w-full bg-gray-700 text-white border border-gray-600">
             <thead>
               <tr>
@@ -39,18 +41,18 @@
                 <td class="py-2">{{booking.date}}</td>
                 <td class="py-2">{{booking.time_zone.hour}}</td>
                 <td class="py-2">
-                  <a class="button bg-blue-500 hover:bg-blue-700 text-white mr-2">
+                  <a class="button bg-blue-500 hover:bg-blue-700 text-white mr-2 mb-2">
                     <span class="icon is-small is-left">
                       <fa-icon [icon]="faEye"></fa-icon>
                     </span>
                   </a>
-                  <a class="button bg-blue-500 hover:bg-blue-700 text-white mr-2" (click)="doEditBooking(booking.id)">
+                  <a class="button bg-blue-500 hover:bg-blue-700 text-white mr-2 mb-2" (click)="doEditBooking(booking.id)">
                     <span class="icon is-small is-left">
                       <fa-icon [icon]="faPen"></fa-icon>
                     </span>
                   </a>
                   <!--@if (booking.date > dateToday) {-->
-                  <a class="button bg-red-500 hover:bg-red-700 text-white" (click)="doRemoveBooking(booking.id)">
+                  <a class="button bg-red-500 hover:bg-red-700 text-white mr-2" (click)="doRemoveBooking(booking.id)">
                     <span class="icon is-small is-left">
                       <fa-icon [icon]="faTrash"></fa-icon>
                     </span>
@@ -61,6 +63,7 @@
               }
             </tbody>
           </table>
+          </div>
         </div>
       </div>
     </div>
