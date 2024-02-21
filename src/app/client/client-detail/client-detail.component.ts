@@ -50,7 +50,7 @@ export class ClientDetailComponent implements OnInit {
     this.clientForm = this.oFormBuilder.group({
       id: [oClient.id],
       name: [oClient.name, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
-      telephone: [oClient.telephone, [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
+      telephone: [oClient.telephone, [Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern("^[0-9]*$")]],
       birthDate: [oClient.birthDate, [Validators.required]],
 
     });
@@ -116,9 +116,13 @@ export class ClientDetailComponent implements OnInit {
     this.showModal = false;
   }
 
+  public hasError = (controlName: string, errorName: string) => {
+    return this.clientForm.controls[controlName].hasError(errorName);
+  }
+
 
   onSubmit() {
-   // if (this.clientForm.valid) {
+    if (this.clientForm.valid) {
 
       this.oClientAjaxService.updateForClients(this.clientForm.value).subscribe({
         next: (data: IClient) => {
@@ -137,5 +141,5 @@ export class ClientDetailComponent implements OnInit {
       //console.log("Error en el formulario");
     //}
 
- // }
+ }
 }

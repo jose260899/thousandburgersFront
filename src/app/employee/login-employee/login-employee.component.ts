@@ -47,10 +47,13 @@ export class LoginEmployeeComponent implements OnInit {
   ngOnInit() {
   }
 
+  public hasError = (controlName: string, errorName: string) => {
+    return this.loginForm.controls[controlName].hasError(errorName);
+  }
+
   onSubmit() {
 
     if (this.loginForm.valid) {
-
       this.oSessionService.login(this.loginForm.value.username,this.loginForm.value.password).subscribe({
         next: (data: string) => {
           this.oSessionService.setToken(data);

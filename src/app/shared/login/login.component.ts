@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { API_URL } from '../../environment/environment';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'; // Asegúrate de importar FormsModule
 import { SessionService } from '../../services/session.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { IToken, SessionEvent } from '../../interfaces/modelInterfaces';
 import { ClientAjaxService } from '../../services/client.ajax.service';
-import { IClient, IClientPage } from '../../interfaces/modelInterfaces';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons';
 import { CryptoService } from '../../services/crypto.service';
@@ -23,6 +18,7 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     ReactiveFormsModule,
     FontAwesomeModule,
     NgxCaptchaModule,
+    
 
 
   ],
@@ -65,6 +61,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  public hasError = (controlName: string, errorName: string) => {
+    return this.loginForm.controls[controlName].hasError(errorName);
+  }
+
 
   ngOnInit() {
     this.initializeForm();
@@ -79,10 +79,7 @@ export class LoginComponent implements OnInit {
         next: (data: string) => {
           this.oSessionService.setToken(data);
           this.oSessionService.emit({ type: 'login' });
-
           this.oRouter.navigate(['/home']);
-
-
         },
         error: (error: HttpErrorResponse) => {
           this.status = error;

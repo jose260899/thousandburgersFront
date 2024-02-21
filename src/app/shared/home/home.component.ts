@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     initFlowbite();
-
+    console.log('HomeComponent.ngOnInit');
     
   }
 
