@@ -48,6 +48,9 @@ export interface IClientPage extends IPage<IClient> {
 export interface IBookingPage extends IPage<IBooking> {
 }
 
+export interface IEmployeePage extends IPage<IEmployee> {
+}
+
 
 export interface IClient extends IEntity {
     username: string,
@@ -66,7 +69,7 @@ export interface IEmployee extends IEntity {
     name: string,
     dni: string,
     telephone: string,
-    birth_date: Date,
+    birthDate: Date,
     role: string,
     username: string,
     password: string,

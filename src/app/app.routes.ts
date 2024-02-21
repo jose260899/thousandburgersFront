@@ -14,6 +14,7 @@ import { ClientTableEmployeeComponent } from './employee/client-table-employee/c
 import { BooksTableEmployeeComponent } from './employee/books-table-employee/books-table-employee.component';
 import { EmployeeDetailsComponent } from './employee/employee-details/employee-details.component';
 import { TablesPageEmployeeComponent } from './employee/tables-page-employee/tables-page-employee.component';
+import { EmployeeTableEmployeeComponent } from './employee/employee-table-employee/employee-table-employee.component';
 
 
 export const routes: Routes = [
@@ -30,5 +31,6 @@ export const routes: Routes = [
     { path: 'clientsPlistEmployee', component:ClientTableEmployeeComponent },
     { path: 'booksPlistEmployee', component:BooksTableEmployeeComponent },
     { path: 'employeeDetails', component:EmployeeDetailsComponent },
-    { path: 'tablesEmployee' ,component: TablesPageEmployeeComponent }
+    { path: 'tablesEmployee' ,component: TablesPageEmployeeComponent },
+    { path: 'employeePlist' ,component: EmployeeTableEmployeeComponent },
 ];

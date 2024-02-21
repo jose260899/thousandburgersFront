@@ -10,6 +10,15 @@
       <input type="text" formControlName="name"
         class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
         placeholder=" " required />
+        @if (clientForm.get('name')?.touched && hasError('name', 'required')) {
+          <div  class="text-red-500 text-sm mt-1">Name is required</div>
+        }@else if (clientForm.get('name')?.touched && hasError('name', 'minlength')) {
+        <div  class="text-red-500 text-sm mt-1">Name must be at least 3 characters</div>
+
+        }@else if (clientForm.get('name')?.touched && hasError('name', 'maxlength')) {
+          <div class="text-red-500 text-sm mt-1">Name must be at most 255 characters</div>
+        }
+   
       <label 
         class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Name
       </label>
@@ -18,13 +27,26 @@
       <input type="text" formControlName="telephone"
         class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
         placeholder=" " required />
-      <label for="floating_password"
+
+        @if (clientForm.get('telephone')?.touched && hasError('telephone', 'required')) {
+          <div  class="text-red-500 text-sm mt-1">telephone is required</div>
+        }@else if (clientForm.get('telephone')?.touched && hasError('telephone', 'minlength')) {
+        <div  class="text-red-500 text-sm mt-1">telephone must be at least 9 characters</div>
+        }@else if (clientForm.get('telephone')?.touched && hasError('telephone', 'maxlength')) {
+          <div class="text-red-500 text-sm mt-1">telephone must be at most 9 characters</div>
+        }@else if (clientForm.get('telephone')?.touched && hasError('telephone', 'pattern')) {
+          <div class="text-red-500 text-sm mt-1">telephone must be a number</div>
+        }
+      <label
         class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Telephone</label>
     </div>
     <div class="relative z-0 w-full mb-5 group">
-      <input datepicker type="text"  formControlName="birthDate"
+      <input  type="date"  formControlName="birthDate"
         class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
         placeholder=" " required />
+        @if (clientForm.get('birthDate')?.touched && hasError('birthDate', 'required')) {
+          <div  class="text-red-500 text-sm mt-1">Birth date is required</div>
+        }
       <label for="floating_repeat_password"
         class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Birht date</label>
     </div>
@@ -32,7 +54,12 @@
       <input type="email" formControlName="email"
         class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
         placeholder=" " required />
-      <label for="floating_password"
+        @if (clientForm.get('email')?.touched && hasError('email', 'required')) {
+          <div  class="text-red-500 text-sm mt-1">Email is required</div>
+        }@else if (clientForm.get('email')?.touched && hasError('email', 'email')) {
+        <div  class="text-red-500 text-sm mt-1">Email must be a valid email</div>
+        }
+      <label 
         class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
     </div>
     <div class="grid md:grid-cols-2 md:gap-6">
@@ -40,6 +67,15 @@
         <input type="text" formControlName="username" 
           class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" " required />
+          @if (clientForm.get('username')?.touched && hasError('username', 'required')) {
+            <div  class="text-red-500 text-sm mt-1">Username is required</div>
+          }@else if (clientForm.get('username')?.touched && hasError('username', 'minlength')) {
+          <div  class="text-red-500 text-sm mt-1">Username must be at least 6 characters</div>
+          }@else if (clientForm.get('username')?.touched && hasError('username', 'maxlength')) {
+            <div class="text-red-500 text-sm mt-1">Username must be at most 16 characters</div>
+          }@else if (clientForm.get('username')?.touched && hasError('username', 'pattern')) {
+            <div class="text-red-500 text-sm mt-1">Username must be a valid username</div>
+          }
         <label for="floating_phone"
           class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Username</label>
       </div>
@@ -47,14 +83,24 @@
         <input type="password" formControlName="password"
           class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" " required />
+          @if (clientForm.get('password')?.touched && hasError('password', 'required')) {
+            <div  class="text-red-500 text-sm mt-1">password is required</div>
+          }@else if (clientForm.get('password')?.touched && hasError('password', 'minlength')) {
+          <div  class="text-red-500 text-sm mt-1">password must be at least 6 characters</div>
+          }@else if (clientForm.get('password')?.touched && hasError('password', 'maxlength')) {
+            <div class="text-red-500 text-sm mt-1">password must be at most 16 characters</div>
+          }@else if (clientForm.get('password')?.touched && hasError('password', 'pattern')) {
+            <div class="text-red-500 text-sm mt-1">password must be a valid password</div>
+          }
         <label for="floating_company"
           class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
       </div>
     </div>
     <div class="flex flex-col items-center">
-
-    <button type="submit"
+    @if (clientForm.valid) {
+      <button type="submit"
       class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+    }
     </div>
   </form>
 

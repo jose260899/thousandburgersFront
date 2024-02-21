@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -13,6 +13,7 @@ import { EmployeeService } from '../../services/employee.service';
 
 import { PaginatorState } from 'primeng/paginator';
 import { PaginatorModule } from 'primeng/paginator';
+import { Subject } from 'rxjs';
 
 
 @Component({
@@ -31,6 +32,9 @@ import { PaginatorModule } from 'primeng/paginator';
 })
 export class BooksTableEmployeeComponent implements OnInit {
 
+  @Input() forceReload: Subject<boolean> = new Subject<boolean>();
+
+  @Input() id_client: number = 0;
 
   faTrash = faTrash;
   faEye = faEye;
@@ -74,6 +78,7 @@ export class BooksTableEmployeeComponent implements OnInit {
     private oBookingsService: BooksService,
     private oFormBuilder: FormBuilder,
     private oTimeZoneService: TimeZoneService,
+    private oClientService: ClientAjaxService,
 
   ) {
     const today = new Date();
@@ -98,9 +103,31 @@ export class BooksTableEmployeeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getPage();
+    this.forceReload.subscribe({
+      next: (v) => {
+        if (v) {
+          this.getPage();
+        }
+      }
+    });
     this.fetchOptions();
     this.initializeForm(this.oBooking);
-    this.getPage();
+    //this.getPage();
+  }
+
+  getBookingsByClient(id_client:number) {
+    this.id_client = id_client;
+    this.oBookingsService.getPageByClient(this.id_client,this.oPaginatorState.rows, this.oPaginatorState.page, this.orderField, this.orderDirection).subscribe({
+      next: (data: IBookingPage) => {
+        this.oPage = data;
+        this.oPaginatorState.pageCount = data.totalPages;
+        console.log(this.oPaginatorState);
+      },
+      error: (error: HttpErrorResponse) => {
+        this.status = error;
+      }
+    })
   }
 
 
@@ -121,11 +148,13 @@ export class BooksTableEmployeeComponent implements OnInit {
 
 
   getPage(): void {
+    this.id_client = 0;
     this.oBookingsService.getPage(this.oPaginatorState.rows, this.oPaginatorState.page, this.orderField, this.orderDirection).subscribe({
       next: (data: IBookingPage) => {
         this.oPage = data;
         this.oPaginatorState.pageCount = data.totalPages;
         console.log(this.oPaginatorState);
+        console.log(this.oPage.content)
       },
       error: (error: HttpErrorResponse) => {
         this.status = error;
@@ -136,7 +165,11 @@ export class BooksTableEmployeeComponent implements OnInit {
   onPageChang(event: PaginatorState) {
     this.oPaginatorState.rows = event.rows;
     this.oPaginatorState.page = event.page;
-    this.getPage();
+    if(this.id_client > 0){
+      this.getBookingsByClient(this.id_client);
+    }else{
+      this.getPage();
+    }
   }
 
   doOrder(fieldorder: string) {
@@ -240,4 +273,16 @@ export class BooksTableEmployeeComponent implements OnInit {
     })
   }
 
+
+  getClient(): void {
+    this.oClientService.getOne(this.id_client).subscribe({
+      next: (data: IClient) => {
+        this.oClient = data;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.status = error;
+      }
+    });
+
+  }
 }

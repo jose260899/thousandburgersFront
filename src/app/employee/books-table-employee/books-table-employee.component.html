@@ -12,17 +12,21 @@
 @if (status==null) {
   <section class=" py-16 bg-gray-900 text-center "> 
   <div class="flex justify-center mt-12 -mb-12">
+    
     <p-paginator class="text-center"
       (onPageChange)="onPageChang($event)"
       [first]="oPaginatorState.first!"
       [rows]="oPaginatorState.rows!"
       [totalRecords]="oPage?.totalElements || 0">
     </p-paginator>
-   
+ 
 
   </div>
+  <div class="flex justify-center mt-24 -mb-16 ">
+    <button class="button bg-gray-500 border-gray-500 text-gray-100" (click)="getPage()">Reset filter</button>
+    </div>
   </section>
-  
+ 
 }
 
 @if (status==null) {
@@ -31,7 +35,7 @@
     <div class="w-1/2">
       <div class="text-center">
         <div class="bg-gray-900 p-4 rounded">
-          <h1 class="text-2xl font-bold mb-4">Books</h1>
+          <h1 class="text-2xl font-bold mb-4 text-gray-100">Books</h1>
           <div class="relative overflow-x-auto mr-10 ml-10">
 
           <table class="table-auto w-full bg-gray-700 text-white border border-gray-600">
@@ -40,6 +44,7 @@
                 <th class="py-2">ID</th>
                 <th class="py-2">Date</th>
                 <th class="py-2">Hour</th>
+                <th class="py-2">Client</th>
                 <th class="py-2">Actions</th>
               </tr>
             </thead>
@@ -47,8 +52,10 @@
               @for (booking of oPage?.content; track bookings) {
               <tr>
                 <td class="py-2 m-2">{{booking.id}}</td>
-                <td cl ass="py- m-2">{{booking.date}}</td>
+                <td class="py-2 m-2">{{booking.date}}</td>
                 <td class="py-2 m-2">{{booking.time_zone.hour}}</td>
+                <td class="py-2 m-2"><a (click)="getBookingsByClient(booking.client.id)" >{{booking.client.username}}</a></td>
+
                 <td class="py-2">
                   <a class="button bg-blue-500 hover:bg-blue-700 text-white m-2">
                     <span class="icon is-small is-left">

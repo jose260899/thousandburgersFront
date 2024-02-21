@@ -42,7 +42,7 @@ export class RegisterUsersComponent implements OnInit {
   initializeForm(oClient: IClient) {
     this.clientForm = this.oFormBuilder.group({
       name: [oClient.name, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
-      telephone: [oClient.telephone, [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
+      telephone: [oClient.telephone, [Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern('^[0-9]+$')]],
       birthDate: [oClient.birthDate, [Validators.required]],
       email: [oClient.email, [Validators.required, Validators.email]],
       username: [oClient.username, [Validators.required, Validators.minLength(6), Validators.maxLength(15), Validators.pattern('^[a-zA-Z0-9]+$')]],
@@ -52,6 +52,10 @@ export class RegisterUsersComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  public hasError = (controlName: string, errorName: string) => {
+    return this.clientForm.controls[controlName].hasError(errorName);
   }
 
   onSubmit() {

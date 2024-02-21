@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { API_URL } from '../environment/environment';
 import { HttpClient } from '@angular/common/http';
-import { IEmployee, IToken } from '../interfaces/modelInterfaces';
+import { IEmployee, IEmployeePage, IToken } from '../interfaces/modelInterfaces';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -25,5 +25,29 @@ getByUsername(username: string): Observable<IEmployee> {
 getOne(id: number): Observable<IEmployee> {
   return this.oHttpClient.get<IEmployee>(this.sUrl + "/" + id);
 }
+
+getAll(): Observable<IEmployee[]> {
+  return this.oHttpClient.get<IEmployee[]>(this.sUrl + "/all");
+}
+
+getPage(size: number | undefined, page: number | undefined, orderField: string, orderDirection: string): Observable<IEmployeePage> {
+  if (!size) size = 10;
+  if (!page) page = 0;
+  return this.oHttpClient.get<IEmployeePage>(this.sUrl + "/page?size=" + size + "&page=" + page + "&sort=" + orderField + "," + orderDirection);
+}
+
+newOne(oEmployee: IEmployee): Observable<IEmployee> {
+  return this.oHttpClient.post<IEmployee>(this.sUrl + "/create", oEmployee);
+}
+
+update(oEmployee: IEmployee): Observable<IEmployee> {
+  return this.oHttpClient.put<IEmployee>(this.sUrl + "/update", oEmployee);
+}
+
+deleteById(id:number): Observable<IEmployee> {
+  return this.oHttpClient.delete<IEmployee>(this.sUrl + "/" + id);
+}
+
+
 
 }
