@@ -110,7 +110,7 @@ export class ClientBooksViewComponent implements OnInit {
       next: (data: IBookingPage) => {
         this.oPage = data;
         this.oPaginatorState.pageCount = data.totalPages;
-        console.log(this.oPaginatorState);
+        //console.log(this.oPaginatorState);
       },
       error: (error: HttpErrorResponse) => {
         this.status = error;
@@ -145,7 +145,7 @@ export class ClientBooksViewComponent implements OnInit {
       if (userId !== null) {
         this.id = userId;
         this.getPage();
-        console.log('ID del usuario obtenido desde la sesión: ' + userId);
+        //console.log('ID del usuario obtenido desde la sesión: ' + userId);
       } else {
         console.error('No se pudo obtener el ID del usuario desde la sesión.');
       }
@@ -155,29 +155,15 @@ export class ClientBooksViewComponent implements OnInit {
 
 
 
-/*   getBookings(): void {
-    this.oBookingsService.getByClient(this.id).subscribe({
-      next: (data: any) => {
-        //console.log(data);
-        this.bookings = data;
-        console.log(this.bookings);
-      },
-      error: (error: HttpErrorResponse) => {
-        this.status = error;
-      }
-    })
-
-  } */
-
-
 
   doRemoveBooking(id: number): void {
+    this.isConfirmationModalVisible = true;
 
     this.bookingToDelete = id;
     this.oBookingsService.get(id).subscribe({
       next: (data: any) => {
         this.oBooking = data;
-        console.log(this.oBooking);
+        //console.log(this.oBooking);
       },
       error: (error: HttpErrorResponse) => {
         this.status = error;
@@ -185,7 +171,6 @@ export class ClientBooksViewComponent implements OnInit {
     })
 
     // Muestra el modal de confirmación
-    this.isConfirmationModalVisible = true;
   }
 
   confirmDelete(): void {
@@ -194,7 +179,7 @@ export class ClientBooksViewComponent implements OnInit {
     this.oBookingsService.deleteOne(this.bookingToDelete).subscribe({
       next: (data: any) => {
 
-        console.log(data);
+        //console.log(data);
         this.getPage();
       },
       error: (error: HttpErrorResponse) => {
@@ -223,7 +208,8 @@ export class ClientBooksViewComponent implements OnInit {
 
   confirmEditBooking() {
     // Muestra el modal de confirmación
-    console.log(this.bookingForm.value);
+    //console.log(this.bookingForm.value);
+    this.onSubmit();
   }
 
   doEditBooking(id: number): void {
@@ -233,7 +219,7 @@ export class ClientBooksViewComponent implements OnInit {
       next: (data: any) => {
         this.oBooking = data;
         this.initializeForm(this.oBooking);
-        console.log(this.oBooking);
+        //console.log(this.oBooking);
       },
       error: (error: HttpErrorResponse) => {
         this.status = error;
@@ -245,7 +231,7 @@ export class ClientBooksViewComponent implements OnInit {
 
 
   onSubmit() {
-    console.log(this.bookingForm.value);
+    //console.log(this.bookingForm.value);
     this.oBookingsService.updateOwnBooking(this.bookingForm.value).subscribe({
       next: (data: IBooking) => {
         this.oBooking = data;
