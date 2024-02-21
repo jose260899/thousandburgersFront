@@ -152,11 +152,12 @@
     <h2 class="mb-4 text-lg text-center text-gray-300 ">Edit</h2>
     <div class="p-4 md:p-5">
       <form [formGroup]="clientForm" (ngSubmit)="onSubmit()" class="space-y-4" action="#">
-        <div>
+        <div hidden>
           <label class="text-center block mb-2 text-sm font-medium text-white dark:text-white">Id</label>
           <input type="text" formControlName="id"
             class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
             [value]="clientForm.get('id')?.value" readonly>
+            
         </div>
         <div>
           <label class="text-center block mb-2 text-sm font-medium text-white dark:text-white">
@@ -164,6 +165,14 @@
           <input type="text" formControlName="name"
             class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
             [value]="clientForm.get('name')?.value" required>
+            @if (clientForm.get('name')?.touched && hasError('name', 'required')) {
+              <div  class="text-red-500 text-sm mt-1">Name is required</div>
+            }@else if (clientForm.get('name')?.touched && hasError('name', 'minlength')) {
+            <div  class="text-red-500 text-sm mt-1">Name must be at least 3 characters</div>
+    
+            }@else if (clientForm.get('name')?.touched && hasError('name', 'maxlength')) {
+              <div class="text-red-500 text-sm mt-1">Name must be at most 255 characters</div>
+            }
         </div>
 
         <div>
@@ -172,6 +181,15 @@
           <input type="text" formControlName="telephone"
             class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
             [value]="clientForm.get('telephone')?.value" required>
+            @if (clientForm.get('telephone')?.touched && hasError('telephone', 'required')) {
+              <div  class="text-red-500 text-sm mt-1">telephone is required</div>
+            }@else if (clientForm.get('telephone')?.touched && hasError('telephone', 'minlength')) {
+            <div  class="text-red-500 text-sm mt-1">telephone must be at least 9 characters</div>
+            }@else if (clientForm.get('telephone')?.touched && hasError('telephone', 'maxlength')) {
+              <div class="text-red-500 text-sm mt-1">telephone must be at most 9 characters</div>
+            }@else if (clientForm.get('telephone')?.touched && hasError('telephone', 'pattern')) {
+              <div class="text-red-500 text-sm mt-1">telephone must be a number</div>
+            }
         </div>
         <div>
           <label class="text-center block mb-2 text-sm font-medium text-white dark:text-white">
@@ -190,6 +208,9 @@
               <span class="ml-2">No</span>
             </label>
           </div>
+          @if (clientForm.get('verified')?.touched && hasError('verified', 'required')) {
+            <div  class="text-red-500 text-sm mt-1">Verified is required</div>
+          }
         </div>
 
 
@@ -208,7 +229,7 @@
 @if (modalCreate) {
   <div class="modal-container fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 ">
     <div class="bg-gray-800 p-8 rounded shadow-lg">
-      <h2 class="mb-4 text-lg text-center text-gray-300 ">Edit</h2>
+      <h2 class="mb-4 text-lg text-center text-gray-300 ">Create</h2>
       <div class="p-4 md:p-5">
         <form [formGroup]="clientForm" (ngSubmit)="onSubmitCreate()" class="space-y-4" action="#">
         
@@ -218,6 +239,14 @@
             <input type="text" formControlName="name"
               class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               required>
+              @if (clientForm.get('name')?.touched && hasError('name', 'required')) {
+                <div  class="text-red-500 text-sm mt-1">Name is required</div>
+              }@else if (clientForm.get('name')?.touched && hasError('name', 'minlength')) {
+              <div  class="text-red-500 text-sm mt-1">Name must be at least 3 characters</div>
+      
+              }@else if (clientForm.get('name')?.touched && hasError('name', 'maxlength')) {
+                <div class="text-red-500 text-sm mt-1">Name must be at most 255 characters</div>
+              }
           </div>
   
           <div>
@@ -226,6 +255,15 @@
             <input type="text" formControlName="telephone"
               class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                required>
+               @if (clientForm.get('telephone')?.touched && hasError('telephone', 'required')) {
+                <div  class="text-red-500 text-sm mt-1">telephone is required</div>
+              }@else if (clientForm.get('telephone')?.touched && hasError('telephone', 'minlength')) {
+              <div  class="text-red-500 text-sm mt-1">telephone must be at least 9 characters</div>
+              }@else if (clientForm.get('telephone')?.touched && hasError('telephone', 'maxlength')) {
+                <div class="text-red-500 text-sm mt-1">telephone must be at most 9 characters</div>
+              }@else if (clientForm.get('telephone')?.touched && hasError('telephone', 'pattern')) {
+                <div class="text-red-500 text-sm mt-1">telephone must be a number</div>
+              }
           </div>
 
           <div>
@@ -234,6 +272,9 @@
             <input type="date" formControlName="birthDate"
               class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                required>
+               @if (clientForm.get('birthDate')?.touched && hasError('birthDate', 'required')) {
+                <div  class="text-red-500 text-sm mt-1">Birth date is required</div>
+              }
           </div>
           <div>
             <label class="text-center block mb-2 text-sm font-medium text-white dark:text-white">
@@ -241,6 +282,11 @@
             <input type="email" formControlName="email"
               class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                required>
+               @if (clientForm.get('email')?.touched && hasError('email', 'required')) {
+                <div  class="text-red-500 text-sm mt-1">Email is required</div>
+              }@else if (clientForm.get('email')?.touched && hasError('email', 'email')) {
+              <div  class="text-red-500 text-sm mt-1">Email must be a valid email</div>
+              }
           </div>
           <div>
             <label class="text-center block mb-2 text-sm font-medium text-white dark:text-white">
@@ -248,6 +294,15 @@
             <input type="text" formControlName="username"
               class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                required>
+               @if (clientForm.get('username')?.touched && hasError('username', 'required')) {
+                <div  class="text-red-500 text-sm mt-1">Username is required</div>
+              }@else if (clientForm.get('username')?.touched && hasError('username', 'minlength')) {
+              <div  class="text-red-500 text-sm mt-1">Username must be at least 6 characters</div>
+              }@else if (clientForm.get('username')?.touched && hasError('username', 'maxlength')) {
+                <div class="text-red-500 text-sm mt-1">Username must be at most 16 characters</div>
+              }@else if (clientForm.get('username')?.touched && hasError('username', 'pattern')) {
+                <div class="text-red-500 text-sm mt-1">Username must be a valid username</div>
+              }
           </div>
           <div>
             <label class="text-center block mb-2 text-sm font-medium text-white dark:text-white">

@@ -77,7 +77,7 @@ export class ClientTableEmployeeComponent implements OnInit {
   initializeFormCreate(oClient: IClient) {
     this.clientForm = this.oFormBuilder.group({
       name: [oClient.name, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
-      telephone: [oClient.telephone, [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
+      telephone: [oClient.telephone, [Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern("^[0-9]*$")]],
       birthDate: [oClient.birthDate, [Validators.required]],
       email: [oClient.email, [Validators.required]],
       username: [oClient.username, [Validators.required]],
@@ -85,6 +85,11 @@ export class ClientTableEmployeeComponent implements OnInit {
 
     });
   }
+
+  public hasError = (controlName: string, errorName: string) => {
+    return this.clientForm.controls[controlName].hasError(errorName);
+  }
+
 
   ngOnInit() {
     this.getPage();
@@ -211,7 +216,7 @@ export class ClientTableEmployeeComponent implements OnInit {
 
 
   onSubmit() {
-    // if (this.clientForm.valid) {
+     if (this.clientForm.valid) {
 
     this.oClientService.updateForAdmin(this.clientForm.value).subscribe({
       next: (data: IClient) => {
@@ -225,9 +230,10 @@ export class ClientTableEmployeeComponent implements OnInit {
       }
     })
   }
+  }
 
   onSubmitCreate() {
-    // if (this.clientForm.valid) {
+     if (this.clientForm.valid) {
     console.log(this.clientForm.value);
     this.oClientService.newOneForAdmins(this.clientForm.value).subscribe({
       next: (data: IClient) => {
@@ -240,6 +246,7 @@ export class ClientTableEmployeeComponent implements OnInit {
         this.status = error;
       }
     })
+  }
   }
 
 
