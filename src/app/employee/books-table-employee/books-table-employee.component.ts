@@ -121,6 +121,7 @@ export class BooksTableEmployeeComponent implements OnInit {
     this.oBookingsService.getPageByClient(this.id_client,this.oPaginatorState.rows, this.oPaginatorState.page, this.orderField, this.orderDirection).subscribe({
       next: (data: IBookingPage) => {
         this.oPage = data;
+        this.bookings = data.content;
         this.oPaginatorState.pageCount = data.totalPages;
         console.log(this.oPaginatorState);
       },
@@ -153,6 +154,7 @@ export class BooksTableEmployeeComponent implements OnInit {
       next: (data: IBookingPage) => {
         this.oPage = data;
         this.oPaginatorState.pageCount = data.totalPages;
+        this.bookings = data.content;
         console.log(this.oPaginatorState);
         console.log(this.oPage.content)
       },
@@ -167,7 +169,7 @@ export class BooksTableEmployeeComponent implements OnInit {
     this.oPaginatorState.page = event.page;
     if(this.id_client > 0){
       this.getBookingsByClient(this.id_client);
-    }else{
+    }else{ 
       this.getPage();
     }
   }
@@ -242,7 +244,8 @@ export class BooksTableEmployeeComponent implements OnInit {
   doEditBooking(id: number): void {
 
     this.bookingToEdit = id;
-    this.oBookingsService.get(id).subscribe({
+    //console.log(this.bookingToEdit);
+    this.oBookingsService.get(this.bookingToEdit).subscribe({
       next: (data: any) => {
         this.oBooking = data;
         this.initializeForm(this.oBooking);
@@ -260,7 +263,7 @@ export class BooksTableEmployeeComponent implements OnInit {
 
   onSubmit() {
     console.log(this.bookingForm.value);
-    this.oBookingsService.updateOwnBooking(this.bookingForm.value).subscribe({
+    this.oBookingsService.updateBooking(this.bookingForm.value).subscribe({
       next: (data: IBooking) => {
         this.oBooking = data;
         this.initializeForm(this.oBooking);

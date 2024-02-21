@@ -106,7 +106,7 @@
             @if (clientForm.get('telephone')?.touched && hasError('telephone', 'required')) {
               <div class="text-red-500 text-sm mt-1">telephone is required</div>
             }@else if (clientForm.get('telephone')?.touched && hasError('telephone', 'minLength')) {
-              <div class="text-red-500 text-sm mt-1">telephone must be at least 9 characters</div>
+              <div class="text-red-500 text-sm mt-1">telephone must be at min 9 characters</div>
             }@else if (clientForm.get('telephone')?.touched && hasError('telephone', 'maxLength')) {
               <div class="text-red-500 text-sm mt-1">telephone must be at most 9 characters</div>
             }@else if (clientForm.get('telephone')?.touched && hasError('telephone', 'pattern')) {

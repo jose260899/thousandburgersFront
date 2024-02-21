@@ -55,5 +55,13 @@ export class BooksService {
     return this.oHttpClient.put<IBooking>(this.sUrl + "/updateBooking",oBooking);
   }
 
+  updateBooking(oBooking: IBooking): Observable<IBooking> {
+    return this.oHttpClient.put<IBooking>(this.sUrl + "/updateBookingAdmin",oBooking);
+  }
+
+  setTable(id_booking:number, id_table:number): Observable<IBooking> {
+    return this.oHttpClient.put<IBooking>(this.sUrl + "/setTable/" + id_booking + "/" + id_table, null); 
+  }
+
 
 }

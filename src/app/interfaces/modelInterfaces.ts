@@ -90,7 +90,7 @@ export interface IBooking extends IEntity {
     date: Date,
     client: IClient,
     time_zone: ITime
-    //table: ITable,
+    table: ITable,
     employee: IEmployee,
 
 }
@@ -100,6 +100,18 @@ export interface IProduct extends IEntity {
     description: string,
     price: number,
     product_type: IProductType,
+}
+
+export interface IProductPage extends IPage<IProduct> {
+}
+
+export interface IProductTypePage extends IPage<IProductType> {
+}
+
+export interface IOrder extends IEntity {  
+    employee: IEmployee,
+    booking: IBooking,
+    product: IProduct,
 }
 
 export interface IProductType extends IEntity {

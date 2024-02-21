@@ -55,7 +55,6 @@
                 <td class="py-2 m-2">{{booking.date}}</td>
                 <td class="py-2 m-2">{{booking.time_zone.hour}}</td>
                 <td class="py-2 m-2"><a (click)="getBookingsByClient(booking.client.id)" >{{booking.client.username}}</a></td>
-
                 <td class="py-2">
                   <a class="button bg-blue-500 hover:bg-blue-700 text-white m-2">
                     <span class="icon is-small is-left">
@@ -86,100 +85,62 @@
   </div>
 
 <!-- Confirmation Modal -->
-<div class="modal is-6" [class.is-active]="isConfirmationModalVisible">
-  <div class="modal-background"></div>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title has-text-centered"><strong>Confirm delete</strong></p>
-      <button class="delete" aria-label="close" (click)="cancelDelete()"></button>
-    </header>
-    <section class="modal-card-body">
-      <!-- Mostrar detalles de la reserva que se va a borrar en una tabla -->
-      <table class="table is-fullwidth is-striped is-hoverable ">
-        <!-- Detalles de la reserva -->
-        <tr>
-          <th class="has-text-centered">ID</th>
-          <td class="has-text-centered">{{ oBooking.id }}</td>
-        </tr>
-        <tr>
-          <th class="has-text-centered">Date</th>
-          <td class="has-text-centered">{{ oBooking.date }}</td>
-        </tr>
-
-      </table>
-
-
-    </section>
-    <footer class="modal-card-foot is-flex is-justify-content-center">
-      <div class="buttons">
-        <button class="button is-danger" (click)="confirmDelete()">Eliminar</button>
-        <button class="button" (click)="cancelDelete()">Cancelar</button>
-      </div>
-    </footer>
-
-
-  </div>
-</div>
-
-<div id="editModal" class="modal" [class.is-active]="isEditActive">
-  <div class="modal-background"></div>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title">Edit</p>
-      <button class="delete" aria-label="close" (click)="closeModal()"></button>
-    </header>
-    <section class="modal-card-body">
-      <!-- Agrega esto a tu template HTML -->
-      <div class="container mt-5">
-        <div class="columns is-centered">
-          <div class="column is-half">
-            <div class="has-text-centered">
-              <h1 class="title is-4">Book Edit</h1>
-              <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
-
-                <div class="field">
-                  <label class="label">Id</label>
-                  <div class="control">
-                    <input class="input has-text-centered" type="text" formControlName="id"
-                      [value]="bookingForm.get('id')?.value" readonly>
-                  </div>
-                </div>
-                <div class="field">
-                  <label class="label">Date</label>
-                  <div class="control">
-                    <input class="input has-text-centered" type="date" formControlName="date"
-                      [value]="bookingForm.get('date')?.value" readonly>
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label class="label">Time</label>
-                  <div class="control">
-                    <div class="select" formGroupName="time_zone">
-                      <select class="input" formControlName="hour">
-                        @for (option of options; track options) {
-                        <option [value]="option">{{ option }}</option>
-                        }
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="field is-grouped is-grouped-centered">
-                  <div class="control">
-                    <button class="button is-primary" type="submit" (click)="confirmEditBooking()">Edit</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
+@if (isConfirmationModalVisible) {
+  <div class="modal-container fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 ">
+    <div class="bg-gray-800 p-8 rounded shadow-lg">
+      <div class="text-center text-gray-300">
+        <h1 class="text-2xl font-bold mb-4">Confirm delete</h1>
+        <p>Are you sure you want to delete the booking {{oBooking.id}}?</p>
+        <div class="flex justify-center mt-4">
+          <button class="button bg-red-500 hover:bg-red-700 text-white mr-2" (click)="confirmDelete()">Delete</button>
+          <button class="button bg-gray-500 hover:bg-gray-700 text-white" (click)="cancelDelete()">Cancel</button>
         </div>
       </div>
-
-    </section>
-
+    </div>
   </div>
-</div>
+  }
+
+  @if (isEditActive) {
+    <div class="modal-container fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 ">
+      <div class="bg-gray-800 p-8 rounded shadow-lg">
+        <h2 class="mb-4 text-lg text-center text-gray-300 ">Edit</h2>
+        <div class="p-4 md:p-5">
+          <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()" class="space-y-4" action="#">
+            <div hidden>
+              <label class="text-center block mb-2 text-sm font-medium text-white dark:text-white">Id</label>
+              <input type="text" formControlName="id"
+                class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                [value]="bookingForm.get('id')?.value" readonly>
+            </div>
+            <div hidden>
+              <label class="text-center block mb-2 text-sm font-medium text-white dark:text-white">
+                Date</label>
+              <input type="text" formControlName="date"
+                class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                [value]="bookingForm.get('date')?.value" required>
+            </div>
+  
+            <div>
+              <label class="block mb-2 text-center  text-sm font-medium text-gray-300 dark:text-white">Hour</label>
+              <div formGroupName="time_zone">
+                <select formControlName="hour"
+                  class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+                  @for (option of options; track options) {
+                  <option class="text-black bg-slate-600" [value]="option">{{ option }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="flex justify-end">
+          <button (click)="closeModal()" class="px-4 py-2 text-sm bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
+          <button type="submit"  (click)="onSubmit()"
+            class="ml-2 px-4 py-2 text-sm bg-green-500 text-white rounded hover:bg-green-600">Confirm</button>
+        </div>
+      </div>
+    </div>
+    }
 </section>
 }
 

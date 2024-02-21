@@ -30,9 +30,7 @@ export class ClientBooksComponent implements OnInit {
   constructor(
     private oFormBuilder: FormBuilder,
     private oRouter: Router,
-    private oClientService: ClientAjaxService,
     private oBookService: BooksService,
-    private oSessionService: SessionService,
     private oTimeZoneService: TimeZoneService
   ) {
     const today = new Date();
@@ -57,9 +55,12 @@ export class ClientBooksComponent implements OnInit {
   ngOnInit() {
     this.fetchOptions();
     this.initializeForm(this.oBook);
-    
-    
   }
+
+  public hasError = (controlName: string, errorName: string) => {
+    return this.booksForm.controls[controlName].hasError(errorName);
+  }
+
 
   
 
@@ -77,7 +78,6 @@ export class ClientBooksComponent implements OnInit {
   }
 
   onSubmit() {
-
     if (!this.booksForm.valid) {
       this.oBookService.newOne(this.booksForm.value).subscribe({
         next: (data: IBooking) => {
