@@ -1,0 +1,76 @@
+<section id="contact" class="py-16 bg-gray-900 text-center">
+    <section id="contact" class="py-16 bg-gray-900 text-center ml-4 mr-4">
+
+        <div class="mx-auto  max-w-md mt-16 mb-16  p-6 bg-gray-800 rounded-md shadow-md dark:bg-black">
+            <h2 class="text-2xl text-center  font-semibold text-white mb-6">Product</h2>
+            <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+                <div class="mb-6">
+                    <label class="block mb-2 text-center text-sm font-medium text-gray-300 dark:text-white">Name</label>
+                    <input type="text" formControlName="name"
+                        class="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="" required>
+                    <!-- @if (loginForm.get('username')?.touched && hasError('username', 'required')) {
+          <div class="text-red-500 text-sm mt-1">username is required</div>
+          } -->
+                </div>
+                <div class="mb-6">
+                    <label for="password"
+                        class="block mb-2 text-center  text-sm font-medium text-gray-300 dark:text-white">Description
+                    </label>
+                    <input type="text" id="password" formControlName="description"
+                        class="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="" required>
+                    <!-- @if (loginForm.get('password')?.touched && hasError('password', 'required')) {
+          <div class="text-red-500 text-sm mt-1">password is required</div>
+          } -->
+                </div>
+
+                <div class="mb-6">
+                    <label for="password"
+                        class="block mb-2 text-center  text-sm font-medium text-gray-300 dark:text-white">Price
+                    </label>
+                    <input type="text" id="password" formControlName="price"
+                        class="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="" required>
+                    <!-- @if (loginForm.get('password')?.touched && hasError('password', 'required')) {
+            <div class="text-red-500 text-sm mt-1">password is required</div>
+            } -->
+                </div>
+
+                <div class="mb-6">
+                    <label for="image"
+                        class="block mb-2 text-center  text-sm font-medium text-gray-300 dark:text-white">Image
+                    </label>
+                    <input type="file" id="image" formControlName="image" accept="image/*"
+                        class="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required>
+
+                    <!-- @if (loginForm.get('password')?.touched && hasError('password', 'required')) {
+            <div class="text-red-500 text-sm mt-1">password is required</div>
+            } -->
+                </div>
+
+                <div class="mb-6">
+                    <label class="block mb-2 text-center text-sm font-medium text-gray-300 dark:text-white">Type
+                        product</label>
+                    <div formGroupName="product_type">
+                        <select formControlName="name"
+                            class="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="Starter">Starter</option>
+                            <option value="Main">Main</option>
+                            <option value="Dessert">Dessert</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="flex flex-col items-center">
+                    @if (productForm.valid) {
+                    <button type="submit"
+                        class="text-white  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                    }
+                </div>
+            </form>
+        </div>
+    </section>
+</section>

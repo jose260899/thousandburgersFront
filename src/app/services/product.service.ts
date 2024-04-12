@@ -20,4 +20,8 @@ export class ProductService {
   getByClient(idProductType: number): Observable<IProduct[]> {
     return this.oHttpClient.get<IProduct[]>(this.sUrl + "/product-type/" + idProductType);
   }
+
+  create(oProduct: IProduct): Observable<IProduct> {
+    return this.oHttpClient.post<IProduct>(this.sUrl + "/create", oProduct);
+  }
 }

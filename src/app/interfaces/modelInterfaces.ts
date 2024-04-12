@@ -99,6 +99,7 @@ export interface IProduct extends IEntity {
     name: string,
     description: string,
     price: number,
+    image: number,
     product_type: IProductType,
 }
 
