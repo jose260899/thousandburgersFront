@@ -29,38 +29,34 @@ export class ProductEmployeeComponent implements OnInit {
 
   oProduct: IProduct = { product_type: { name:"" } } as IProduct;
 
+  oFile: File = new File([""], "default.txt", { type: "text/plain" });
+
   constructor(
     private fb: FormBuilder,
     private oProductService: ProductService,
   ) { 
-    /*
-    this.productForm = this.fb.group({
-      name: [''],
-      description: [''],
-      price: [''],
-      image: [''],
-      product_type: this.fb.group({
-        name: ['']
-      })
-
-      
-    });
-    */
    }
+
+
 
    initializeForm(oProduct: IProduct) {
     this.productForm = this.fb.group({
       name: [oProduct.name],
       description: [oProduct.description],
+      image: [''],
       price: [oProduct.price],
-      image: [oProduct.image],
       product_type: this.fb.group({
         name: [oProduct.product_type.name]
       })
     });
   }
 
-
+  onFileChange(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.oFile = file;
+    }
+  }
 
   
 
@@ -71,14 +67,20 @@ export class ProductEmployeeComponent implements OnInit {
   
   onSubmit() {
     if (this.productForm.valid) {
-      this.oProductService.create(this.productForm.value).subscribe({
-        next: (data: IProduct) => {
-          console.log(data);
-        },
-        error: (error: HttpErrorResponse) => {
-          this.status = error;
-        }
-      });
+      if (this.oFile instanceof File) {
+        console.log(this.productForm.get('image')?.value);
+        this.oProductService.create(this.productForm.value, this.oFile).subscribe({
+          next: (data: IProduct) => {
+            console.log(data);
+          },
+          error: (error: HttpErrorResponse) => {
+            this.status = error;
+          }
+        });
+      }else{
+        console.log('El parámetro "image" no es un objeto de tipo File');
+      }
+      
     }
   }
 

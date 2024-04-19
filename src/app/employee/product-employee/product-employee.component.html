@@ -32,22 +32,15 @@
                     <input type="text" id="password" formControlName="price"
                         class="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="" required>
-                    <!-- @if (loginForm.get('password')?.touched && hasError('password', 'required')) {
-            <div class="text-red-500 text-sm mt-1">password is required</div>
-            } -->
                 </div>
 
                 <div class="mb-6">
                     <label for="image"
                         class="block mb-2 text-center  text-sm font-medium text-gray-300 dark:text-white">Image
                     </label>
-                    <input type="file" id="image" formControlName="image" accept="image/*"
+                    <input (change) = "onFileChange($event)"  type="file" id="image" formControlName="image" accept="image/*"
                         class="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        required>
-
-                    <!-- @if (loginForm.get('password')?.touched && hasError('password', 'required')) {
-            <div class="text-red-500 text-sm mt-1">password is required</div>
-            } -->
+                        >
                 </div>
 
                 <div class="mb-6">
