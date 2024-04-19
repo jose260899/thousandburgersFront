@@ -68,7 +68,6 @@ export class ProductEmployeeComponent implements OnInit {
   onSubmit() {
     if (this.productForm.valid) {
       if (this.oFile instanceof File) {
-        console.log(this.productForm.get('image')?.value);
         this.oProductService.create(this.productForm.value, this.oFile).subscribe({
           next: (data: IProduct) => {
             console.log(data);

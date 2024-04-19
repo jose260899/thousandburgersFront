@@ -25,12 +25,11 @@ export class ProductService {
    
 
     const formData = new FormData();
-  
-
     if (file instanceof File) {
       const formData = new FormData();
       formData.append('file', file, file.name); // Aquí agregamos el archivo con su nombre
-      formData.append('oProduct', JSON.stringify(oProduct));
+      formData.append('oProduct', JSON.stringify(oProduct)); // Adjuntar oProduct directamente
+      //console.log(formData.get('oProduct'));
       return this.oHttpClient.post<IProduct>(this.sUrl + "/create", formData );
 
     } else {
