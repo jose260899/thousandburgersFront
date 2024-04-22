@@ -6,7 +6,7 @@
             <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
                 <div class="mb-6">
                     <label class="block mb-2 text-center text-sm font-medium text-gray-300 dark:text-white">Name</label>
-                    <input type="text" formControlName="name"
+                    <input type="text" name="name" formControlName="name"
                         class="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="" required>
                     <!-- @if (loginForm.get('username')?.touched && hasError('username', 'required')) {
@@ -17,7 +17,7 @@
                     <label for="password"
                         class="block mb-2 text-center  text-sm font-medium text-gray-300 dark:text-white">Description
                     </label>
-                    <input type="text" id="password" formControlName="description"
+                    <input type="text" id="password" name="description" formControlName="description"
                         class="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="" required>
                     <!-- @if (loginForm.get('password')?.touched && hasError('password', 'required')) {
@@ -29,7 +29,7 @@
                     <label for="password"
                         class="block mb-2 text-center  text-sm font-medium text-gray-300 dark:text-white">Price
                     </label>
-                    <input type="text" id="password" formControlName="price"
+                    <input type="text" name="price" id="password" formControlName="price"
                         class="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="" required>
                 </div>
@@ -38,7 +38,7 @@
                     <label for="image"
                         class="block mb-2 text-center  text-sm font-medium text-gray-300 dark:text-white">Image
                     </label>
-                    <input (change) = "onFileChange($event)"  type="file" id="image" formControlName="image" accept="image/*"
+                    <input (change) = "onFileChange($event)" name="image"  type="file" id="image" formControlName="image" accept="image/*"
                         class="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         >
                 </div>
@@ -47,7 +47,7 @@
                     <label class="block mb-2 text-center text-sm font-medium text-gray-300 dark:text-white">Type
                         product</label>
                     <div formGroupName="product_type">
-                        <select formControlName="name"
+                        <select formControlName="name" 
                             class="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option value="Starter">Starter</option>
                             <option value="Main">Main</option>

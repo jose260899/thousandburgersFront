@@ -28,12 +28,13 @@ export class ProductService {
     if (file instanceof File) {
       const formData = new FormData();
       formData.append('file', file, file.name); // Aquí agregamos el archivo con su nombre
-      formData.append('oProduct', JSON.stringify(oProduct)); // Adjuntar oProduct directamente
-      //console.log(formData.get('oProduct'));
+      formData.append('name', oProduct.name);
+      formData.append('description', oProduct.description);
+      formData.append('price', oProduct.price.toString());
+      formData.append('product_type.name', oProduct.product_type.name);
       return this.oHttpClient.post<IProduct>(this.sUrl + "/create", formData );
 
     } else {
-      // Manejar el caso en que 'file' no sea un objeto de tipo 'File'
       console.error('El parámetro "file" no es un objeto de tipo File');
       // Retornar un observable con un error o hacer lo que sea necesario
       return throwError('Error: El parámetro "file" no es un objeto de tipo File');
