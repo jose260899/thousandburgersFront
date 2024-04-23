@@ -17,7 +17,7 @@ export class ClientAjaxService {
 
 
   newOneForClients(oClient: IClient): Observable<IClient> {
-    return this.oHttpClient.post<IClient>(this.sUrl + "/forclients", oClient);
+    return this.oHttpClient.post<IClient>(this.sUrl + "/forClients", oClient);
   }
 
   newOneForAdmins(oClient: IClient): Observable<IClient> {
@@ -57,7 +57,13 @@ export class ClientAjaxService {
     if (!size) size = 10;
     if (!page) page = 0;
     return this.oHttpClient.get<IClientPage>(this.sUrl + "/page?size=" + size + "&page=" + page + "&sort=" + orderField + "," + orderDirection);
-}
+  }
+
+  confirmAccount(token: string): Observable<string> {
+    return this.oHttpClient.get<string>(this.sUrl + "/confirm-account?token=" + token);
+  }
+
+
 
 
 }
