@@ -9,6 +9,7 @@ import {  authInterceptor } from './auth/auth.interceptor';
 import { BooksService } from './services/books.service.service';
 import { ProductTypeService } from './services/product.type.service';
 import { SessionEmployeeService } from './services/session.employee.service';
+import { ClientPrintService } from './services/user.print.service';
 
 
 
@@ -19,6 +20,7 @@ export const appConfig: ApplicationConfig = {
     SessionEmployeeService,
     BooksService,
     ProductTypeService,
+    ClientPrintService,
     provideClientHydration(), provideHttpClient(),
     //{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
     provideHttpClient(withInterceptors([authInterceptor])),

@@ -6,6 +6,8 @@ import { IClient } from '../../interfaces/modelInterfaces';
 import { SessionService } from '../../services/session.service';
 import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ClientPrintService } from '../../services/user.print.service';
+
 
 
 
@@ -40,7 +42,7 @@ export class ClientDetailComponent implements OnInit {
     private oSessionService: SessionService,
     private router: Router,
     private oFormBuilder: FormBuilder,
-
+    private oClientPrintService: ClientPrintService,
 
   ) {
 
@@ -140,6 +142,10 @@ export class ClientDetailComponent implements OnInit {
     }// else {
       //console.log("Error en el formulario");
     //}
-
  }
+
+ onPrintUser = (id_client: number) => {
+  this.oClientPrintService.printUser(id_client);
+}
+
 }

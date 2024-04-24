@@ -8,9 +8,8 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { initFlowbite } from 'flowbite';
 
 
-
-
-
+declare let jsPDF: any;
+import html2canvas from 'html2canvas';
 
 
 @Component({
