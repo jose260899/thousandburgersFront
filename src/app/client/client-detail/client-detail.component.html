@@ -7,70 +7,72 @@
 }
 
 @if (status == null) {
-  <section id="contact" class="py-16 bg-gray-900 text-center">
 
-<div class="flex items-center justify-center mt-24">
-  <div class="bg-gray-900 p-6 rounded-lg shadow-md w-full max-w-2xl">
-    <div class="relative overflow-x-auto">
-      <table class="min-w-full border border-gray-300 divide-y divide-gray-200">
+<section id="contact" class="py-16 bg-gray-900 text-center">
+  <h1 class="text-white font-bold text-lg">Client Profile</h1>
+  <div class="flex items-center justify-center">
+    <div class="bg-gray-900 p-6 rounded-lg shadow-md w-full max-w-2xl">
 
-        <tbody class="bg-gray-600 divide-y divide-gray-200">
-          <tr class="transition-colors hover:bg-gray-100">
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Id</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-white">{{oClient.id}}</td>
-          </tr>
-          <tr class="transition-colors hover:bg-gray-100">
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Name</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-white">{{oClient.name}}</td>
-          </tr>
-          <tr class="transition-colors hover:bg-gray-100">
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Telephone</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-white">{{oClient.telephone}}</td>
-          </tr>
-          <tr class="transition-colors hover:bg-gray-100">
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Username</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-white">{{oClient.username}}</td>
-          </tr>
-          <tr class="transition-colors hover:bg-gray-100">
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Birth Date</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-white">{{oClient.birthDate}}</td>
-          </tr>
-          <tr class="transition-colors hover:bg-gray-100">
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Email</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-white">{{oClient.email}}</td>
-          </tr>
-          <tr class="transition-colors hover:bg-gray-100">
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Verified</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm">
-              @if (oClient.verified){
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                Yes
-              </span>
-              }
+      <div class="relative overflow-x-auto">
+        <table class="min-w-full  ">
 
-              @else{
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                No
-              </span>
-              }
+          <tbody class="bg-gray-800 divide-y">
+            <tr class="transition-colors ">
+              <td class="px-6 py-4 whitespace-nowrap text-sm  text-white font-bold">Id</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-bold">{{oClient.id}}</td>
+            </tr>
+            <tr class="transition-colors ">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-bold">Name</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-bold">{{oClient.name}}</td>
+            </tr>
+            <tr class="transition-colors ">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-bold ">Telephone</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-bold">{{oClient.telephone}}</td>
+            </tr>
+            <tr class="transition-colors ">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-bold">Username</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-bold">{{oClient.username}}</td>
+            </tr>
+            <tr class="transition-colors ">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-bold">Birth Date</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-bold">{{oClient.birthDate}}</td>
+            </tr>
+            <tr class="transition-colors ">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-bold">Email</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-bold">{{oClient.email}}</td>
+            </tr>
+            <tr class="transition-colors ">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-white font-bold">Verified</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm">
+                @if (oClient.verified){
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                  Yes
+                </span>
+                }
 
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                @else{
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                  No
+                </span>
+                }
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
-<button (click)="onPrintUser(oClient.id)">PRINT</button>
 
 
-<div class="text-center mt-3 mb-4">
-  <button class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded" (click)="edit()">Edit</button>
-</div>
-  </section>
+  <div class="text-center mt-3 mb-4">
+    <button class="mr-3 bg-white hover:bg-gray-400 text-black text-sm font-bold py-2 px-4 rounded" (click)="edit()">Edit</button>
+    <button class="bg-white hover:bg-gray-400 text-black text-sm font-bold py-2 px-4 rounded" (click)="onPrintUser(oClient.id)">Download profile</button>
+  </div>
+</section>
 
 @if (showModal) {
-<div  class="modal-container fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 ">
+<div class="modal-container fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 ">
   <div class="bg-gray-800 p-8 rounded shadow-lg">
     <h2 class="mb-4 text-lg text-center text-gray-200 ">Edit</h2>
     <div class="p-4 md:p-5">
@@ -79,7 +81,7 @@
           <label class="text-center block mb-2 text-sm font-medium text-gray-300 dark:text-white">Id</label>
           <input type="text" formControlName="id"
             class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-            [value]="clientForm.get('id')?.value" readonly >
+            [value]="clientForm.get('id')?.value" readonly>
         </div>
         <div>
           <label class="text-center block mb-2 text-sm font-medium text-gray-300 dark:text-white">
@@ -88,13 +90,13 @@
             class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
             [value]="clientForm.get('name')?.value" required>
 
-            @if (clientForm.get('name')?.touched && hasError('name', 'required')) {
-              <div class="text-red-500 text-sm mt-1">name is required</div>
-            }@else if (clientForm.get('name')?.touched && hasError('name', 'minLength')) {
-              <div class="text-red-500 text-sm mt-1">name must be at least 3 characters</div>
-            }@else if (clientForm.get('name')?.touched && hasError('name', 'maxLength')) {
-              <div class="text-red-500 text-sm mt-1">name must be at most 255 characters</div>
-            }
+          @if (clientForm.get('name')?.touched && hasError('name', 'required')) {
+          <div class="text-red-500 text-sm mt-1">name is required</div>
+          }@else if (clientForm.get('name')?.touched && hasError('name', 'minLength')) {
+          <div class="text-red-500 text-sm mt-1">name must be at least 3 characters</div>
+          }@else if (clientForm.get('name')?.touched && hasError('name', 'maxLength')) {
+          <div class="text-red-500 text-sm mt-1">name must be at most 255 characters</div>
+          }
         </div>
 
         <div>
@@ -103,16 +105,16 @@
           <input type="text" formControlName="telephone"
             class="text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
             [value]="clientForm.get('telephone')?.value" required>
-          
-            @if (clientForm.get('telephone')?.touched && hasError('telephone', 'required')) {
-              <div class="text-red-500 text-sm mt-1">telephone is required</div>
-            }@else if (clientForm.get('telephone')?.touched && hasError('telephone', 'minLength')) {
-              <div class="text-red-500 text-sm mt-1">telephone must be at min 9 characters</div>
-            }@else if (clientForm.get('telephone')?.touched && hasError('telephone', 'maxLength')) {
-              <div class="text-red-500 text-sm mt-1">telephone must be at most 9 characters</div>
-            }@else if (clientForm.get('telephone')?.touched && hasError('telephone', 'pattern')) {
-              <div class="text-red-500 text-sm mt-1">telephone must be a valid phone number</div>
-            }
+
+          @if (clientForm.get('telephone')?.touched && hasError('telephone', 'required')) {
+          <div class="text-red-500 text-sm mt-1">telephone is required</div>
+          }@else if (clientForm.get('telephone')?.touched && hasError('telephone', 'minLength')) {
+          <div class="text-red-500 text-sm mt-1">telephone must be at min 9 characters</div>
+          }@else if (clientForm.get('telephone')?.touched && hasError('telephone', 'maxLength')) {
+          <div class="text-red-500 text-sm mt-1">telephone must be at most 9 characters</div>
+          }@else if (clientForm.get('telephone')?.touched && hasError('telephone', 'pattern')) {
+          <div class="text-red-500 text-sm mt-1">telephone must be a valid phone number</div>
+          }
         </div>
 
       </form>
@@ -120,7 +122,8 @@
     <div class="flex justify-end">
       <button (click)="closeModal()" class="px-4 py-2 text-sm bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
       @if (clientForm.valid) {
-              <button (click)="confirmEdit()" class="ml-2 px-4 py-2 text-sm bg-green-500 text-white rounded hover:bg-green-600">Confirm</button>
+      <button (click)="confirmEdit()"
+        class="ml-2 px-4 py-2 text-sm bg-green-500 text-white rounded hover:bg-green-600">Confirm</button>
       }
     </div>
   </div>
