@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_URL } from '../environment/environment';
-import { IProduct } from '../interfaces/modelInterfaces';
+import { IProduct, IProductPage } from '../interfaces/modelInterfaces';
 import { Observable, throwError } from 'rxjs';
 
 @Injectable({
@@ -22,8 +22,6 @@ export class ProductService {
   }
 
   create(oProduct: IProduct, file : File): Observable<IProduct> {
-   
-
     const formData = new FormData();
     if (file instanceof File) {
       const formData = new FormData();
@@ -39,5 +37,11 @@ export class ProductService {
       // Retornar un observable con un error o hacer lo que sea necesario
       return throwError('Error: El parámetro "file" no es un objeto de tipo File');
     }
+  }
+
+  getPage(size: number | undefined, page: number | undefined, orderField: string, orderDirection: string): Observable<IProductPage> {
+    if (!size) size = 10;
+    if (!page) page = 0;
+    return this.oHttpClient.get<IProductPage>(this.sUrl + "/page?size=" + size + "&page=" + page + "&sort=" + orderField + "," + orderDirection);
   }
 }
