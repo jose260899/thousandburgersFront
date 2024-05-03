@@ -44,4 +44,9 @@ export class ProductService {
     if (!page) page = 0;
     return this.oHttpClient.get<IProductPage>(this.sUrl + "/page?size=" + size + "&page=" + page + "&sort=" + orderField + "," + orderDirection);
   }
+
+  
+  getByProductType(id: number): Observable<IProduct[]> {
+    return this.oHttpClient.get<IProduct[]>(this.sUrl + "/product-type/" + id);
+  }
 }

@@ -4,11 +4,17 @@ import { Subject } from 'rxjs';
 import { ProductService } from '../../services/product.service';
 import { ConfirmationService } from 'primeng/api';
 import { parse } from '@fortawesome/fontawesome-svg-core';
+import { ProductTableUnroutedEmployeeComponent } from '../product-table-unrouted-employee/product-table-unrouted-employee.component';
 
 @Component({
   selector: 'app-product-table-routed-employee',
   templateUrl: './product-table-routed-employee.component.html',
-  styleUrls: ['./product-table-routed-employee.component.css']
+  styleUrls: ['./product-table-routed-employee.component.css'],
+  standalone: true,
+  imports: [
+    ProductTableUnroutedEmployeeComponent,
+
+  ]
 })
 export class ProductTableRoutedEmployeeComponent implements OnInit {
 
@@ -18,8 +24,6 @@ export class ProductTableRoutedEmployeeComponent implements OnInit {
 
   constructor(
     private oActivatedRoute: ActivatedRoute,
-    private oProductService: ProductService,
-    private oConfirmationService: ConfirmationService
   ) {
     this.id_product = parseInt(this.oActivatedRoute.snapshot.paramMap.get('id') ?? '0');
    }

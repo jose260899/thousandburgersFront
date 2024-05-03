@@ -21,10 +21,8 @@ import html2canvas from 'html2canvas';
     MenuBarComponent,
     FormsModule,
     FooterComponent,
-    
   ],
   providers: [
-
     SessionService,
   ],
   

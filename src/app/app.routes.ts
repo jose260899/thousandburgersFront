@@ -17,6 +17,7 @@ import { TablesPageEmployeeComponent } from './employee/tables-page-employee/tab
 import { EmployeeTableEmployeeComponent } from './employee/employee-table-employee/employee-table-employee.component';
 import { ProductEmployeeComponent } from './employee/product-employee/product-employee.component';
 import { ConfirmAccountComponent } from './shared/confirm-account/confirm-account.component';
+import { ProductTableRoutedEmployeeComponent } from './employee/product-table-routed-employee/product-table-routed-employee.component';
 
 
 export const routes: Routes = [
@@ -37,5 +38,6 @@ export const routes: Routes = [
     { path: 'employeePlist' ,component: EmployeeTableEmployeeComponent },
     { path : 'productEmployee', component:ProductEmployeeComponent },
     { path: 'user/confirm-account', component: ConfirmAccountComponent },
+    { path: 'productsPlistEmployee', component: ProductTableRoutedEmployeeComponent }
 
 ];
