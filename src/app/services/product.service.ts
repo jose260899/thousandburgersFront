@@ -39,11 +39,26 @@ export class ProductService {
     }
   }
 
-  getPage(size: number | undefined, page: number | undefined, orderField: string, orderDirection: string): Observable<IProductPage> {
+  getPage(size: number | undefined, page: number | undefined, orderField: string, orderDirection: string, id_product_type:number): Observable<IProductPage> {
     if (!size) size = 10;
     if (!page) page = 0;
-    return this.oHttpClient.get<IProductPage>(this.sUrl + "/page?size=" + size + "&page=" + page + "&sort=" + orderField + "," + orderDirection);
+    let strUrlProductType = "";
+    if (id_product_type > 0) {
+      strUrlProductType = "&product_type=" + id_product_type;
+    }
+    return this.oHttpClient.get<IProductPage>(this.sUrl + "/page?size=" + size + "&page=" + page + "&sort=" + orderField + "," + orderDirection + strUrlProductType);
   }
+
+  /** getPage(size: number | undefined, page: number | undefined, orderField: string, orderDirection: string, id_user: number): Observable<IThreadPage> {
+        if (!size) size = 10;
+        if (!page) page = 0;
+        let strUrlUser = "";
+        if (id_user > 0) {
+            strUrlUser = "&user=" + id_user;
+        }
+        return this.oHttpClient.get<IThreadPage>(this.sUrl + "?size=" + size + "&page=" + page + "&sort=" + orderField + "," + orderDirection + strUrlUser);
+    }
+ */
 
   
   getByProductType(id: number): Observable<IProduct[]> {

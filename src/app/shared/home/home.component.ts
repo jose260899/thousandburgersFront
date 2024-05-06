@@ -4,7 +4,6 @@ import { SessionService } from '../../services/session.service';
 import { ClientAjaxService } from '../../services/client.ajax.service';
 import { IClient, SessionEvent } from '../../interfaces/modelInterfaces';
 import { API_URL } from '../../environment/environment';
-import { HttpErrorResponse } from '@angular/common/http';
 import { initFlowbite } from 'flowbite';
 
 @Component({

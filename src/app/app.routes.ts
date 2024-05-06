@@ -38,6 +38,6 @@ export const routes: Routes = [
     { path: 'employeePlist' ,component: EmployeeTableEmployeeComponent },
     { path : 'productEmployee', component:ProductEmployeeComponent },
     { path: 'user/confirm-account', component: ConfirmAccountComponent },
-    { path: 'productsPlistEmployee', component: ProductTableRoutedEmployeeComponent }
-
+    { path: 'productsPlistEmployee', component: ProductTableRoutedEmployeeComponent },
+    { path: 'productsPlistEmployee/byProductType/:id', component: ProductTableRoutedEmployeeComponent }
 ];

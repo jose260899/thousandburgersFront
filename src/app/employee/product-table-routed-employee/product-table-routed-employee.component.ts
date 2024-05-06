@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ProductService } from '../../services/product.service';
 import { ConfirmationService } from 'primeng/api';
@@ -13,19 +13,19 @@ import { ProductTableUnroutedEmployeeComponent } from '../product-table-unrouted
   standalone: true,
   imports: [
     ProductTableUnroutedEmployeeComponent,
-
+    RouterModule,
   ]
 })
 export class ProductTableRoutedEmployeeComponent implements OnInit {
 
   forceReload: Subject<boolean> = new Subject<boolean>();
-  id_product:number = 0;
+  id_product_type:number = 0;
   bLoading: boolean = false;
 
   constructor(
     private oActivatedRoute: ActivatedRoute,
   ) {
-    this.id_product = parseInt(this.oActivatedRoute.snapshot.paramMap.get('id') ?? '0');
+    this.id_product_type = parseInt(this.oActivatedRoute.snapshot.paramMap.get('id') ?? '0');
    }
 
   ngOnInit() {

@@ -47,14 +47,27 @@ export class ProductTableUnroutedEmployeeComponent implements OnInit {
   constructor(
     private oProductService: ProductService,
     private oFormBuilder: FormBuilder,
+    private oRouter: RouterModule,
   ) { }
 
   ngOnInit() {
     this.getPage();
+    if (this.id_product_type > 0) {
+      this.getProductType();
+    }
+    this.forceReload.subscribe({
+      next: (v) => {
+        if (v) {
+          this.getPage();
+        }
+      }
+    });
   }
 
+
+
   getPage(): void {
-    this.oProductService.getPage(this.oPaginatorState.rows, this.oPaginatorState.page, this.orderField, this.orderDirection).subscribe({
+    this.oProductService.getPage(this.oPaginatorState.rows, this.oPaginatorState.page, this.orderField, this.orderDirection, this.id_product_type).subscribe({
       next: (data: IProductPage) => {
         this.oPage = data;
         this.oPaginatorState.pageCount = data.totalPages;
