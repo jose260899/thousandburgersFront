@@ -9,3 +9,19 @@
   }
 
 
+  .ordered-products-container {
+    background-color: white; /* Color del ticket */
+    padding: 10px;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    right: 20px; /* Ajusta la posición a la derecha según tus necesidades */
+    transform: translateY(-50%);
+  }
+  
+  .ordered-product {
+    margin-bottom: 5px;
+    /* Añade estilos adicionales según sea necesario */
+  }
+  
+  

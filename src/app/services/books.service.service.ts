@@ -20,7 +20,11 @@ export class BooksService {
     if (!size) size = 10;
     if (!page) page = 0;
     return this.oHttpClient.get<IBookingPage>(this.sUrl + "/page?size=" + size + "&page=" + page + "&sort=" + orderField + "," + orderDirection);
-}
+  }
+
+  getBookingByTable(table_id:number) : Observable<IBooking> {
+    return this.oHttpClient.get<IBooking>(this.sUrl + "/getByTable/" + table_id);
+  }
 
   newOne(oBooking: IBooking): Observable<IBooking> {
     console.log(oBooking);

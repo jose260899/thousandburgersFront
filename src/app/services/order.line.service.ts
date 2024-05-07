@@ -20,4 +20,8 @@ addOrderLine(id_booking: number, product_name: string) {
   return this.oHttpClient.post<IOrder>(this.sUrl + "/create/"+ id_booking + "/" + product_name, null);
 }
 
+getByBooking(id_booking: number) {
+  return this.oHttpClient.get<IOrder[]>(this.sUrl + "/booking/" + id_booking);
+}
+
 }

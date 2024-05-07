@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { TableService } from '../../services/table.service';
-import { IBookingPage, IEntity, IOrder, IProduct, IProductType, ITable } from '../../interfaces/modelInterfaces';
+import { IBooking, IBookingPage, IEntity, IOrder, IProduct, IProductType, ITable } from '../../interfaces/modelInterfaces';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProductService } from '../../services/product.service';
 import { ProductTypeService } from '../../services/product.type.service';
@@ -27,6 +27,13 @@ import { OrderLineService } from '../../services/order.line.service';
 export class TablesPageEmployeeComponent implements OnInit {
 
   tables: ITable[] = [];
+  booking: IBooking = {} as IBooking;
+  products: IProduct[] = [];
+  orders: IOrder[] = [];
+
+  price: number = 0;
+  uniqueProducts: { [name: string]: number } = {};
+
 
   status: HttpErrorResponse | null = null;
 
@@ -78,13 +85,46 @@ export class TablesPageEmployeeComponent implements OnInit {
         this.oPage = data;
         this.oPaginatorState.pageCount = data.totalPages;
       },
-      error: (error) => {
+      error: (error: HttpErrorResponse) => {
+        console.error('Error fetching data:', error);
+      }
+    });
+  }
+
+  getOrdersByBooking(id_booking: number): void {
+    this.products = [];
+    this.price = 0;
+    this.oOrderService.getByBooking(id_booking).subscribe({
+      next: (data: IOrder[]) => {
+          this.orders = data;
+          this.orders.forEach(order => {
+            this.products.push(order.product);
+            this.price += order.product.price;
+          });
+          console.log(this.products);
+      },
+      error: (error: HttpErrorResponse) => {
         console.error('Error fetching data:', error);
       }
     });
   }
 
 
+  openModalOrder(table_id:number): void {
+    this.id_table = table_id;
+    this.oBookingService.getBookingByTable(table_id).subscribe({
+      next: (data: IBooking) => {
+        this.booking = data;
+        this.id_booking = this.booking.id;
+        this.getOrdersByBooking(this.booking.id);
+        //console.log(this.booking);
+        this.showModal = true;
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Error fetching data:', error);
+      }
+    });
+  }
 
   onPageChang(event: PaginatorState) {
     this.oPaginatorState.rows = event.rows;
@@ -106,7 +146,6 @@ export class TablesPageEmployeeComponent implements OnInit {
   }
 
   addOrderLine() {
-
     this.product_name.forEach(element => {
       console.log(element);
       console.log(this.id_booking);
@@ -186,6 +225,7 @@ export class TablesPageEmployeeComponent implements OnInit {
 
   setBooking(id: number): void {
     this.id_booking = id;
+    this.getBookings();
     this.updateBooking();
     this.getBookings();
   }
@@ -207,8 +247,9 @@ export class TablesPageEmployeeComponent implements OnInit {
       next: (data) => {
         console.log(data);
         this.getBookings();
+        this.getTables();
         this.showModalReserve = false;
-        this.showModal = true
+        //this.showModal = true
       },
       error: (error) => {
         console.error('Error fetching data:', error);
