@@ -50,7 +50,6 @@
             <table class="table-auto w-full bg-gray-700 text-white border border-gray-600">
               <thead>
                 <tr>
-                  <th class="py-2">ID</th>
                   <th class="py-2">Date</th>
                   <th class="py-2">Hour</th>
                   <th class="py-2">Client</th>
@@ -59,18 +58,21 @@
               </thead>
               <tbody>
                 @for (booking of oPage?.content; track oPage?.content) {
-                  @if (!booking.table) {
-                    <tr>
-                  <td class="py-2 m-2">{{booking.id}}</td>
-                  <td class="py-2 m-2">{{booking.date}}</td>
-                  <td class="py-2 m-2">{{booking.time_zone.hour}}</td>
-                  <td class="py-2 m-2">{{booking.client.username}}</td>
-                  <td class="py-2">
-                    <button class="button bg-gray-300" (click)="setBooking(booking.id)">+</button>
-                    <!--} -->
-                  </td>
-                </tr>
+                  @if (!oPage?.content) {
+                    <p class="text-white text-center">There are no reservations today</p>
+                  }@else{
+                    @if (!booking.table) {
+                      <tr>
+                    <td class="py-2 m-2">{{booking.date}}</td>
+                    <td class="py-2 m-2">{{booking.time_zone.hour}}</td>
+                    <td class="py-2 m-2">{{booking.client.username}}</td>
+                    <td class="py-2">
+                      <button class="button bg-gray-300" (click)="setBooking(booking.id)">+</button>
+                    </td>
+                  </tr>
+                    }             
                   }
+                  
                 
                 }
               </tbody>

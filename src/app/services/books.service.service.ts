@@ -22,6 +22,12 @@ export class BooksService {
     return this.oHttpClient.get<IBookingPage>(this.sUrl + "/page?size=" + size + "&page=" + page + "&sort=" + orderField + "," + orderDirection);
   }
 
+  getPageByCurrentDate(size: number | undefined, page: number | undefined, orderField: string, orderDirection: string): Observable<IBookingPage> {
+    if (!size) size = 10;
+    if (!page) page = 0;
+    return this.oHttpClient.get<IBookingPage>(this.sUrl + "/pageCurrentDate?size=" + size + "&page=" + page + "&sort=" + orderField + "," + orderDirection);
+  }
+
   getBookingByTable(table_id:number) : Observable<IBooking> {
     return this.oHttpClient.get<IBooking>(this.sUrl + "/getByTable/" + table_id);
   }

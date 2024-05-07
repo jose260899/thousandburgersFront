@@ -80,7 +80,7 @@ export class TablesPageEmployeeComponent implements OnInit {
   }
 
   getBookings(): void {
-    this.oBookingService.getPage(this.oPaginatorState.rows, this.oPaginatorState.page, this.orderField, this.orderDirection).subscribe({
+    this.oBookingService.getPageByCurrentDate(this.oPaginatorState.rows, this.oPaginatorState.page, this.orderField, this.orderDirection).subscribe({
       next: (data) => {
         this.oPage = data;
         this.oPaginatorState.pageCount = data.totalPages;
