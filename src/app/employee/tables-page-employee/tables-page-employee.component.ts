@@ -101,7 +101,6 @@ export class TablesPageEmployeeComponent implements OnInit {
             this.products.push(order.product);
             this.price += order.product.price;
           });
-          console.log(this.products);
       },
       error: (error: HttpErrorResponse) => {
         console.error('Error fetching data:', error);
@@ -117,7 +116,6 @@ export class TablesPageEmployeeComponent implements OnInit {
         this.booking = data;
         this.id_booking = this.booking.id;
         this.getOrdersByBooking(this.booking.id);
-        //console.log(this.booking);
         this.showModal = true;
       },
       error: (error: HttpErrorResponse) => {
@@ -163,10 +161,8 @@ export class TablesPageEmployeeComponent implements OnInit {
       console.log(this.id_booking);
        this.oOrderService.addOrderLine(this.id_booking, element).subscribe({
         next: (data) => {
-          console.log(data);
           this.closeModal();
           this.getBookings();
-
         },
         error: (error) => {
           console.error('Error fetching data:', error);
@@ -175,7 +171,6 @@ export class TablesPageEmployeeComponent implements OnInit {
     }
     );
   }
-
 
   cogerTypeProds() {
     this.oProductTypeService.getAll().subscribe({
@@ -195,7 +190,6 @@ export class TablesPageEmployeeComponent implements OnInit {
     this.oProductService.getByClient(1).subscribe({
       next: (data) => {
         this.entrantes = data;
-        console.log(this.entrantes);
       },
       error: (error) => {
         console.error('Error fetching data:', error);
@@ -207,7 +201,6 @@ export class TablesPageEmployeeComponent implements OnInit {
     this.oProductService.getByClient(2).subscribe({
       next: (data) => {
         this.principales = data;
-        console.log(this.principales);
       },
       error: (error) => {
         console.error('Error fetching data:', error);
@@ -219,7 +212,6 @@ export class TablesPageEmployeeComponent implements OnInit {
     this.oProductService.getByClient(3).subscribe({
       next: (data) => {
         this.postres = data;
-        console.log(this.postres);
       },
       error: (error) => {
         console.error('Error fetching data:', error);
@@ -227,10 +219,7 @@ export class TablesPageEmployeeComponent implements OnInit {
     });
   }
 
-
-  //funciones para la ventana de pedir productos
   openModal(id: number): void {
-    //this.showModal = true;
     this.id_table = id;
     this.showModalReserve = true;
   }
@@ -244,7 +233,6 @@ export class TablesPageEmployeeComponent implements OnInit {
 
   setProductName(product_name: string): void {
     this.product_name.push(product_name);
-    console.log(this.product_name);
   }
 
   removeProduct(productName: string) {
@@ -257,11 +245,9 @@ export class TablesPageEmployeeComponent implements OnInit {
   updateBooking(): void {
     this.oBookingService.setTable(this.id_booking, this.id_table).subscribe({
       next: (data) => {
-        console.log(data);
         this.getBookings();
         this.getTables();
         this.showModalReserve = false;
-        //this.showModal = true
       },
       error: (error) => {
         console.error('Error fetching data:', error);
@@ -273,13 +259,10 @@ export class TablesPageEmployeeComponent implements OnInit {
     this.showModal = false;
     this.showModalReserve = false;
     this.product_name = [];
-
   }
 
   confirmOrder(): void {
     this.addOrderLine();
-    //this.product_name = [];
-    console.log(this.product_name);
   }
 
 
