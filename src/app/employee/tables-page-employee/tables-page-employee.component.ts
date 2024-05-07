@@ -77,7 +77,6 @@ export class TablesPageEmployeeComponent implements OnInit {
       next: (data) => {
         this.oPage = data;
         this.oPaginatorState.pageCount = data.totalPages;
-        //this.bookings = data.content;      
       },
       error: (error) => {
         console.error('Error fetching data:', error);
