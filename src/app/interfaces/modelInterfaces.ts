@@ -80,6 +80,7 @@ export interface ITable extends IEntity {
     id: number,
     site: string,
     capacity: number,
+    available: boolean,
 }
 
 export interface ITime extends IEntity {

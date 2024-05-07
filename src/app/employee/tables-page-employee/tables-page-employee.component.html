@@ -8,9 +8,15 @@
 
       <!-- Mesa 1 -->
       @for (table of tables; track tables) {
-      <div class="mesa mesa-libre p-4 m-3 rounded-md shadow-md bg-gray-400" (click)="openModal(table.id)">
-        <p class="text-center font-semibold"> {{table.id}}</p>
-      </div>
+        @if(table.available === false){
+          <div class="mesa mesa-libre p-4 m-3 rounded-md shadow-md bg-gray-400 hover:bg-green-500" (click)="openModal(table.id)">
+            <p class="text-center font-semibold text-black"> {{table.id}}</p>
+          </div>
+        }@else {
+          <div class="mesa mesa-libre p-4 m-3 rounded-md shadow-md bg-red-400 hover:bg-gray-400" (click)="openModal(table.id)">
+            <p class="text-center font-semibold text-black"> {{table.id}}</p>
+          </div>
+        }
       }
 
 
