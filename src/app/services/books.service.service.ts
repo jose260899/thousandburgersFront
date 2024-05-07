@@ -66,5 +66,9 @@ export class BooksService {
     return this.oHttpClient.put<IBooking>(this.sUrl + "/setTable/" + id_booking + "/" + id_table, null); 
   }
 
+  endBooking(id_booking:number): Observable<IBooking> {
+    return this.oHttpClient.put<IBooking>(this.sUrl + "/endBooking/" + id_booking, null);
+  }
+
 
 }

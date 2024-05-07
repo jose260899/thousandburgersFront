@@ -126,6 +126,19 @@ export class TablesPageEmployeeComponent implements OnInit {
     });
   }
 
+  endBooking(): void {
+    this.oBookingService.endBooking(this.id_booking).subscribe({
+      next: (data) => {
+        this.getBookings();
+        this.getTables();
+        this.showModal = false;
+      },
+      error: (error) => {
+        console.error('Error fetching data:', error);
+      }
+    });
+  }
+
   onPageChang(event: PaginatorState) {
     this.oPaginatorState.rows = event.rows;
     this.oPaginatorState.page = event.page;
@@ -137,7 +150,6 @@ export class TablesPageEmployeeComponent implements OnInit {
     this.oTableService.getOptions().subscribe({
       next: (data: ITable[]) => {
         this.tables = data;
-        console.log(this.tables);
       },
       error: (error: HttpErrorResponse) => {
         this.status = error;
