@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { IBooking, IBookingPage, IClient } from '../../interfaces/modelInterfaces';
+import { IBooking, IBookingPage, IClient, IOrder, IProduct } from '../../interfaces/modelInterfaces';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ClientAjaxService } from '../../services/client.ajax.service';
 import { SessionService } from '../../services/session.service';
@@ -12,6 +12,8 @@ import { TimeZoneService } from '../../services/time.zone.service';
 
 import { PaginatorState } from 'primeng/paginator';
 import { PaginatorModule } from 'primeng/paginator';
+import { OrderLineService } from '../../services/order.line.service';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-client-books-view',
@@ -43,6 +45,7 @@ export class ClientBooksViewComponent implements OnInit {
   // Variable para controlar la visibilidad del modal
   isConfirmationModalVisible: boolean = false;
   isEditActive: boolean = false;
+  ticketModalVisible: boolean = false;
 
   dateToday:Date = new Date( Date.now()); // Formato yyyy-mm-dd
 
@@ -65,6 +68,12 @@ export class ClientBooksViewComponent implements OnInit {
   bookings: IBooking[] = [];//for the table
 
 
+  //Para el ticket
+  orders: IOrder[] = [];
+  products: IProduct[] = [];
+  price: number = 0;
+
+
   bookingForm!: FormGroup;//form for editing
   minDate?: string;  // Se utiliza el formato yyyy-mm-dd
   options: string[] = []; //hours
@@ -77,6 +86,8 @@ export class ClientBooksViewComponent implements OnInit {
     private router: Router,
     private oFormBuilder: FormBuilder,
     private oTimeZoneService: TimeZoneService,
+    private oOrderService: OrderLineService,
+    private oProductService: ProductService,
 
   ) {
     const today = new Date();
@@ -173,6 +184,28 @@ export class ClientBooksViewComponent implements OnInit {
     // Muestra el modal de confirmación
   }
 
+  
+
+  getOrderByBooking(id: number): void {
+    this.orders = [];
+    this.products = [];
+    this.price = 0;
+    this.oOrderService.getByBooking(id).subscribe({
+      next: (data: IOrder[]) => {
+        this.orders = data;
+        this.orders.forEach(order => {
+          this.products.push(order.product);
+          this.price += order.product.price;
+        });
+        this.ticketModalVisible = true;
+        console.log(this.orders);
+      },
+      error: (error: HttpErrorResponse) => {
+        this.status = error;
+      }
+    })
+  }
+
   confirmDelete(): void {
     this.isConfirmationModalVisible = false;
 
@@ -193,16 +226,10 @@ export class ClientBooksViewComponent implements OnInit {
     this.isConfirmationModalVisible = false;
   }
 
-
-
-
-
-
-
-
   closeModal() {
     // Cierra el modal de confirmación sin realizar el logout
     this.isEditActive = false;
+    this.ticketModalVisible = false;
 
   }
 

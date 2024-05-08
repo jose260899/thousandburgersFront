@@ -64,4 +64,11 @@ export class ProductService {
   getByProductType(id: number): Observable<IProduct[]> {
     return this.oHttpClient.get<IProduct[]>(this.sUrl + "/product-type/" + id);
   }
+
+  getById(id: number): Observable<IProduct> {
+    return this.oHttpClient.get<IProduct>(this.sUrl + "/" + id);
+  }
+
+ // /getProductsByBooking/{booking_id}
+
 }

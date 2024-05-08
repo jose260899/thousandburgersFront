@@ -5,7 +5,6 @@ import { IClient } from '../interfaces/modelInterfaces';
 import  jsPDF  from "jspdf"; // Método común si jsPDF soporta ES6
 
 
-//declare let jsPDF: any;
 
 @Injectable({
   providedIn: 'root',
@@ -119,7 +118,7 @@ printUser = (id_user: number): void => {
     return doc;
   }
 
-  private pie(doc: jsPDF): any {
+  private pie(doc: jsPDF): jsPDF {
 
     const indigoPastel = "#7887AB";
     
