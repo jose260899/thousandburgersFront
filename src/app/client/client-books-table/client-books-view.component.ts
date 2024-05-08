@@ -14,6 +14,7 @@ import { PaginatorState } from 'primeng/paginator';
 import { PaginatorModule } from 'primeng/paginator';
 import { OrderLineService } from '../../services/order.line.service';
 import { ProductService } from '../../services/product.service';
+import { TicketPrintService } from '../../services/ticket.print.service';
 
 @Component({
   selector: 'app-client-books-view',
@@ -73,6 +74,7 @@ export class ClientBooksViewComponent implements OnInit {
   products: IProduct[] = [];
   price: number = 0;
 
+  id_booking: number = 0; //for the ticket
 
   bookingForm!: FormGroup;//form for editing
   minDate?: string;  // Se utiliza el formato yyyy-mm-dd
@@ -88,7 +90,7 @@ export class ClientBooksViewComponent implements OnInit {
     private oTimeZoneService: TimeZoneService,
     private oOrderService: OrderLineService,
     private oProductService: ProductService,
-
+    private oPrintTicketService: TicketPrintService,
   ) {
     const today = new Date();
     this.minDate = today.toISOString().split('T')[0]; // Formato yyyy-mm-dd
@@ -190,7 +192,8 @@ export class ClientBooksViewComponent implements OnInit {
     this.orders = [];
     this.products = [];
     this.price = 0;
-    this.oOrderService.getByBooking(id).subscribe({
+    this.id_booking = id;
+    this.oOrderService.getByBooking(this.id_booking).subscribe({
       next: (data: IOrder[]) => {
         this.orders = data;
         this.orders.forEach(order => {
@@ -230,7 +233,11 @@ export class ClientBooksViewComponent implements OnInit {
     // Cierra el modal de confirmación sin realizar el logout
     this.isEditActive = false;
     this.ticketModalVisible = false;
+    //this.oPrintTicketService.printTicket(125);
+  }
 
+  printTicket(): void {
+    this.oPrintTicketService.printTicket(this.id_booking);
   }
 
   confirmEditBooking() {
