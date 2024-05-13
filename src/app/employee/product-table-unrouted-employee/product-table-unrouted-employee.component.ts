@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { Form, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Form, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
@@ -41,12 +41,19 @@ export class ProductTableUnroutedEmployeeComponent implements OnInit {
   orderDirection: string = "asc";
   oPaginatorState: PaginatorState = { first: 0, rows: 10, page: 0, pageCount: 0 };
 
+  productForm!: FormGroup;
+  oFile: File = new File([""], "default.txt", { type: "text/plain" });
+
+  modalCreate: boolean = false;
+  modalEdit: boolean = false;
+  modalDelete: boolean = false;
+  modalView: boolean = false;
 
 
 
   constructor(
     private oProductService: ProductService,
-    private oFormBuilder: FormBuilder,
+    private fb: FormBuilder,
     private oRouter: RouterModule,
   ) { }
 
@@ -62,6 +69,25 @@ export class ProductTableUnroutedEmployeeComponent implements OnInit {
         }
       }
     });
+  }
+
+  initializeForm(oProduct: IProduct) {
+    this.productForm = this.fb.group({
+      name: [oProduct.name],
+      description: [oProduct.description],
+      image: [''],
+      price: [oProduct.price],
+      product_type: this.fb.group({
+        name: [oProduct.product_type.name]
+      })
+    });
+  }
+
+  onFileChange(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.oFile = file;
+    }
   }
 
 
@@ -94,6 +120,25 @@ export class ProductTableUnroutedEmployeeComponent implements OnInit {
         this.status = error;
       }
     });
+  }
+
+
+  onSubmit() {
+    if (this.productForm.valid) {
+      if (this.oFile instanceof File) {
+        this.oProductService.create(this.productForm.value, this.oFile).subscribe({
+          next: (data: IProduct) => {
+            console.log(data);
+          },
+          error: (error: HttpErrorResponse) => {
+            this.status = error;
+          }
+        });
+      }else{
+        console.log('El parámetro "image" no es un objeto de tipo File');
+      }
+      
+    }
   }
 
 }
