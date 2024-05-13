@@ -41,6 +41,8 @@ export class EmployeeTableEmployeeComponent implements OnInit {
   oEmployee: IEmployee = {} as IEmployee; 
   modalCreate: boolean = false;
   modalEdit: boolean = false;
+  modalDelete: boolean = false;
+  modalView: boolean = false;
 
 
   constructor(
@@ -151,6 +153,25 @@ export class EmployeeTableEmployeeComponent implements OnInit {
       })
     }
   }
+  
+  idDelete: number = 0;
+  delete(id: number){
+    this.modalDelete = true;
+    this.idDelete = id;
+  }
+
+  confirmDelete() {
+    this.oEmployeeService.deleteById(this.idDelete).subscribe({
+      next: (data: IEmployee) => {
+        this.oEmployee = data;
+        this.getPage();
+        this.closeModalCreate();
+      },
+      error: (error: HttpErrorResponse) => {
+        this.status = error;
+      }
+    });
+  }
 
   openModalCreate() {
     this.modalCreate = true;
@@ -166,9 +187,22 @@ export class EmployeeTableEmployeeComponent implements OnInit {
   closeModalCreate() {
     this.modalCreate = false;
     this.modalEdit = false;
+    this.modalDelete = false;
+    this.modalView = false;
   }
 
 
+  view(id: number) {
+    this.oEmployeeService.getOne(id).subscribe({
+      next: (data: IEmployee) => {
+        this.oEmployee = data;
+        this.modalView = true;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.status = error;
+      }
+    });
+  }
 
 
 }

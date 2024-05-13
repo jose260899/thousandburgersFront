@@ -117,8 +117,6 @@ export class ClientTableEmployeeComponent implements OnInit {
 
 
   view(id: number) {
-
-
     this.oClientService.getOne(id).subscribe({
       next: (data: IClient) => {
         this.client = data;
