@@ -33,16 +33,7 @@ export class MenuBarComponent implements OnInit {
   usernameEmployee: string = '';
   oSessionEmployee: IEmployee | null = null;
   isLoggedInEmployee: boolean = false;
-
   showModal: boolean = false;
-
-
-
-
-
-
-
-
 
   constructor(
     private router: Router,
@@ -74,7 +65,7 @@ export class MenuBarComponent implements OnInit {
         }
       });
     }
-    if (oSessionEmployeeService.isSessionActive()) {
+    if (this.oSessionEmployeeService.isSessionActive()){
       this.oEmployeeService.getByUsername(this.oSessionEmployeeService.getUsername()).subscribe({
         next: (oEmployee: IEmployee) => {
           this.oSessionEmployee = oEmployee;
@@ -85,7 +76,13 @@ export class MenuBarComponent implements OnInit {
           console.log(error);
         }
       });
+    }else{
+      this.username = "";
+      this.usernameEmployee = "";
     }
+  
+      
+    
 
   }
 

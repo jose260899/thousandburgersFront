@@ -41,6 +41,7 @@ newOne(oEmployee: IEmployee): Observable<IEmployee> {
 }
 
 update(oEmployee: IEmployee): Observable<IEmployee> {
+  console.log(oEmployee);
   return this.oHttpClient.put<IEmployee>(this.sUrl + "/update", oEmployee);
 }
 

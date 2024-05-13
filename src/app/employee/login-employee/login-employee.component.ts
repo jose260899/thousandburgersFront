@@ -54,7 +54,7 @@ export class LoginEmployeeComponent implements OnInit {
   onSubmit() {
 
     if (this.loginForm.valid) {
-      this.oSessionService.login(this.loginForm.value.username,this.loginForm.value.password).subscribe({
+      this.oSessionService.login(this.loginForm.value.username,this.oCryptoService.getSHA256(this.loginForm.value.password) ).subscribe({
         next: (data: string) => {
           this.oSessionService.setToken(data);
           this.oSessionService.emit({ type: 'login' });

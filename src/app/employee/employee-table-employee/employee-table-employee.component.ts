@@ -40,6 +40,7 @@ export class EmployeeTableEmployeeComponent implements OnInit {
 
   oEmployee: IEmployee = {} as IEmployee; 
   modalCreate: boolean = false;
+  modalEdit: boolean = false;
 
 
   constructor(
@@ -59,6 +60,18 @@ export class EmployeeTableEmployeeComponent implements OnInit {
       birthDate: [oEmployee.birthDate, [Validators.required]],
       role: [oEmployee.role, [Validators.required]],
       username: [oEmployee.username, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+    });
+  }
+
+  initializeFormEdit(oEmployee: IEmployee) {
+    this.employeeForm = this.oFormBuilder.group({
+      id: [oEmployee.id],
+      name: [oEmployee.name, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      //dni: [oEmployee.dni, [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
+      telephone: [oEmployee.telephone, [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
+      birthDate: [oEmployee.birthDate, [Validators.required]],
+      role: [oEmployee.role, [Validators.required]],
+      //username: [oEmployee.username, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
     });
   }
 
@@ -85,6 +98,44 @@ export class EmployeeTableEmployeeComponent implements OnInit {
     this.getPage();
   }
 
+  edit(id: number) {
+    this.initializeFormEdit(this.oEmployee);
+    this.oEmployeeService.getOne(id).subscribe({
+      next: (data: IEmployee) => {
+        this.oEmployee = data;
+        console.log(this.oEmployee);
+        this.employeeForm.setValue({
+          id: this.oEmployee,
+          name: this.oEmployee.name,
+          //dni: this.oEmployee.dni,
+          telephone: this.oEmployee.telephone,
+          birthDate: this.oEmployee.birthDate,
+          role: this.oEmployee.role,
+        });
+        this.openModalEdit();
+      },
+      error: (error: HttpErrorResponse) => {
+        this.status = error;
+      }
+    })
+
+  }
+
+  onSubmitEdit() {
+    console.log(this.employeeForm.value);
+    if (this.employeeForm.valid) {
+      this.oEmployeeService.update(this.employeeForm.value).subscribe({
+        next: (data: IEmployee) => {
+          this.getPage();
+          this.closeModalCreate();
+        },
+        error: (error: HttpErrorResponse) => {
+          this.status = error;
+        }
+      })
+    }
+  }
+
   onSubmitCreate() {
     console.log(this.employeeForm.value);
     if (this.employeeForm.valid) {
@@ -92,7 +143,7 @@ export class EmployeeTableEmployeeComponent implements OnInit {
         next: (data: IEmployee) => {
           this.getPage();
           this.closeModalCreate();
-          
+
         },
         error: (error: HttpErrorResponse) => {
           this.status = error;
@@ -103,12 +154,21 @@ export class EmployeeTableEmployeeComponent implements OnInit {
 
   openModalCreate() {
     this.modalCreate = true;
+    this.oEmployee = {} as IEmployee;
     this.initializeFormCreate(this.oEmployee);
+  }
+
+  openModalEdit() {
+    this.modalEdit = true;
+    this.initializeFormEdit(this.oEmployee);
   }
 
   closeModalCreate() {
     this.modalCreate = false;
+    this.modalEdit = false;
   }
+
+
 
 
 }
