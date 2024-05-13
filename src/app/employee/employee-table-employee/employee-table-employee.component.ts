@@ -44,6 +44,7 @@ export class EmployeeTableEmployeeComponent implements OnInit {
   modalDelete: boolean = false;
   modalView: boolean = false;
 
+  idDelete: number = 0;
 
   constructor(
     private oEmployeeService: EmployeeService,
@@ -69,11 +70,9 @@ export class EmployeeTableEmployeeComponent implements OnInit {
     this.employeeForm = this.oFormBuilder.group({
       id: [oEmployee.id],
       name: [oEmployee.name, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      //dni: [oEmployee.dni, [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
       telephone: [oEmployee.telephone, [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
       birthDate: [oEmployee.birthDate, [Validators.required]],
       role: [oEmployee.role, [Validators.required]],
-      //username: [oEmployee.username, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
     });
   }
 
@@ -154,7 +153,6 @@ export class EmployeeTableEmployeeComponent implements OnInit {
     }
   }
   
-  idDelete: number = 0;
   delete(id: number){
     this.modalDelete = true;
     this.idDelete = id;
@@ -191,7 +189,6 @@ export class EmployeeTableEmployeeComponent implements OnInit {
     this.modalView = false;
   }
 
-
   view(id: number) {
     this.oEmployeeService.getOne(id).subscribe({
       next: (data: IEmployee) => {
@@ -203,6 +200,4 @@ export class EmployeeTableEmployeeComponent implements OnInit {
       }
     });
   }
-
-
 }
