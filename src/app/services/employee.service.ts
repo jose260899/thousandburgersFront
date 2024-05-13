@@ -48,6 +48,10 @@ deleteById(id:number): Observable<IEmployee> {
   return this.oHttpClient.delete<IEmployee>(this.sUrl + "/" + id);
 }
 
+create(oEmployee: IEmployee): Observable<IEmployee> {
+  return this.oHttpClient.post<IEmployee>(this.sUrl + "/create", oEmployee);
+}
+
 
 
 }
