@@ -157,4 +157,24 @@ export class ProductTableUnroutedEmployeeComponent implements OnInit {
     this.modalView = false;
   }
 
+  idDelete: number = 0;
+  
+  delete(id: number){
+    this.modalDelete = true;
+    this.idDelete = id;
+  }
+
+  confirmDelete() {
+    this.oProductService.delete(this.idDelete).subscribe({
+      next: (data: IProduct) => {
+        this.oProduct = data;
+        this.getPage();
+        this.closeModal();
+      },
+      error: (error: HttpErrorResponse) => {
+        this.status = error;
+      }
+    });
+  }
+
 }
