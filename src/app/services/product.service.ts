@@ -43,12 +43,13 @@ export class ProductService {
     const formData = new FormData();
     if (file instanceof File) {
       const formData = new FormData();
+      formData.append('id', oProduct.id.toString());
       formData.append('file', file, file.name); // Aquí agregamos el archivo con su nombre
       formData.append('name', oProduct.name);
       formData.append('description', oProduct.description);
       formData.append('price', oProduct.price.toString());
       formData.append('product_type.name', oProduct.product_type.name);
-      return this.oHttpClient.put<IProduct>(this.sUrl + "/update/" + oProduct.id, formData );
+      return this.oHttpClient.put<IProduct>(this.sUrl + "/update" , formData );
 
     } else {
       console.error('El parámetro "file" no es un objeto de tipo File');

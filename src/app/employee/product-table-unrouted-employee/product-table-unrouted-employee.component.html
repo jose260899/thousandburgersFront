@@ -62,7 +62,7 @@
                 <fa-icon [icon]="faEye"></fa-icon>
               </span>
             </a>
-            <a class="button bg-blue-500 hover:bg-blue-700 text-white m-2">
+            <a (click)="edit(product.id)" class="button bg-blue-500 hover:bg-blue-700 text-white m-2">
               <span class="icon is-small is-left">
                 <fa-icon [icon]="faPen"></fa-icon>
               </span>
@@ -148,6 +148,75 @@
             </form>
         </div>
     </div>
+}
+
+@if (modalEdit) {
+  <div class="modal-container fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 ">
+
+    <div class="mx-auto  max-w-md mt-16 mb-16  p-6 bg-gray-800 rounded-md shadow-md dark:bg-black">
+        <h2 class="text-2xl text-center  font-semibold text-white mb-6">Edit product</h2>
+        <form [formGroup]="productForm" (ngSubmit)="onSubmitEdit()">
+            <div class="mb-6">
+                <label class="block mb-2 text-center text-sm font-medium text-gray-300 dark:text-white">Name</label>
+                <input type="text" name="name" formControlName="name"
+                    class="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="" required>
+              
+            </div>
+            <div class="mb-6">
+                <label for="password"
+                    class="block mb-2 text-center  text-sm font-medium text-gray-300 dark:text-white">Description
+                </label>
+                <input type="text" id="password" name="description" formControlName="description"
+                    class="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="" required>
+                
+            </div>
+
+            <div class="mb-6">
+                <label for="password"
+                    class="block mb-2 text-center  text-sm font-medium text-gray-300 dark:text-white">Price
+                </label>
+                <input type="text" name="price" id="password" formControlName="price"
+                    class="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="" required>
+            </div>
+
+            <div class="mb-6">
+                <label for="image"
+                    class="block mb-2 text-center  text-sm font-medium text-gray-300 dark:text-white">Image
+                </label>
+                <input (change) = "onFileChange($event)" name="image"  type="file" id="image" formControlName="image" accept="image/*"
+                    class="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    >
+            </div>
+
+            <div class="mb-6">
+                <label class="block mb-2 text-center text-sm font-medium text-gray-300 dark:text-white">Type
+                    product</label>
+                <div formGroupName="product_type">
+                    <select formControlName="name" 
+                        class="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="Starter">Starter</option>
+                        <option value="Main">Main</option>
+                        <option value="Dessert">Dessert</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="flex flex-col items-center">
+                @if (productForm.valid) {
+                <button type="submit"
+                    class="text-white  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                }
+                <button (click)="closeModal()"
+                class="text-white  bg-red-600 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Close</button>
+
+            </div>
+        </form>
+    </div>
+</div>
 }
 
 @if (modalDelete) {

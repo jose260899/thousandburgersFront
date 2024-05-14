@@ -86,6 +86,19 @@ export class ProductTableUnroutedEmployeeComponent implements OnInit {
     });
   }
 
+  initializeFormEdit(oProduct: IProduct) {
+    this.productForm = this.fb.group({
+      id: [oProduct.id],
+      name: [oProduct.name, [Validators.required]],
+      description: [oProduct.description,[Validators.required]],
+      image: [''],
+      price: [oProduct.price, [Validators.required]],
+      product_type: this.fb.group({
+        name: [oProduct.product_type.name, [Validators.required]]
+      })
+    });
+  }
+
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -141,8 +154,54 @@ export class ProductTableUnroutedEmployeeComponent implements OnInit {
       }else{
         console.log('El parámetro "image" no es un objeto de tipo File');
       }
-      
     }
+  }
+
+  edit(id: number) {
+    this.initializeFormEdit(this.oProduct);
+    this.oProductService.getById(id).subscribe({
+      next: (data: IProduct) => {
+        this.oProduct = data;
+        console.log(this.oProduct);
+        this.productForm.setValue({
+          id: this.oProduct.id,
+          name: this.oProduct.name,
+          description: this.oProduct.description,
+          image: this.oProduct.image,
+          price: this.oProduct.price,
+          product_type: {
+            name: this.oProduct.product_type.name
+          }
+        });
+        this.openModalEdit();
+      },
+      error: (error: HttpErrorResponse) => {
+        this.status = error;
+      }
+    })
+  }
+
+  onSubmitEdit() {
+    if (this.productForm.valid) {
+      if (this.oFile instanceof File) {
+        this.oProductService.update(this.productForm.value, this.oFile).subscribe({
+          next: (data: IProduct) => {
+            this.getPage();
+            this.closeModal();
+          },
+          error: (error: HttpErrorResponse) => {
+            this.status = error;
+          }
+        });
+      }else{
+        console.log('El parámetro "image" no es un objeto de tipo File');
+      }
+    }
+  }
+
+  openModalEdit() {
+    this.initializeFormEdit(this.oProduct);
+    this.modalEdit = true;
   }
 
   openModalCreate() {
