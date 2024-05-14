@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { Form, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Form, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
@@ -34,6 +34,9 @@ export class ProductTableUnroutedEmployeeComponent implements OnInit {
   status: HttpErrorResponse | null = null;
 
   products: IProduct[] = [];
+
+  oProduct: IProduct = { product_type: { name:"" } } as IProduct;
+
 
 
   oPage: IProductPage | undefined;
@@ -73,12 +76,12 @@ export class ProductTableUnroutedEmployeeComponent implements OnInit {
 
   initializeForm(oProduct: IProduct) {
     this.productForm = this.fb.group({
-      name: [oProduct.name],
-      description: [oProduct.description],
+      name: [oProduct.name, [Validators.required]],
+      description: [oProduct.description,[Validators.required]],
       image: [''],
-      price: [oProduct.price],
+      price: [oProduct.price, [Validators.required]],
       product_type: this.fb.group({
-        name: [oProduct.product_type.name]
+        name: [oProduct.product_type.name, [Validators.required]]
       })
     });
   }
@@ -128,7 +131,8 @@ export class ProductTableUnroutedEmployeeComponent implements OnInit {
       if (this.oFile instanceof File) {
         this.oProductService.create(this.productForm.value, this.oFile).subscribe({
           next: (data: IProduct) => {
-            console.log(data);
+            this.getPage();
+            this.closeModal();
           },
           error: (error: HttpErrorResponse) => {
             this.status = error;
@@ -139,6 +143,18 @@ export class ProductTableUnroutedEmployeeComponent implements OnInit {
       }
       
     }
+  }
+
+  openModalCreate() {
+    this.initializeForm(this.oProduct);
+    this.modalCreate = true;
+  }
+
+  closeModal(){
+    this.modalCreate = false;
+    this.modalEdit = false;
+    this.modalDelete = false;
+    this.modalView = false;
   }
 
 }
