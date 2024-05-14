@@ -158,7 +158,7 @@ export class ProductTableUnroutedEmployeeComponent implements OnInit {
   }
 
   idDelete: number = 0;
-  
+
   delete(id: number){
     this.modalDelete = true;
     this.idDelete = id;
@@ -170,6 +170,18 @@ export class ProductTableUnroutedEmployeeComponent implements OnInit {
         this.oProduct = data;
         this.getPage();
         this.closeModal();
+      },
+      error: (error: HttpErrorResponse) => {
+        this.status = error;
+      }
+    });
+  }
+
+  view(id: number){
+    this.oProductService.getById(id).subscribe({
+      next: (data: IProduct) => {
+        this.oProduct = data;
+        this.modalView = true;
       },
       error: (error: HttpErrorResponse) => {
         this.status = error;
