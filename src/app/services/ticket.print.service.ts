@@ -24,10 +24,14 @@ export class TicketPrintService {
         var doc = new jsPDF();
         doc.setFont('Arial');
         doc.setFontSize(12);
+        const width = 80; // Ancho de la hoja en mm
+        const height = 200; // Alto de la hoja en mm
+        doc.addPage([width, height]);
         doc = this.cabecera(doc);
         doc = this.contenido(doc);
         //doc = this.pie(doc);
         console.log(doc);
+        doc.deletePage(1);
         doc.save('ticket.pdf');
       }
     })
@@ -36,33 +40,56 @@ export class TicketPrintService {
   private cabecera(doc: jsPDF): jsPDF {
     const black = "#000000";
     doc.setFontSize(20);
-    doc.text('ThousandBurgers', 70, 25);
+    doc.text('ThousandBurgers', 15, 25);
     doc.setDrawColor(black);
-    doc.line(60, 30, 145, 30);
-    doc.text('Ticket', 80, 40);
+    doc.line(10, 30, 70, 30);
+    doc.text('Ticket', 30, 40);
     doc.setDrawColor(black);
-    doc.line(10, 45, 200, 45);
+    doc.line(10, 45, 70, 45);
     return doc;
   }
 
   private contenido(doc: jsPDF): jsPDF {
     const baseX = 10;
-    const black = "#000000";
-    let baseY = 50;
-    let price = 0;
-    this.order.forEach(order => {
-      this.products.push(order.product);
-      price += order.product.price;
-    });
-    console.log(this.products);
-    this.products.forEach(product => {
-      doc.text(product.name, baseX, baseY);
-      baseY += 10;
-    });
-    doc.text('Total price: ' + price, baseX, baseY);
+    let baseY = 60;
+    let totalPrice = 0;
 
-    
+    // Encabezado del ticket
+    doc.setFontSize(12);
+    doc.text("Tienda XYZ", baseX, baseY);
+    baseY += 7;
+    doc.text("Dirección de la tienda", baseX, baseY);
+    baseY += 7;
+    doc.text("Teléfono: 123-456-789", baseX, baseY);
+    baseY += 10;
+    doc.text("------------------------------------", baseX, baseY);
+    baseY += 5;
+
+    // Contenido de la orden
+    this.order.forEach(order => {
+        const product = order.product;
+        doc.setFontSize(10);
+        doc.text(product.name, baseX, baseY);
+        doc.text(product.price.toFixed(2) + " €", baseX + 40, baseY);
+        baseY += 5;
+        totalPrice += product.price;
+    });
+
+    // Línea divisoria y total
+    doc.text("------------------------------------", baseX, baseY);
+    baseY += 5;
+    //doc.setFontStyle('bold');
+    doc.text("Total:", baseX, baseY);
+    doc.text(totalPrice.toFixed(2) + " €", baseX + 80, baseY);
+
+    // Pie de página
+    baseY += 10;
+    //doc.setFontStyle('normal');
+    doc.text("¡Gracias por su compra!", baseX, baseY);
+    baseY += 5;
+    doc.text("Visítenos de nuevo pronto", baseX, baseY);
+
     return doc;
-  }
+}
 
 }
