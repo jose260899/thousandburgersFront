@@ -56,11 +56,11 @@ export class TicketPrintService {
 
     // Encabezado del ticket
     doc.setFontSize(12);
-    doc.text("Tienda XYZ", baseX, baseY);
+    doc.text("ThousandBurgers", baseX, baseY);
     baseY += 7;
-    doc.text("Dirección de la tienda", baseX, baseY);
+    doc.text("CIPFP Ausias March", baseX, baseY);
     baseY += 7;
-    doc.text("Teléfono: 123-456-789", baseX, baseY);
+    doc.text("Teléfono:963963963", baseX, baseY);
     baseY += 10;
     doc.text("------------------------------------", baseX, baseY);
     baseY += 5;
@@ -76,11 +76,11 @@ export class TicketPrintService {
     });
 
     // Línea divisoria y total
-    doc.text("------------------------------------", baseX, baseY);
+    doc.text("-------------------------------------------", baseX, baseY);
     baseY += 5;
     //doc.setFontStyle('bold');
     doc.text("Total:", baseX, baseY);
-    doc.text(totalPrice.toFixed(2) + " €", baseX + 80, baseY);
+    doc.text(totalPrice.toFixed(2) + " €", baseX + 40, baseY);
 
     // Pie de página
     baseY += 10;
@@ -91,5 +91,6 @@ export class TicketPrintService {
 
     return doc;
 }
+
 
 }
